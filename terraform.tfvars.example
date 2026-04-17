@@ -1,0 +1,29 @@
+# =============================================================================
+# terraform.tfvars.example
+# Copy this file to terraform.tfvars and fill in your values
+# =============================================================================
+
+aws_region   = "ap-southeast-1"
+environment  = "dev"
+project_name = "flashmart"
+
+# DynamoDB
+product_table_name = "dev-flashmart-products"
+cart_table_name    = "dev-flashmart-cart"
+order_table_name   = "dev-flashmart-orders"
+
+# Lambda
+lambda_runtime        = "python3.12"
+lambda_timeout        = 30
+lambda_memory         = 256
+product_function_name = "dev-flashmart-product-service"
+cart_function_name    = "dev-flashmart-cart-service"
+order_function_name   = "dev-flashmart-order-service"
+
+# Service URLs (update after first terraform apply)
+product_service_url = "YOUR_API_GATEWAY_URL"
+cart_service_url    = "YOUR_API_GATEWAY_URL"
+order_service_url   = "YOUR_API_GATEWAY_URL"
+
+# Frontend S3
+frontend_bucket_name = "dev-flashmart-frontend"

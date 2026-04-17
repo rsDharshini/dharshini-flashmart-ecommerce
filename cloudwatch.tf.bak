@@ -1,0 +1,191 @@
+# =============================================================================
+# cloudwatch.tf — Monitoring, Log Groups, Metrics, Alarms
+# =============================================================================
+
+# =============================================================================
+# LOG GROUPS — One per Lambda
+# =============================================================================
+resource "aws_cloudwatch_log_group" "auth_logs" {
+  name              = "/aws/lambda/${var.auth_function_name}"
+  retention_in_days = 14
+  tags = { Project = var.project_name, Environment = var.environment }
+}
+
+resource "aws_cloudwatch_log_group" "product_logs" {
+  name              = "/aws/lambda/${var.product_function_name}"
+  retention_in_days = 14
+  tags = { Project = var.project_name, Environment = var.environment }
+}
+
+resource "aws_cloudwatch_log_group" "cart_logs" {
+  name              = "/aws/lambda/${var.cart_function_name}"
+  retention_in_days = 14
+  tags = { Project = var.project_name, Environment = var.environment }
+}
+
+resource "aws_cloudwatch_log_group" "order_logs" {
+  name              = "/aws/lambda/${var.order_function_name}"
+  retention_in_days = 14
+  tags = { Project = var.project_name, Environment = var.environment }
+}
+
+resource "aws_cloudwatch_log_group" "payment_logs" {
+  name              = "/aws/lambda/${var.payment_function_name}"
+  retention_in_days = 14
+  tags = { Project = var.project_name, Environment = var.environment }
+}
+
+resource "aws_cloudwatch_log_group" "address_logs" {
+  name              = "/aws/lambda/${var.address_function_name}"
+  retention_in_days = 14
+  tags = { Project = var.project_name, Environment = var.environment }
+}
+
+# =============================================================================
+# METRIC FILTERS — Payment Success
+# =============================================================================
+resource "aws_cloudwatch_log_metric_filter" "payment_success" {
+  name           = "PaymentSuccess"
+  log_group_name = aws_cloudwatch_log_group.payment_logs.name
+  pattern        = "[INFO] Payment verified"
+
+  metric_transformation {
+    name      = "PaymentSuccess"
+    namespace = "FlashMart/Payments"
+    value     = "1"
+  }
+}
+
+# =============================================================================
+# METRIC FILTERS — Payment Failed
+# =============================================================================
+resource "aws_cloudwatch_log_metric_filter" "payment_failed" {
+  name           = "PaymentFailed"
+  log_group_name = aws_cloudwatch_log_group.payment_logs.name
+  pattern        = "Signature verification FAILED"
+
+  metric_transformation {
+    name      = "PaymentFailed"
+    namespace = "FlashMart/Payments"
+    value     = "1"
+  }
+}
+
+# =============================================================================
+# METRIC FILTERS — Login Success
+# =============================================================================
+resource "aws_cloudwatch_log_metric_filter" "login_success" {
+  name           = "LoginSuccess"
+  log_group_name = aws_cloudwatch_log_group.auth_logs.name
+  pattern        = "[INFO] Login success"
+
+  metric_transformation {
+    name      = "LoginSuccess"
+    namespace = "FlashMart/Auth"
+    value     = "1"
+  }
+}
+
+# =============================================================================
+# METRIC FILTERS — Login Failed
+# =============================================================================
+resource "aws_cloudwatch_log_metric_filter" "login_failed" {
+  name           = "LoginFailed"
+  log_group_name = aws_cloudwatch_log_group.auth_logs.name
+  pattern        = "[WARN] Login failed"
+
+  metric_transformation {
+    name      = "LoginFailed"
+    namespace = "FlashMart/Auth"
+    value     = "1"
+  }
+}
+
+# =============================================================================
+# METRIC FILTERS — Lambda Errors (all services)
+# =============================================================================
+resource "aws_cloudwatch_log_metric_filter" "payment_errors" {
+  name           = "PaymentErrors"
+  log_group_name = aws_cloudwatch_log_group.payment_logs.name
+  pattern        = "[ERROR]"
+
+  metric_transformation {
+    name      = "Errors"
+    namespace = "FlashMart/Payments"
+    value     = "1"
+  }
+}
+
+resource "aws_cloudwatch_log_metric_filter" "order_errors" {
+  name           = "OrderErrors"
+  log_group_name = aws_cloudwatch_log_group.order_logs.name
+  pattern        = "[ERROR]"
+
+  metric_transformation {
+    name      = "Errors"
+    namespace = "FlashMart/Orders"
+    value     = "1"
+  }
+}
+
+# =============================================================================
+# ALARMS — Payment Failures
+# =============================================================================
+resource "aws_cloudwatch_metric_alarm" "high_payment_failures" {
+  alarm_name          = "${var.environment}-${var.project_name}-high-payment-failures"
+  comparison_operator = "GreaterThanOrEqualToThreshold"
+  evaluation_periods  = 1
+  metric_name         = "PaymentFailed"
+  namespace           = "FlashMart/Payments"
+  period              = 300   # 5 minutes
+  statistic           = "Sum"
+  threshold           = 5
+  alarm_description   = "More than 5 payment failures in 5 minutes"
+  treat_missing_data  = "notBreaching"
+
+  tags = { Project = var.project_name, Environment = var.environment }
+}
+
+# =============================================================================
+# ALARMS — Lambda Errors
+# =============================================================================
+resource "aws_cloudwatch_metric_alarm" "payment_lambda_errors" {
+  alarm_name          = "${var.environment}-${var.project_name}-payment-lambda-errors"
+  comparison_operator = "GreaterThanOrEqualToThreshold"
+  evaluation_periods  = 1
+  metric_name         = "Errors"
+  namespace           = "AWS/Lambda"
+  period              = 60
+  statistic           = "Sum"
+  threshold           = 3
+  alarm_description   = "Payment Lambda errors exceed threshold"
+  treat_missing_data  = "notBreaching"
+
+  dimensions = {
+    FunctionName = var.payment_function_name
+  }
+
+  tags = { Project = var.project_name, Environment = var.environment }
+}
+
+# =============================================================================
+# ALARMS — Lambda Duration (payment service)
+# =============================================================================
+resource "aws_cloudwatch_metric_alarm" "payment_lambda_duration" {
+  alarm_name          = "${var.environment}-${var.project_name}-payment-high-duration"
+  comparison_operator = "GreaterThanOrEqualToThreshold"
+  evaluation_periods  = 2
+  metric_name         = "Duration"
+  namespace           = "AWS/Lambda"
+  period              = 60
+  statistic           = "Average"
+  threshold           = 10000   # 10 seconds
+  alarm_description   = "Payment Lambda avg duration above 10s"
+  treat_missing_data  = "notBreaching"
+
+  dimensions = {
+    FunctionName = var.payment_function_name
+  }
+
+  tags = { Project = var.project_name, Environment = var.environment }
+}
