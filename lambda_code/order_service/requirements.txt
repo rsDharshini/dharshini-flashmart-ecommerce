@@ -1,1 +1,5 @@
-﻿pyjwt==2.12.1
+﻿$services = @("auth_service","cart_service","order_service","payment_service","product_service","address_service","logs_service")
+foreach ($s in $services) {
+    "pyjwt==2.12.1" | Out-File -FilePath "lambda_code\$s\requirements.txt" -Encoding utf8
+    Write-Host "Created: lambda_code\$s\requirements.txt"
+}

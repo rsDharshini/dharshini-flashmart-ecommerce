@@ -17,28 +17,30 @@ ecmaFeatures: { jsx: true },
 sourceType: 'module',
 },
 },
-settings: { react: { version: '18.3' } },
+settings: {
+react: { version: '18.3' },
+},
 plugins: {
 react,
 'react-hooks': reactHooks,
 'react-refresh': reactRefresh,
 },
 rules: {
-// existing recommended rules
+// ✅ Recommended rules
 ...js.configs.recommended.rules,
 ...react.configs.recommended.rules,
 ...react.configs['jsx-runtime'].rules,
 ...reactHooks.configs.recommended.rules,
 
 ```
-  // your custom overrides
+  // ✅ Custom overrides
   'react/jsx-no-target-blank': 'off',
   'react-refresh/only-export-components': [
     'warn',
     { allowConstantExport: true },
   ],
 
-  // 🔥 newly added rules
+  // ✅ Non-blocking warnings (CI/CD friendly)
   'react-hooks/exhaustive-deps': 'warn',
   'no-unused-vars': 'warn',
   'no-undef': 'warn',
