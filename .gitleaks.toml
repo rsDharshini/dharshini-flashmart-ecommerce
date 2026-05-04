@@ -1,4 +1,4 @@
-﻿[allowlist]
+[allowlist]
 paths = [
   '''lambda_code/.*/jwt/algorithms.py''',
   '''lambda_code/.*/pyjwt.*'''
