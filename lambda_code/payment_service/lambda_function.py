@@ -72,6 +72,8 @@ def lambda_handler(event, context):
             break
 
     path = path.rstrip("/")
+    if path.startswith("/v1"):
+        path = path[3:]
     path_parts = [p for p in path.split("/") if p]
 
     if http_method == "OPTIONS":

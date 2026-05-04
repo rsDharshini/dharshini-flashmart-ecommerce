@@ -69,6 +69,7 @@ def lambda_handler(event, context):
 
     # ── Normalize path ─────────────────────────────────────────────────────
     path = path.rstrip("/")
+    
     path_parts = [p for p in path.split("/") if p]
     # 🔐 ADDED: Handle CORS preflight (VERY IMPORTANT)
     if http_method == "OPTIONS":
@@ -352,7 +353,7 @@ def get_product(product_id):
     Returns product dict if found, None otherwise.
     """
     try:
-        url = f"{PRODUCT_SERVICE_URL}/products/{product_id}"
+        url = f"{PRODUCT_SERVICE_URL}/v1/products/{product_id}"
         req = urllib.request.urlopen(url, timeout=5)
         data = json.loads(req.read().decode())
         return data.get("product")

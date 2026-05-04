@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { cartAPI, addressAPI, orderAPI } from "../api/api";
 
-const BASE_URL = "https://0nusevsdnb.execute-api.ap-southeast-1.amazonaws.com";
+const BASE_URL = "https://0nusevsdnb.execute-api.ap-southeast-1.amazonaws.com/v1";
 const authHeaders = () => ({
   "Content-Type": "application/json",
   Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -98,9 +98,9 @@ function Checkout({ userId, showToast, setActivePage, onCartUpdate }) {
 
   const handlePaymentSuccess = async (paymentId) => {
   try {
-    await orderAPI.placeOrder(userId);
-  } catch (err) { 
-    console.error("Place order error:", err); 
+    await orderAPI.placeOrder(userId);  // creates order + clears cart
+  } catch (err) {
+    console.error("Post-payment error:", err);
   }
   setCart([]);
   onCartUpdate(0);
@@ -161,7 +161,7 @@ function Checkout({ userId, showToast, setActivePage, onCartUpdate }) {
               }),
             });
           } catch (err) { console.error("Verify error:", err); }
-          await handlePaymentSuccess(order.payment_id);
+          await handlePaymentSuccess(order.payment_id, orderId);
         },
         modal: {
           ondismiss: async () => {
@@ -170,7 +170,7 @@ function Checkout({ userId, showToast, setActivePage, onCartUpdate }) {
               const statusRes  = await fetch(`${BASE_URL}/payments/status/${order.payment_id}`, { headers: authHeaders() });
               const statusData = await statusRes.json();
               if (statusData.status === "PAID") {
-                await handlePaymentSuccess(order.payment_id);
+                await handlePaymentSuccess(order.payment_id, orderId);
               } else {
                 setLoading(false); setShowPayModal(false);
                 showToast("Payment cancelled", "error");

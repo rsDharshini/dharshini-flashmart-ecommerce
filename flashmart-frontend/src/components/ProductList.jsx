@@ -1,18 +1,21 @@
 // =============================================================================
-// ProductList.jsx - Gromuse-style product listing with hero banner
+// ProductList.jsx - Dynamic categories from API
 // =============================================================================
 import React, { useState, useEffect } from "react";
 import ProductCard  from "./ProductCard";
 import { productAPI } from "../api/api";
 
-const CATEGORIES = ["All", "Dairy", "Bakery", "Beverages", "Fruits", "Snacks", "Grains"];
-
-function ProductList({ userId, onCartUpdate, showToast, onProductSelect }) {
+function ProductList({ userId, onCartUpdate, showToast, onProductSelect, activeCategory: propCategory, setActiveCategory: setPropCategory }) {
   const [products,       setProducts]       = useState([]);
+  const [categories,     setCategories]     = useState(["All"]); // ✅ dynamic
   const [loading,        setLoading]        = useState(true);
   const [error,          setError]          = useState(null);
-  const [activeCategory, setActiveCategory] = useState("All");
+  const [activeCategory, setActiveCategory] = useState(propCategory || "All");
   const [sortBy,         setSortBy]         = useState("default");
+
+  useEffect(() => {
+    if (propCategory) setActiveCategory(propCategory);
+  }, [propCategory]);
 
   useEffect(() => { fetchProducts(); }, []);
 
@@ -20,12 +23,22 @@ function ProductList({ userId, onCartUpdate, showToast, onProductSelect }) {
     setLoading(true); setError(null);
     try {
       const data = await productAPI.getAll();
-      setProducts(data.products || []);
+      const prods = data.products || [];
+      setProducts(prods);
+
+      // ✅ Build categories dynamically from product data
+      const cats = ["All", ...new Set(prods.map(p => p.category).filter(Boolean))];
+      setCategories(cats);
     } catch {
       setError("Failed to load products. Please try again.");
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleCategoryChange = (cat) => {
+    setActiveCategory(cat);
+    if (setPropCategory) setPropCategory(cat);
   };
 
   const filtered = products
@@ -53,18 +66,18 @@ function ProductList({ userId, onCartUpdate, showToast, onProductSelect }) {
 
       {/* Section header */}
       <div className="section-header">
-        <h2 className="section-title">Flashmart / All category</h2>
-        <span className="section-sub">{products.length} products available</span>
+        <h2 className="section-title">Flashmart / {activeCategory}</h2>
+        <span className="section-sub">{filtered.length} products available</span>
       </div>
 
-      {/* Filters */}
+      {/* Filters — dynamic */}
       <div className="filters-row">
         <div className="category-filters">
-          {CATEGORIES.map(cat => (
+          {categories.map(cat => (
             <button
               key={cat}
               className={`category-btn ${activeCategory === cat ? "active" : ""}`}
-              onClick={() => setActiveCategory(cat)}
+              onClick={() => handleCategoryChange(cat)}
             >
               {cat}
             </button>

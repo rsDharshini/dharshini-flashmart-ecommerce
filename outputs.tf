@@ -2,25 +2,44 @@
 # outputs.tf - All Output Values
 # =============================================================================
 
-# ── API Gateway ───────────────────────────────────────────────────────────────
 output "api_base_url" {
   description = "API Gateway base URL"
   value       = aws_apigatewayv2_api.main_api.api_endpoint
 }
 
+output "api_v1_base_url" {
+  description = "Versioned API base URL"
+  value       = "${aws_apigatewayv2_api.main_api.api_endpoint}/v1"
+}
+
 output "product_endpoint" {
   description = "Product Service URL"
-  value       = "${aws_apigatewayv2_api.main_api.api_endpoint}/products"
+  value       = "${aws_apigatewayv2_api.main_api.api_endpoint}/v1/products"
 }
 
 output "cart_endpoint" {
   description = "Cart Service URL"
-  value       = "${aws_apigatewayv2_api.main_api.api_endpoint}/cart"
+  value       = "${aws_apigatewayv2_api.main_api.api_endpoint}/v1/cart"
 }
 
 output "order_endpoint" {
   description = "Order Service URL"
-  value       = "${aws_apigatewayv2_api.main_api.api_endpoint}/orders"
+  value       = "${aws_apigatewayv2_api.main_api.api_endpoint}/v1/orders"
+}
+
+output "auth_endpoint" {
+  description = "Auth Service URL"
+  value       = "${aws_apigatewayv2_api.main_api.api_endpoint}/v1/auth"
+}
+
+output "payment_endpoint" {
+  description = "Payment Service URL"
+  value       = "${aws_apigatewayv2_api.main_api.api_endpoint}/v1/payments"
+}
+
+output "address_endpoint" {
+  description = "Address Service URL"
+  value       = "${aws_apigatewayv2_api.main_api.api_endpoint}/v1/addresses"
 }
 
 # ── Lambda ────────────────────────────────────────────────────────────────────
@@ -34,6 +53,14 @@ output "cart_lambda_name" {
 
 output "order_lambda_name" {
   value = aws_lambda_function.order_service.function_name
+}
+
+output "payment_function_name" {
+  value = aws_lambda_function.payment.function_name
+}
+
+output "payment_function_arn" {
+  value = aws_lambda_function.payment.arn
 }
 
 # ── DynamoDB ──────────────────────────────────────────────────────────────────
@@ -51,13 +78,11 @@ output "order_table_name" {
 
 # ── Frontend ──────────────────────────────────────────────────────────────────
 output "s3_bucket_name" {
-  description = "S3 bucket name for frontend"
-  value       = aws_s3_bucket.frontend.bucket
+  value = aws_s3_bucket.frontend.bucket
 }
 
 output "s3_website_url" {
-  description = "S3 static website URL"
-  value       = "http://${aws_s3_bucket_website_configuration.frontend.website_endpoint}"
+  value = "http://${aws_s3_bucket_website_configuration.frontend.website_endpoint}"
 }
 
 output "cloudfront_url" {
@@ -66,13 +91,5 @@ output "cloudfront_url" {
 }
 
 output "cloudfront_id" {
-  description = "CloudFront Distribution ID (needed for cache invalidation)"
-  value       = aws_cloudfront_distribution.frontend.id
-}
-output "payment_function_name" {
-  value = aws_lambda_function.payment.function_name
-}
-
-output "payment_function_arn" {
-  value = aws_lambda_function.payment.arn
+  value = aws_cloudfront_distribution.frontend.id
 }

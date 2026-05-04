@@ -16,7 +16,7 @@ from boto3.dynamodb.conditions import Attr
 # AWS SETUP
 # =============================================================================
 dynamodb      = boto3.resource("dynamodb", region_name="ap-southeast-1")
-product_table = dynamodb.Table("flashmart_products")
+product_table = dynamodb.Table("dev-flashmart-products")
 s3_client     = boto3.client("s3", region_name="ap-southeast-1")
 
 # =============================================================================
@@ -36,10 +36,14 @@ def lambda_handler(event, context):
     else:
         http_method = event.get("httpMethod", "").upper()
         path        = event.get("path", "")
+    if http_method == "OPTIONS":   # 👈 add this
+        return response(200, {})   # 👈 and this
 
     query_params = event.get("queryStringParameters") or {}
 
     path = path.rstrip("/")
+    if path.startswith("/v1"):
+        path = path[3:]
     path_parts = [p for p in path.split("/") if p]
 
     try:

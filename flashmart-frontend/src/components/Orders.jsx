@@ -146,13 +146,7 @@ function Orders({ userId }) {
               {/* Actions */}
               {order.status === "PLACED" && (
                 <div className="order-actions">
-                  <button
-                    className="status-btn confirm"
-                    onClick={() => handleStatusUpdate(order.order_id, "CONFIRMED")}
-                    disabled={updating === order.order_id}
-                  >
-                    {updating === order.order_id ? "..." : "Confirm Order"}
-                  </button>
+                  
                   <button
                     className="status-btn cancel"
                     onClick={() => handleCancel(order.order_id)}

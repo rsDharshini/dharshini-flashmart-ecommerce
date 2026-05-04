@@ -705,3 +705,297 @@ html { scroll-behavior: smooth; }
   color: #000;
   font-size: 14px;
 }
+
+/* =============================================================================
+   HOME PAGE - Add these styles to your App.css
+   ============================================================================= */
+
+/* ── Page wrapper ── */
+.home-page {
+  padding-bottom: 60px;
+}
+
+/* ── Category Quick Links Bar ── */
+.home-quick-links {
+  display: flex;
+  gap: 12px;
+  padding: 24px 0 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.home-quick-links::-webkit-scrollbar { display: none; }
+
+.home-quick-link-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 14px 20px;
+  background: #fff;
+  border: 1.5px solid #e8f5e9;
+  border-radius: 16px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  min-width: 80px;
+}
+.home-quick-link-btn:hover {
+  background: #f0faf0;
+  border-color: #2e7d32;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(46,125,50,0.12);
+}
+.home-quick-link-emoji { font-size: 24px; }
+.home-quick-link-name  {
+  font-size: 12px;
+  font-weight: 600;
+  color: #2e7d32;
+  letter-spacing: 0.3px;
+}
+
+/* ── Categories Container ── */
+.home-categories-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+/* ── Category Section ── */
+.home-category-section {
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px 0 16px;
+  border: 1px solid #f0f0f0;
+  overflow: hidden;
+}
+
+/* ── Category Header ── */
+.home-category-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px 16px;
+}
+.home-category-title-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.home-category-emoji { font-size: 22px; }
+.home-category-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0;
+}
+
+/* See All button */
+.home-see-all-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  color: #2e7d32;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 6px 12px;
+  border-radius: 8px;
+  transition: background 0.15s;
+}
+.home-see-all-btn:hover { background: #f0faf0; }
+.home-see-all-arrow {
+  font-size: 16px;
+  transition: transform 0.2s;
+}
+.home-see-all-btn:hover .home-see-all-arrow {
+  transform: translateX(3px);
+}
+
+/* ── Row with scroll buttons ── */
+.home-row-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* Scroll Buttons */
+.home-scroll-btn {
+  position: absolute;
+  z-index: 10;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1.5px solid #ddd;
+  background: #fff;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  transition: all 0.2s;
+  color: #333;
+}
+.home-scroll-btn:hover {
+  background: #2e7d32;
+  color: #fff;
+  border-color: #2e7d32;
+}
+.home-scroll-left  { left: 6px; }
+.home-scroll-right { right: 6px; }
+
+/* ── Products Row ── */
+.home-products-row {
+  display: flex;
+  gap: 14px;
+  overflow-x: auto;
+  padding: 4px 52px;
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+}
+.home-products-row::-webkit-scrollbar { display: none; }
+
+/* ── Card wrapper — fixed width so cards don't stretch ── */
+.home-card-wrapper {
+  flex: 0 0 200px;
+}
+.home-card-wrapper .product-card {
+  width: 100%;
+}
+
+/* ── Responsive ── */
+@media (max-width: 600px) {
+  .home-quick-link-btn   { padding: 10px 14px; min-width: 68px; }
+  .home-quick-link-emoji { font-size: 20px; }
+  .home-category-section { border-radius: 12px; padding: 14px 0 12px; }
+  .home-category-title   { font-size: 16px; }
+  .home-card-wrapper     { flex: 0 0 160px; }
+  .home-products-row     { padding: 4px 44px; gap: 10px; }
+}
+
+
+/* =============================================================================
+   COMPACT PRODUCT CARD — add to App.css
+   ============================================================================= */
+
+.compact-card {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid #eef2ee;
+  overflow: hidden;
+  cursor: pointer;
+  transition: box-shadow 0.2s, transform 0.2s;
+  width: 100%;
+}
+.compact-card:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.09);
+  transform: translateY(-2px);
+}
+
+/* Image */
+.compact-img-wrapper {
+  position: relative;
+  width: 100%;
+  height: 130px;        /* ⬅ was ~200px, now 130px */
+  background: #f5faf5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.compact-img {
+  max-height: 110px;
+  max-width: 90%;
+  object-fit: contain;
+  transition: transform 0.25s;
+}
+.compact-card:hover .compact-img { transform: scale(1.05); }
+
+/* Info */
+.compact-info {
+  padding: 8px 10px 4px;
+  flex: 1;
+}
+.compact-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 2px 0 2px;
+  line-height: 1.3;
+  /* clamp to 2 lines */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.compact-brand {
+  font-size: 11px;
+  color: #888;
+  margin: 0 0 6px;
+}
+
+/* Price + stock row */
+.compact-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+}
+.compact-price {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.compact-price .original-price {
+  font-size: 11px;
+  color: #aaa;
+  text-decoration: line-through;
+}
+.compact-price .final-price {
+  font-size: 15px;
+  font-weight: 800;
+  color: #1a1a1a;
+}
+.compact-stock {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+.compact-stock.good { background: #e8f5e9; color: #2e7d32; }
+.compact-stock.low  { background: #fff3e0; color: #e65100; }
+.compact-stock.out  { background: #fce4e4; color: #c62828; }
+
+/* Add row */
+.compact-add-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 10px 8px;
+  border-top: 1px solid #f0f0f0;
+  margin-top: 4px;
+  gap: 8px;
+}
+
+/* Also make the product grid fit more columns */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); /* ⬅ was ~200px */
+  gap: 14px;
+}
+
+@media (max-width: 600px) {
+  .product-grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 10px;
+  }
+  .compact-img-wrapper { height: 110px; }
+}

@@ -1,5 +1,5 @@
 // =============================================================================
-// ProductCard.jsx - Gromuse-style card
+// ProductCard.jsx - Compact card
 // =============================================================================
 import React, { useState } from "react";
 import { cartAPI } from "../api/api";
@@ -34,13 +34,17 @@ function ProductCard({ product, userId, onCartUpdate, showToast, onClick }) {
   };
 
   return (
-    <div className={`product-card ${isOutOfStock ? "out-of-stock" : ""}`} onClick={() => onClick && onClick(product)}>
-      <div className="product-image-wrapper">
+    <div
+      className={`product-card compact-card ${isOutOfStock ? "out-of-stock" : ""}`}
+      onClick={() => onClick && onClick(product)}
+    >
+      {/* Image */}
+      <div className="compact-img-wrapper">
         <img
-          src={product.image_url || `https://via.placeholder.com/200x200/f0f7f0/2d6a4f?text=${encodeURIComponent(product.name)}`}
+          src={product.image_url || `https://via.placeholder.com/160x160/f0f7f0/2d6a4f?text=${encodeURIComponent(product.name)}`}
           alt={product.name}
-          className="product-image"
-          onError={e => { e.target.src = `https://via.placeholder.com/200x200/f0f7f0/2d6a4f?text=${encodeURIComponent(product.name[0])}`; }}
+          className="compact-img"
+          onError={e => { e.target.src = `https://via.placeholder.com/160x160/f0f7f0/2d6a4f?text=${encodeURIComponent(product.name[0])}`; }}
         />
         {isOutOfStock && <div className="out-of-stock-overlay">Out of Stock</div>}
         {product.discount_percentage > 0 && (
@@ -48,29 +52,28 @@ function ProductCard({ product, userId, onCartUpdate, showToast, onClick }) {
         )}
       </div>
 
-      <div className="product-info">
+      {/* Info */}
+      <div className="compact-info">
         <div className="product-category">{product.category}</div>
-        <h3 className="product-name">{product.name}</h3>
-        <p className="product-brand">{product.brand}</p>
-        <p className="product-weight">500 gm.</p>
+        <h3 className="compact-name">{product.name}</h3>
+        <p className="compact-brand">{product.brand} · 500g</p>
 
-        <div className="product-pricing">
-          {product.discount_percentage > 0 && (
-            <span className="original-price">₹{product.price}</span>
-          )}
-          <span className="final-price">₹{product.final_price || product.price}</span>
-        </div>
-
-        <div className="stock-info">
-          <span className={`stock-dot ${product.stock < 5 ? "low" : "good"}`} />
-          <span className="stock-text">
-            {isOutOfStock ? "Out of stock" : product.stock < 5 ? `Only ${product.stock} left` : "In stock"}
+        <div className="compact-bottom">
+          <div className="compact-price">
+            {product.discount_percentage > 0 && (
+              <span className="original-price">₹{product.price}</span>
+            )}
+            <span className="final-price">₹{product.final_price || product.price}</span>
+          </div>
+          <span className={`compact-stock ${isOutOfStock ? "out" : product.stock < 5 ? "low" : "good"}`}>
+            {isOutOfStock ? "Out" : product.stock < 5 ? `${product.stock} left` : "In stock"}
           </span>
         </div>
       </div>
 
+      {/* Add row */}
       {!isOutOfStock && (
-        <div className="product-add-row" onClick={e => e.stopPropagation()}>
+        <div className="compact-add-row" onClick={e => e.stopPropagation()}>
           <div className="qty-controls">
             <button className="qty-btn" onClick={e => handleQty(e, -1)}>−</button>
             <span className="qty-value">{quantity}</span>

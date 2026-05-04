@@ -1,10 +1,7 @@
 # =============================================================================
-# lambda_function.py - Auth Service (Register + Login)
+# lambda_function.py - Auth Service (Register + Login + Admin: List Users)
 # =============================================================================
 
-# =============================================================================
-# IMPORTS
-# =============================================================================
 import json
 import boto3
 import hashlib
@@ -14,43 +11,19 @@ import jwt
 from datetime import datetime, timezone, timedelta
 from boto3.dynamodb.conditions import Attr
 
-# =============================================================================
-# CONFIG
-# =============================================================================
 JWT_SECRET = os.environ["JWT_SECRET"]
 JWT_ALGORITHM = "HS256"
 
-# =============================================================================
-# DYNAMODB SETUP
-# =============================================================================
 dynamodb = boto3.resource("dynamodb", region_name="ap-southeast-1")
 auth_table = dynamodb.Table(os.environ["DYNAMODB_TABLE"])
 
-# =============================================================================
-# STAGE PREFIXES
-# =============================================================================
 STAGE_PREFIXES = ["/dev", "/prod", "/staging", "/v1", "/v2"]
 
-# =============================================================================
-# LAMBDA HANDLER (ROUTING)
-# =============================================================================
 def lambda_handler(event, context):
-
-    # ── CORS Preflight ────────────────────────────────────────────────────────
     method = event.get("requestContext", {}).get("http", {}).get("method", "")
-
     if method == "OPTIONS":
-        return {
-            "statusCode": 200,
-            "headers": {
-                "Access-Control-Allow-Origin": "*",
-                "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-                "Access-Control-Allow-Headers": "Content-Type, Authorization"
-            },
-            "body": ""
-        }
+        return cors_response()
 
-    # ── Detect API type & extract method/path ─────────────────────────────────
     if "requestContext" in event and "http" in event.get("requestContext", {}):
         http_method = event["requestContext"]["http"]["method"].upper()
         path = event.get("rawPath", "")
@@ -58,40 +31,40 @@ def lambda_handler(event, context):
         http_method = event.get("httpMethod", "").upper()
         path = event.get("path", "")
 
-    # Strip stage prefix
     for prefix in STAGE_PREFIXES:
         if path.startswith(prefix):
             path = path[len(prefix):]
             break
 
-    # Normalize path
     path = path.rstrip("/")
     path_parts = [p for p in path.split("/") if p]
 
     try:
-        # ── REGISTER ──────────────────────────────────────────────────────────
+        # POST /auth/register
         if http_method == "POST" and path_parts == ["auth", "register"]:
             return register(parse_body(event))
 
-        # ── LOGIN ─────────────────────────────────────────────────────────────
+        # POST /auth/login
         if http_method == "POST" and path_parts == ["auth", "login"]:
             return login(parse_body(event))
 
-        return response(404, {
-            "error": "Route not found",
-            "path": path,
-            "method": http_method
-        })
+        # GET /auth/users — admin only
+        if http_method == "GET" and path_parts == ["auth", "users"]:
+            user, error = verify_token(event)
+            if error:
+                return response(401, {"error": error})
+            if user.get("role") != "admin":
+                return response(403, {"error": "Admin access required"})
+            return get_all_users()
+
+        return response(404, {"error": "Route not found", "path": path, "method": http_method})
 
     except Exception as e:
-        return response(500, {
-            "error": "Internal server error",
-            "message": str(e)
-        })
+        return response(500, {"error": "Internal server error", "message": str(e)})
 
 
 # =============================================================================
-# AUTH FUNCTIONS
+# HANDLERS
 # =============================================================================
 
 def register(body):
@@ -103,24 +76,16 @@ def register(body):
         return response(400, {"error": "Email and password required"})
 
     user_id = str(uuid.uuid4())
-
-    auth_table.put_item(
-        Item={
-            "userId": user_id,
-            "email": email,
-            "password": hash_password(password),
-            "role": role,
-            "addresses": [],
-            "createdAt": utc_now()
-        }
-    )
-
-    print(f"[INFO] Register success: user_id={user_id}, email={email}")
-
-    return response(201, {
-        "message": "User registered successfully",
-        "userId": user_id
+    auth_table.put_item(Item={
+        "userId": user_id,
+        "email": email,
+        "password": hash_password(password),
+        "role": role,
+        "addresses": [],
+        "createdAt": utc_now()
     })
+
+    return response(201, {"message": "User registered successfully", "userId": user_id})
 
 
 def login(body):
@@ -130,30 +95,18 @@ def login(body):
     if not email or not password:
         return response(400, {"error": "Email and password required"})
 
-    # ── Scan with correct boto3 condition syntax ───────────────────────────────
-    response_db = auth_table.scan(
-        FilterExpression=Attr("email").eq(email)
-    )
-
-    users = response_db.get("Items", [])
+    result = auth_table.scan(FilterExpression=Attr("email").eq(email))
+    users = result.get("Items", [])
     user = users[0] if users else None
 
-    if not user:
-        print(f"[WARN] Login failed: email={email}, reason=user_not_found")
+    if not user or user["password"] != hash_password(password):
         return response(401, {"error": "Invalid credentials"})
 
-    if user["password"] != hash_password(password):
-        print(f"[WARN] Login failed: email={email}, reason=invalid_password")
-        return response(401, {"error": "Invalid credentials"})
-
-    # ── JWT TOKEN ──────────────────────────────────────────────────────────────
     token = jwt.encode({
         "userId": user["userId"],
         "role": user["role"],
         "exp": datetime.utcnow() + timedelta(hours=2)
     }, JWT_SECRET, algorithm=JWT_ALGORITHM)
-
-    print(f"[INFO] Login success: user_id={user['userId']}, email={email}")
 
     return response(200, {
         "message": "Login successful",
@@ -162,9 +115,37 @@ def login(body):
     })
 
 
+def get_all_users():
+    """GET /auth/users - Return all users (admin only), strips passwords."""
+    result = auth_table.scan()
+    users = []
+    for u in result.get("Items", []):
+        users.append({
+            "userId": u["userId"],
+            "email": u["email"],
+            "role": u.get("role", "user"),
+            "createdAt": u.get("createdAt", "")
+        })
+    users.sort(key=lambda u: u["createdAt"], reverse=True)
+    return response(200, {"users": users, "count": len(users)})
+
+
 # =============================================================================
 # HELPERS
 # =============================================================================
+
+def verify_token(event):
+    headers = event.get("headers", {})
+    auth_header = headers.get("Authorization") or headers.get("authorization")
+    if not auth_header:
+        return None, "Missing token"
+    try:
+        token = auth_header.split(" ")[1]
+        decoded = jwt.decode(token, JWT_SECRET, algorithms=[JWT_ALGORITHM])
+        return decoded, None
+    except Exception:
+        return None, "Invalid token"
+
 
 def hash_password(password):
     return hashlib.sha256(password.encode()).hexdigest()
@@ -176,6 +157,18 @@ def parse_body(event):
         return json.loads(body) if isinstance(body, str) else body
     except:
         return {}
+
+
+def cors_response():
+    return {
+        "statusCode": 200,
+        "headers": {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+            "Access-Control-Allow-Headers": "Content-Type, Authorization"
+        },
+        "body": ""
+    }
 
 
 def response(status_code, body):

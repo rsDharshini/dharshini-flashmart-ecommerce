@@ -2,7 +2,6 @@
 # dynamodb.tf - All DynamoDB Tables
 # =============================================================================
 
-# ── Products Table ────────────────────────────────────────────────────────────
 resource "aws_dynamodb_table" "products" {
   name         = var.product_table_name
   billing_mode = "PAY_PER_REQUEST"
@@ -13,14 +12,9 @@ resource "aws_dynamodb_table" "products" {
     type = "S"
   }
 
-  tags = {
-    Name        = var.product_table_name
-    Project     = var.project_name
-    Environment = var.environment
-  }
+  tags = { Name = var.product_table_name, Project = var.project_name, Environment = var.environment }
 }
 
-# ── Cart Table ────────────────────────────────────────────────────────────────
 resource "aws_dynamodb_table" "cart" {
   name         = var.cart_table_name
   billing_mode = "PAY_PER_REQUEST"
@@ -31,14 +25,9 @@ resource "aws_dynamodb_table" "cart" {
     type = "S"
   }
 
-  tags = {
-    Name        = var.cart_table_name
-    Project     = var.project_name
-    Environment = var.environment
-  }
+  tags = { Name = var.cart_table_name, Project = var.project_name, Environment = var.environment }
 }
 
-# ── Orders Table ──────────────────────────────────────────────────────────────
 resource "aws_dynamodb_table" "orders" {
   name         = var.order_table_name
   billing_mode = "PAY_PER_REQUEST"
@@ -49,13 +38,8 @@ resource "aws_dynamodb_table" "orders" {
     type = "S"
   }
 
-  tags = {
-    Name        = var.order_table_name
-    Project     = var.project_name
-    Environment = var.environment
-  }
+  tags = { Name = var.order_table_name, Project = var.project_name, Environment = var.environment }
 }
-
 
 resource "aws_dynamodb_table" "auth_table" {
   name         = var.auth_table_name
@@ -67,14 +51,9 @@ resource "aws_dynamodb_table" "auth_table" {
     type = "S"
   }
 
-  tags = {
-    Project     = var.project_name
-    Environment = var.environment
-    Service     = "auth"
-  }
+  tags = { Project = var.project_name, Environment = var.environment, Service = "auth" }
 }
 
-# --- Payments Table (NEW) ---
 resource "aws_dynamodb_table" "payments" {
   name         = "${var.environment}-${var.project_name}-payments"
   billing_mode = "PAY_PER_REQUEST"
@@ -107,9 +86,24 @@ resource "aws_dynamodb_table" "payments" {
     projection_type = "ALL"
   }
 
-  tags = {
-    Name        = "${var.environment}-${var.project_name}-payments"
-    Environment = var.environment
-    Project     = var.project_name
+  tags = { Name = "${var.environment}-${var.project_name}-payments", Environment = var.environment, Project = var.project_name }
+}
+
+# ── NEW: Logs Table ───────────────────────────────────────────────────────────
+resource "aws_dynamodb_table" "logs" {
+  name         = "${var.environment}-${var.project_name}-logs"
+  billing_mode = "PAY_PER_REQUEST"
+  hash_key     = "id"
+
+  attribute {
+    name = "id"
+    type = "S"
   }
+
+  ttl {
+    attribute_name = "ttl"
+    enabled        = true
+  }
+
+  tags = { Project = var.project_name, Environment = var.environment, Service = "logs" }
 }
