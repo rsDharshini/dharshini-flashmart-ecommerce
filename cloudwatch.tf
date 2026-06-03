@@ -461,16 +461,16 @@ resource "aws_cloudwatch_dashboard" "flashmart" {
         width  = 12
         height = 6
         properties = {
-          title   = "Lambda errors — all services"
-          view    = "timeSeries"
-          region  = "ap-southeast-1"
-          stat    = "Sum"
-          period  = 60
+          title  = "Lambda errors — all services"
+          view   = "timeSeries"
+          region = "ap-southeast-1"
+          stat   = "Sum"
+          period = 60
           metrics = [
-            ["AWS/Lambda", "Errors", "FunctionName", var.auth_function_name,    { label = "auth" }],
+            ["AWS/Lambda", "Errors", "FunctionName", var.auth_function_name, { label = "auth" }],
             ["AWS/Lambda", "Errors", "FunctionName", var.product_function_name, { label = "product" }],
-            ["AWS/Lambda", "Errors", "FunctionName", var.cart_function_name,    { label = "cart" }],
-            ["AWS/Lambda", "Errors", "FunctionName", var.order_function_name,   { label = "order" }],
+            ["AWS/Lambda", "Errors", "FunctionName", var.cart_function_name, { label = "cart" }],
+            ["AWS/Lambda", "Errors", "FunctionName", var.order_function_name, { label = "order" }],
             ["AWS/Lambda", "Errors", "FunctionName", var.payment_function_name, { label = "payment" }],
             ["AWS/Lambda", "Errors", "FunctionName", var.address_function_name, { label = "address" }]
           ]
@@ -483,16 +483,16 @@ resource "aws_cloudwatch_dashboard" "flashmart" {
         width  = 12
         height = 6
         properties = {
-          title   = "Lambda duration (ms) — all services"
-          view    = "timeSeries"
-          region  = "ap-southeast-1"
-          stat    = "Average"
-          period  = 60
+          title  = "Lambda duration (ms) — all services"
+          view   = "timeSeries"
+          region = "ap-southeast-1"
+          stat   = "Average"
+          period = 60
           metrics = [
-            ["AWS/Lambda", "Duration", "FunctionName", var.auth_function_name,    { label = "auth" }],
+            ["AWS/Lambda", "Duration", "FunctionName", var.auth_function_name, { label = "auth" }],
             ["AWS/Lambda", "Duration", "FunctionName", var.product_function_name, { label = "product" }],
-            ["AWS/Lambda", "Duration", "FunctionName", var.cart_function_name,    { label = "cart" }],
-            ["AWS/Lambda", "Duration", "FunctionName", var.order_function_name,   { label = "order" }],
+            ["AWS/Lambda", "Duration", "FunctionName", var.cart_function_name, { label = "cart" }],
+            ["AWS/Lambda", "Duration", "FunctionName", var.order_function_name, { label = "order" }],
             ["AWS/Lambda", "Duration", "FunctionName", var.payment_function_name, { label = "payment" }],
             ["AWS/Lambda", "Duration", "FunctionName", var.address_function_name, { label = "address" }]
           ]
@@ -507,16 +507,16 @@ resource "aws_cloudwatch_dashboard" "flashmart" {
         width  = 12
         height = 6
         properties = {
-          title   = "Lambda invocations"
-          view    = "timeSeries"
-          region  = "ap-southeast-1"
-          stat    = "Sum"
-          period  = 60
+          title  = "Lambda invocations"
+          view   = "timeSeries"
+          region = "ap-southeast-1"
+          stat   = "Sum"
+          period = 60
           metrics = [
-            ["AWS/Lambda", "Invocations", "FunctionName", var.auth_function_name,    { label = "auth" }],
+            ["AWS/Lambda", "Invocations", "FunctionName", var.auth_function_name, { label = "auth" }],
             ["AWS/Lambda", "Invocations", "FunctionName", var.product_function_name, { label = "product" }],
-            ["AWS/Lambda", "Invocations", "FunctionName", var.cart_function_name,    { label = "cart" }],
-            ["AWS/Lambda", "Invocations", "FunctionName", var.order_function_name,   { label = "order" }],
+            ["AWS/Lambda", "Invocations", "FunctionName", var.cart_function_name, { label = "cart" }],
+            ["AWS/Lambda", "Invocations", "FunctionName", var.order_function_name, { label = "order" }],
             ["AWS/Lambda", "Invocations", "FunctionName", var.payment_function_name, { label = "payment" }],
             ["AWS/Lambda", "Invocations", "FunctionName", var.address_function_name, { label = "address" }]
           ]
@@ -529,15 +529,15 @@ resource "aws_cloudwatch_dashboard" "flashmart" {
         width  = 12
         height = 6
         properties = {
-          title   = "Lambda throttles"
-          view    = "timeSeries"
-          region  = "ap-southeast-1"
-          stat    = "Sum"
-          period  = 60
+          title  = "Lambda throttles"
+          view   = "timeSeries"
+          region = "ap-southeast-1"
+          stat   = "Sum"
+          period = 60
           metrics = [
-            ["AWS/Lambda", "Throttles", "FunctionName", var.auth_function_name,    { label = "auth" }],
+            ["AWS/Lambda", "Throttles", "FunctionName", var.auth_function_name, { label = "auth" }],
             ["AWS/Lambda", "Throttles", "FunctionName", var.payment_function_name, { label = "payment" }],
-            ["AWS/Lambda", "Throttles", "FunctionName", var.order_function_name,   { label = "order" }]
+            ["AWS/Lambda", "Throttles", "FunctionName", var.order_function_name, { label = "order" }]
           ]
         }
       },
@@ -550,14 +550,14 @@ resource "aws_cloudwatch_dashboard" "flashmart" {
         width  = 8
         height = 6
         properties = {
-          title   = "Payments — success vs failed"
-          view    = "timeSeries"
-          region  = "ap-southeast-1"
-          stat    = "Sum"
-          period  = 300
+          title  = "Payments — success vs failed"
+          view   = "timeSeries"
+          region = "ap-southeast-1"
+          stat   = "Sum"
+          period = 300
           metrics = [
             ["FlashMart/Payments", "PaymentSuccess", { label = "success", color = "#2ca02c" }],
-            ["FlashMart/Payments", "PaymentFailed",  { label = "failed",  color = "#d62728" }]
+            ["FlashMart/Payments", "PaymentFailed", { label = "failed", color = "#d62728" }]
           ]
         }
       },
@@ -568,14 +568,14 @@ resource "aws_cloudwatch_dashboard" "flashmart" {
         width  = 8
         height = 6
         properties = {
-          title   = "Auth — login success vs failed"
-          view    = "timeSeries"
-          region  = "ap-southeast-1"
-          stat    = "Sum"
-          period  = 300
+          title  = "Auth — login success vs failed"
+          view   = "timeSeries"
+          region = "ap-southeast-1"
+          stat   = "Sum"
+          period = 300
           metrics = [
             ["FlashMart/Auth", "LoginSuccess", { label = "success", color = "#2ca02c" }],
-            ["FlashMart/Auth", "LoginFailed",  { label = "failed",  color = "#d62728" }]
+            ["FlashMart/Auth", "LoginFailed", { label = "failed", color = "#d62728" }]
           ]
         }
       },
@@ -586,11 +586,11 @@ resource "aws_cloudwatch_dashboard" "flashmart" {
         width  = 8
         height = 6
         properties = {
-          title   = "Orders placed"
-          view    = "timeSeries"
-          region  = "ap-southeast-1"
-          stat    = "Sum"
-          period  = 300
+          title  = "Orders placed"
+          view   = "timeSeries"
+          region = "ap-southeast-1"
+          stat   = "Sum"
+          period = 300
           metrics = [
             ["FlashMart/Orders", "OrderPlaced", { label = "orders", color = "#1f77b4" }]
           ]
@@ -605,11 +605,11 @@ resource "aws_cloudwatch_dashboard" "flashmart" {
         width  = 8
         height = 6
         properties = {
-          title   = "Total API Requests"
-          view    = "timeSeries"
-          region  = "ap-southeast-1"
-          stat    = "Sum"
-          period  = 300
+          title  = "Total API Requests"
+          view   = "timeSeries"
+          region = "ap-southeast-1"
+          stat   = "Sum"
+          period = 300
           metrics = [
             ["AWS/ApiGateway", "Count", "ApiName", "dev-ecommerce-api", "Stage", "dev"]
           ]
@@ -622,11 +622,11 @@ resource "aws_cloudwatch_dashboard" "flashmart" {
         width  = 8
         height = 6
         properties = {
-          title   = "API Gateway Latency"
-          view    = "timeSeries"
-          region  = "ap-southeast-1"
-          stat    = "Average"
-          period  = 300
+          title  = "API Gateway Latency"
+          view   = "timeSeries"
+          region = "ap-southeast-1"
+          stat   = "Average"
+          period = 300
           metrics = [
             ["AWS/ApiGateway", "Latency", "ApiName", "dev-ecommerce-api", "Stage", "dev", { label = "Avg Latency" }],
             [".", "Latency", ".", ".", ".", ".", { stat = "p95", label = "p95 Latency" }]
@@ -640,11 +640,11 @@ resource "aws_cloudwatch_dashboard" "flashmart" {
         width  = 8
         height = 6
         properties = {
-          title   = "API Gateway HTTP Errors"
-          view    = "timeSeries"
-          region  = "ap-southeast-1"
-          stat    = "Sum"
-          period  = 300
+          title  = "API Gateway HTTP Errors"
+          view   = "timeSeries"
+          region = "ap-southeast-1"
+          stat   = "Sum"
+          period = 300
           metrics = [
             ["AWS/ApiGateway", "4XXError", "ApiName", "dev-ecommerce-api", "Stage", "dev", { label = "4XX Errors" }],
             [".", "5XXError", ".", ".", ".", ".", { label = "5XX Errors" }]
@@ -660,13 +660,13 @@ resource "aws_cloudwatch_dashboard" "flashmart" {
         width  = 8
         height = 6
         properties = {
-          title   = "CloudFront — requests & error rates"
-          view    = "timeSeries"
-          region  = "us-east-1"
-          stat    = "Sum"
-          period  = 300
+          title  = "CloudFront — requests & error rates"
+          view   = "timeSeries"
+          region = "us-east-1"
+          stat   = "Sum"
+          period = 300
           metrics = [
-            ["AWS/CloudFront", "Requests",     "DistributionId", aws_cloudfront_distribution.frontend.id, "Region", "Global", { label = "Requests" }],
+            ["AWS/CloudFront", "Requests", "DistributionId", aws_cloudfront_distribution.frontend.id, "Region", "Global", { label = "Requests" }],
             ["AWS/CloudFront", "4xxErrorRate", "DistributionId", aws_cloudfront_distribution.frontend.id, "Region", "Global", { stat = "Average", label = "4xx %" }],
             ["AWS/CloudFront", "5xxErrorRate", "DistributionId", aws_cloudfront_distribution.frontend.id, "Region", "Global", { stat = "Average", label = "5xx %" }]
           ]
@@ -679,11 +679,11 @@ resource "aws_cloudwatch_dashboard" "flashmart" {
         width  = 8
         height = 6
         properties = {
-          title   = "CloudFront — cache hit rate"
-          view    = "timeSeries"
-          region  = "us-east-1"
-          stat    = "Average"
-          period  = 300
+          title  = "CloudFront — cache hit rate"
+          view   = "timeSeries"
+          region = "us-east-1"
+          stat   = "Average"
+          period = 300
           metrics = [
             ["AWS/CloudFront", "CacheHitRate", "DistributionId", aws_cloudfront_distribution.frontend.id, "Region", "Global", { label = "Cache Hit %" }]
           ]
@@ -696,11 +696,11 @@ resource "aws_cloudwatch_dashboard" "flashmart" {
         width  = 8
         height = 6
         properties = {
-          title   = "CloudFront — origin latency (ms)"
-          view    = "timeSeries"
-          region  = "us-east-1"
-          stat    = "Average"
-          period  = 300
+          title  = "CloudFront — origin latency (ms)"
+          view   = "timeSeries"
+          region = "us-east-1"
+          stat   = "Average"
+          period = 300
           metrics = [
             ["AWS/CloudFront", "OriginLatency", "DistributionId", aws_cloudfront_distribution.frontend.id, "Region", "Global", { label = "Avg" }],
             ["AWS/CloudFront", "OriginLatency", "DistributionId", aws_cloudfront_distribution.frontend.id, "Region", "Global", { stat = "p95", label = "p95" }]
@@ -716,16 +716,16 @@ resource "aws_cloudwatch_dashboard" "flashmart" {
         width  = 8
         height = 6
         properties = {
-          title   = "DynamoDB — consumed capacity"
-          view    = "timeSeries"
-          region  = "ap-southeast-1"
-          stat    = "Sum"
-          period  = 60
+          title  = "DynamoDB — consumed capacity"
+          view   = "timeSeries"
+          region = "ap-southeast-1"
+          stat   = "Sum"
+          period = 60
           metrics = [
-            ["AWS/DynamoDB", "ConsumedReadCapacityUnits",  "TableName", var.product_table_name, { label = "products RCU" }],
-            ["AWS/DynamoDB", "ConsumedReadCapacityUnits",  "TableName", var.order_table_name,   { label = "orders RCU" }],
+            ["AWS/DynamoDB", "ConsumedReadCapacityUnits", "TableName", var.product_table_name, { label = "products RCU" }],
+            ["AWS/DynamoDB", "ConsumedReadCapacityUnits", "TableName", var.order_table_name, { label = "orders RCU" }],
             ["AWS/DynamoDB", "ConsumedWriteCapacityUnits", "TableName", var.product_table_name, { label = "products WCU" }],
-            ["AWS/DynamoDB", "ConsumedWriteCapacityUnits", "TableName", var.order_table_name,   { label = "orders WCU" }]
+            ["AWS/DynamoDB", "ConsumedWriteCapacityUnits", "TableName", var.order_table_name, { label = "orders WCU" }]
           ]
         }
       },
@@ -736,16 +736,16 @@ resource "aws_cloudwatch_dashboard" "flashmart" {
         width  = 8
         height = 6
         properties = {
-          title   = "DynamoDB — throttle events"
-          view    = "timeSeries"
-          region  = "ap-southeast-1"
-          stat    = "Sum"
-          period  = 60
+          title  = "DynamoDB — throttle events"
+          view   = "timeSeries"
+          region = "ap-southeast-1"
+          stat   = "Sum"
+          period = 60
           metrics = [
-            ["AWS/DynamoDB", "ReadThrottleEvents",  "TableName", var.product_table_name,                                { label = "products read" }],
-            ["AWS/DynamoDB", "WriteThrottleEvents", "TableName", var.product_table_name,                                { label = "products write" }],
-            ["AWS/DynamoDB", "ReadThrottleEvents",  "TableName", var.order_table_name,                                  { label = "orders read" }],
-            ["AWS/DynamoDB", "WriteThrottleEvents", "TableName", "${var.environment}-${var.project_name}-payments",     { label = "payments write" }]
+            ["AWS/DynamoDB", "ReadThrottleEvents", "TableName", var.product_table_name, { label = "products read" }],
+            ["AWS/DynamoDB", "WriteThrottleEvents", "TableName", var.product_table_name, { label = "products write" }],
+            ["AWS/DynamoDB", "ReadThrottleEvents", "TableName", var.order_table_name, { label = "orders read" }],
+            ["AWS/DynamoDB", "WriteThrottleEvents", "TableName", "${var.environment}-${var.project_name}-payments", { label = "payments write" }]
           ]
         }
       },
@@ -756,16 +756,16 @@ resource "aws_cloudwatch_dashboard" "flashmart" {
         width  = 8
         height = 6
         properties = {
-          title   = "DynamoDB — request latency p99 (ms)"
-          view    = "timeSeries"
-          region  = "ap-southeast-1"
-          stat    = "p99"
-          period  = 60
+          title  = "DynamoDB — request latency p99 (ms)"
+          view   = "timeSeries"
+          region = "ap-southeast-1"
+          stat   = "p99"
+          period = 60
           metrics = [
             ["AWS/DynamoDB", "SuccessfulRequestLatency", "TableName", var.product_table_name, "Operation", "GetItem", { label = "products GetItem" }],
-            ["AWS/DynamoDB", "SuccessfulRequestLatency", "TableName", var.cart_table_name,    "Operation", "GetItem", { label = "cart GetItem" }],
-            ["AWS/DynamoDB", "SuccessfulRequestLatency", "TableName", var.order_table_name,   "Operation", "Query",   { label = "orders Query" }],
-            ["AWS/DynamoDB", "SuccessfulRequestLatency", "TableName", var.order_table_name,   "Operation", "PutItem", { label = "orders PutItem" }]
+            ["AWS/DynamoDB", "SuccessfulRequestLatency", "TableName", var.cart_table_name, "Operation", "GetItem", { label = "cart GetItem" }],
+            ["AWS/DynamoDB", "SuccessfulRequestLatency", "TableName", var.order_table_name, "Operation", "Query", { label = "orders Query" }],
+            ["AWS/DynamoDB", "SuccessfulRequestLatency", "TableName", var.order_table_name, "Operation", "PutItem", { label = "orders PutItem" }]
           ]
         }
       },
@@ -778,11 +778,11 @@ resource "aws_cloudwatch_dashboard" "flashmart" {
         width  = 8
         height = 6
         properties = {
-          title   = "S3 frontend — request volume"
-          view    = "timeSeries"
-          region  = "ap-southeast-1"
-          stat    = "Sum"
-          period  = 300
+          title  = "S3 frontend — request volume"
+          view   = "timeSeries"
+          region = "ap-southeast-1"
+          stat   = "Sum"
+          period = 300
           metrics = [
             ["AWS/S3", "GetRequests", "BucketName", var.frontend_bucket_name, "FilterId", "EntireBucket", { label = "GETs" }],
             ["AWS/S3", "PutRequests", "BucketName", var.frontend_bucket_name, "FilterId", "EntireBucket", { label = "PUTs" }]
@@ -796,11 +796,11 @@ resource "aws_cloudwatch_dashboard" "flashmart" {
         width  = 8
         height = 6
         properties = {
-          title   = "S3 product images — request volume"
-          view    = "timeSeries"
-          region  = "ap-southeast-1"
-          stat    = "Sum"
-          period  = 300
+          title  = "S3 product images — request volume"
+          view   = "timeSeries"
+          region = "ap-southeast-1"
+          stat   = "Sum"
+          period = 300
           metrics = [
             ["AWS/S3", "GetRequests", "BucketName", "flashmart-product-images", "FilterId", "EntireBucket", { label = "GETs" }],
             ["AWS/S3", "PutRequests", "BucketName", "flashmart-product-images", "FilterId", "EntireBucket", { label = "PUTs" }]
@@ -814,14 +814,14 @@ resource "aws_cloudwatch_dashboard" "flashmart" {
         width  = 8
         height = 6
         properties = {
-          title   = "S3 — errors (both buckets)"
-          view    = "timeSeries"
-          region  = "ap-southeast-1"
-          stat    = "Sum"
-          period  = 300
+          title  = "S3 — errors (both buckets)"
+          view   = "timeSeries"
+          region = "ap-southeast-1"
+          stat   = "Sum"
+          period = 300
           metrics = [
-            ["AWS/S3", "4xxErrors", "BucketName", var.frontend_bucket_name,   "FilterId", "EntireBucket", { label = "frontend 4xx" }],
-            ["AWS/S3", "5xxErrors", "BucketName", var.frontend_bucket_name,   "FilterId", "EntireBucket", { label = "frontend 5xx" }],
+            ["AWS/S3", "4xxErrors", "BucketName", var.frontend_bucket_name, "FilterId", "EntireBucket", { label = "frontend 4xx" }],
+            ["AWS/S3", "5xxErrors", "BucketName", var.frontend_bucket_name, "FilterId", "EntireBucket", { label = "frontend 5xx" }],
             ["AWS/S3", "4xxErrors", "BucketName", "flashmart-product-images", "FilterId", "EntireBucket", { label = "images 4xx" }],
             ["AWS/S3", "5xxErrors", "BucketName", "flashmart-product-images", "FilterId", "EntireBucket", { label = "images 5xx" }]
           ]
