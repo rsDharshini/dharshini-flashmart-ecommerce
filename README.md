@@ -1,38 +1,57 @@
-# Flashmart — 15-Minute Grocery Delivery App
+<div align="center">
 
-A full-stack serverless e-commerce platform built with React and AWS — provisioned entirely via Terraform, featuring role-based access, 6 independent microservices, a feature-rich admin dashboard, structured observability, and automated tests.
+# ⚡ Flashmart — 15-Minute Grocery Delivery
 
-🌐 **Live Demo:** https://d3kb5156to7tlk.cloudfront.net/
+### *From Cart to Doorstep in 15 Minutes — A Cloud-Native Serverless E-Commerce Platform*
+
+[![Live Demo](https://img.shields.io/badge/🌐%20Live%20Demo-Visit%20Site-1a3c34?style=for-the-badge)](https://d3kb5156to7tlk.cloudfront.net/)
+[![AWS](https://img.shields.io/badge/AWS-CloudFront%20%7C%20Lambda%20%7C%20DynamoDB-FF9900?style=for-the-badge&logo=amazonaws&logoColor=white)](https://aws.amazon.com/)
+[![Python](https://img.shields.io/badge/Python-3.12-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org/)
+[![React](https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://reactjs.org/)
+[![Terraform](https://img.shields.io/badge/Terraform-IaC-7B42BC?style=for-the-badge&logo=terraform&logoColor=white)](https://terraform.io/)
+[![PyTest](https://img.shields.io/badge/PyTest-Tested-0A9EDC?style=for-the-badge&logo=pytest&logoColor=white)](https://pytest.org/)
+
+---
+
+**⚡ Built Fast. Deployed on AWS. Managed with Terraform. ⚡**
+
+</div>
+
+---
+
+## 🌐 Live Demo
+
+**URL:** https://d3kb5156to7tlk.cloudfront.net/
 
 | Role  | Email           | Password |
 |-------|-----------------|----------|
 | User  | test@gmail.com  | 123456   |
 | Admin | admin@gmail.com | admin    |
 
-**Test Payment:** Select Net Banking → Bank of Baroda Retail at checkout. No real money is charged.
+**Test Payment:** Select Net Banking → Bank of Baroda Retail. No real money charged.
 
 ---
 
-## ✨ Feature Overview
+## ✨ Features
 
 | Area | What's Built |
 |------|-------------|
 | 🔐 Auth | JWT login + registration, role-based routing (user / admin) |
 | 🛍️ Shopping | Product catalog, category filters, search, out-of-stock handling |
-| 🛒 Cart | Add / remove / update qty, free delivery progress bar, live order summary |
+| 🛒 Cart | Add/remove/update qty, free delivery progress bar, live order summary |
 | 💳 Payments | Razorpay online, Cash on Delivery, POS on Delivery |
-| 📦 Orders | Full lifecycle tracking, stock rollback on failed checkout |
+| 📦 Orders | Placed → Confirmed → Shipped → Delivered, stock rollback on failure |
 | 👤 Profile | Order stats, address management, member card |
 | ⚙️ Admin | 9-tab dashboard — products, orders, users, bulk add, image manager, logs |
-| 📊 Observability | Structured logs, correlation IDs, CloudWatch metrics, alarms, dashboard |
-| 🧪 Tests | pytest + moto unit tests, >80% coverage on payment & order services |
-| 🏗️ IaC | Full AWS infrastructure managed via Terraform |
+| 📊 Observability | Structured logs, correlation IDs, CloudWatch metrics + alarms + dashboard |
+| 🧪 Tests | pytest + moto unit tests, >80% coverage |
+| 🏗️ IaC | Full AWS infrastructure via Terraform |
 
 ---
 
 ## 🔐 Authentication & Role-Based Access
 
-Flashmart has a **single login page** that routes users into two completely different experiences based on their JWT role claim — no separate URLs, no separate apps.
+Single login page — routes into two completely different experiences based on the JWT role claim.
 
 ```
          ┌─────────────────────────────┐
@@ -56,170 +75,94 @@ Flashmart has a **single login page** that routes users into two completely diff
  └─────────────────┘          └─────────────────┘
 ```
 
-**How it works:**
-- On login, `auth_service` verifies credentials, signs a JWT containing `userId` and `role`, and returns it
-- The frontend stores the token in `localStorage` and decodes the role to decide which page to render
-- Every Lambda function calls `verify_token()` on each request — invalid or missing tokens return `401`
-- Admin-only operations return `403` if the token role is not `admin`
-- Registration always creates a `user` role — admin accounts are provisioned separately
+- JWT issued on login, stored in `localStorage`, role decoded client-side for routing
+- Every Lambda verifies the token and `role` claim on each request
+- Admin endpoints return `403` for user-role tokens
+- Registration always creates `user` role — admin accounts provisioned separately
 
 ---
 
-## 🛍️ Shopping Experience
+## 🛍️ Shopping
 
-### Product Catalog
-- Grid layout with product cards showing name, brand, price, unit, and stock status
-- Category sidebar filter — tap a category to instantly narrow results
-- Search bar filters by product name in real time
-- Out-of-stock products show a disabled "Out of Stock" badge instead of Add to Cart
+**Product Catalog**
+- Grid of product cards with name, brand, price, unit, and stock status
+- Category sidebar filter and real-time search bar
+- Out-of-stock products show a disabled badge instead of Add to Cart
 - Product detail page with full description, pricing, and quantity selector
 
-### Cart
-- Add items from any product card or detail page
-- Quantity controls (+ / −) with live total recalculation
-- Free delivery progress bar — shows how much more to spend to unlock free delivery
-- Real-time order summary: subtotal, delivery fee, discount, final total
-- Cart persists per user in DynamoDB — survives page refresh and re-login
+**Cart**
+- Add/remove items and adjust quantities with live total recalculation
+- Free delivery progress bar showing how much more to unlock free delivery
+- Real-time order summary — subtotal, delivery fee, discount, final total
+- Cart persists per user in DynamoDB across page refreshes and re-logins
 
-### Checkout Flow
-```
-Cart → Select Address → Choose Payment Method → Confirm Order → Payment → Order Created
-```
-- Users must have at least one saved address to proceed
-- Three payment options: Razorpay (online), Cash on Delivery, POS on Delivery
-- On successful payment, order is created and cart is cleared
-- On payment failure, stock is automatically rolled back
+**Checkout**
+`Cart → Select Address → Choose Payment → Confirm → Payment → Order Created`
+
+On payment failure, stock is automatically rolled back.
 
 ---
 
-## 💳 Payment Service
+## 💳 Payments
 
 Integrated with **Razorpay** in test mode.
 
-**Flow:**
-1. Frontend calls `POST /payments` → `payment_service` creates a Razorpay order and returns `razorpay_order_id`
-2. Razorpay checkout modal opens in the browser
-3. On payment success, frontend sends `razorpay_payment_id` + `razorpay_signature` to `POST /payments/verify`
-4. `payment_service` verifies the HMAC signature — if valid, marks payment as `verified` and triggers order confirmation
-5. If signature is invalid or payment fails, returns `400` and order_service rolls back stock
+1. `POST /payments` → creates Razorpay order, returns `razorpay_order_id`
+2. Razorpay modal opens in browser
+3. On success, frontend sends `razorpay_payment_id` + `razorpay_signature` to verify
+4. Lambda verifies HMAC signature — valid → order confirmed; invalid → stock rolled back
 
-**Test Cases covered:**
-- `test_initiate_payment_success` — valid order + amount → 201 with razorpay_order_id
-- `test_initiate_payment_missing_fields` — missing body → 400
-- `test_initiate_payment_zero_amount` — amount = 0 → 400
-- `test_verify_payment_success` — valid signature → 200
-- `test_verify_payment_invalid_signature` — bad sig → 400
-- `test_get_payment_status_success` — owned payment → 200
-- `test_get_payment_status_not_found` — unknown id → 404
-- `test_get_payment_status_forbidden` — other user's payment → 403
+Three payment methods: **Razorpay online**, **Cash on Delivery**, **POS on Delivery**
 
 ---
 
-## 📦 Order Management
+## 📦 Orders
 
-### User-side
-- Place orders from checkout
-- Track order status in real time: **Placed → Confirmed → Shipped → Delivered**
-- Cancel orders (only if still in Placed status)
-- Full order history in the Orders page and summarised in the Profile page
-
-### Order Resilience
-Stock is decremented optimistically when an order is placed. If the payment step fails for any reason, `order_service` automatically issues a stock rollback — no manual intervention, no phantom inventory loss.
-
-### Admin-side order control
-Admins can advance any order through its lifecycle from the Orders tab. The status dropdown only shows **valid next states** — no accidental backwards transitions:
-
-| Current Status | Can Transition To |
-|---------------|-------------------|
-| Placed | Confirmed, Cancelled |
-| Confirmed | Shipped, Cancelled |
-| Shipped | Delivered |
-| Delivered | — |
-| Cancelled | — |
+- Full lifecycle: **Placed → Confirmed → Shipped → Delivered**
+- Cancel orders while still in Placed status
+- Stock rolled back automatically on payment failure — no phantom inventory loss
+- Full order history in Orders page and summarised in Profile
 
 ---
 
 ## 👤 Profile Page
 
-Accessible after login with three tabs in a sidebar layout:
+Three-tab sidebar layout:
 
-**My Profile tab**
-- Avatar (email initial), verified badge, member-since date
-- Order stats grid — Total, Delivered, Processing, Placed, Cancelled (live from API)
-- ⭐ Flashmart Member card
-- Quick links to Profile Information and Manage Addresses
-
-**Addresses tab**
-- List all saved delivery addresses (name, phone, line1, city, state, pincode)
-- Add new address form — validated and saved to DynamoDB via `address_service`
-
-**My Orders tab**
-- One-tap redirect to the full Orders page
-
-Sidebar also includes logout button (clears localStorage and redirects to login) and a referral invite card.
+- **My Profile** — avatar, verified badge, member-since date, order stats grid (Total / Delivered / Processing / Placed / Cancelled), Flashmart Member card
+- **Addresses** — view saved addresses, add new (name, phone, line1, city, state, pincode)
+- **My Orders** — one-tap redirect to full Orders page
 
 ---
 
 ## ⚙️ Admin Dashboard
 
-Full control center with **9 tabs** — accessible only to admin role tokens.
+9-tab control center, admin-token only.
 
-### 📊 Overview Tab
-The landing view gives a complete platform health snapshot at a glance:
-- **5 stat cards** — Products, Users, Orders, Pending orders, Revenue (delivered orders only)
-- **Low stock alert table** — products with stock ≤ 10, colour-coded (red = 0, amber = low)
-- **Recent orders** — last 8 orders with status badges
-- **Order status breakdown** — animated progress bars for all 5 statuses
-- **Products by category** — count per category
+**📊 Overview** — stat cards (products, users, orders, pending, revenue), low stock alert table, recent orders, order status breakdown with progress bars, products by category count
 
-### 📦 Products Tab
-- Full paginated product table with inline editing
-- **Search** by name or brand; **filter** by category or stock level (all / low ≤ 10 / out of stock)
-- **Inline edit** — click Edit on any row to modify name, category, brand, price, stock in-place; Save or Cancel without leaving the tab
-- **Activate / Deactivate** toggle — deactivated products are hidden from the customer catalog
-- Stock value colour-coded: green (healthy), amber (≤ 10), red (0)
+**📦 Products** — full table with search + category + stock filters; inline edit (name, brand, price, stock, category in-row); activate/deactivate toggle
 
-### 🧾 Orders Tab
-- All orders across all users in a single table
-- Admin updates order status via a **context-aware dropdown** — only valid next transitions are shown per order
-- Colour-coded status badges
+**🧾 Orders** — all orders across all users; context-aware status dropdown (only valid transitions shown)
 
-### 👥 Users Tab
-- Full user directory — User ID, email, role badge (admin = amber, user = blue), join date
+| Current | Can Move To |
+|---------|-------------|
+| Placed | Confirmed, Cancelled |
+| Confirmed | Shipped, Cancelled |
+| Shipped | Delivered |
+| Delivered / Cancelled | — |
 
-### ➕ Add Product Tab
-- Single-product form: name, brand, price, stock, category (dropdown), unit (kg/g/L/ml/piece/pack/dozen/box), description, optional image URL
+**👥 Users** — full directory with ID, email, role badge, join date
 
-### 📋 Bulk Add Tab
-- Paste a **JSON array** to add multiple products in one go
-- Client-side validation checks all required fields before any API calls
-- Per-row error reporting — `Row 3: missing price, unit`
-- Shows detected product count live as you type
-- Partial success reporting: `Added 18 products, 2 failed`
-- Collapsible example JSON snippet
+**➕ Add Product** — single product form with all fields
 
-### 🖼️ Image Manager Tab
-- Product list on the left with green/amber dots indicating image status
-- Three ways to set an image:
-  - **File upload** — drag or click, max 5MB, stored as base64
-  - **Paste URL** — direct image URL
-  - **Unsplash search** — type a query or use category-specific quick-pick tags (e.g. "fresh milk", "basmati rice")
-- Live preview before saving
+**📋 Bulk Add** — paste a JSON array; validates all required fields, reports per-row errors, shows detected count before committing
 
-### 🏷️ Categories Tab
-- All categories with product count
-- Add new category inline (persists once a product is saved with it)
-- Remove unused categories
+**🖼️ Image Manager** — assign images via file upload (5MB), URL paste, or Unsplash search with category quick-pick tags; live preview before saving
 
-### 🖥️ Logs Tab
-- **Terminal-style dark UI** log viewer connected to `logs_service`
-- Filter by level: INFO / WARN / ERROR / DEBUG
-- Filter by service category
-- Free-text search across message and user fields
-- **Level counters** in filter bar (e.g. ERROR: 3, WARN: 12)
-- Paginated — 50 logs per page with first / prev / next / last controls
-- **Export** as `.log` (plain text), `.json`, or `.xlsx` (CSV with BOM for Excel)
-- Refresh button to pull latest logs without reloading the page
+**🏷️ Categories** — view with product counts, add inline, remove unused
+
+**🖥️ Logs** — terminal-style dark UI; filter by level (INFO/WARN/ERROR/DEBUG), category, free-text; paginated (50/page); export as `.log`, `.json`, or `.xlsx`
 
 ---
 
@@ -232,146 +175,87 @@ The landing view gives a complete platform health snapshot at a glance:
                       │ HTTPS
 ┌─────────────────────▼────────────────────────────────────┐
 │               AWS CloudFront (CDN)                       │
-│          https://d3kb5156to7tlk.cloudfront.net           │
 └──────────┬───────────────────────────┬───────────────────┘
            │                           │
 ┌──────────▼──────────┐   ┌────────────▼──────────────────┐
-│     S3 Bucket       │   │    API Gateway (HTTP API)      │
-│  React + Vite SPA   │   │   /products  /cart  /orders   │
-│  dev-flashmart-     │   │   /payments  /auth  /address  │
-│  frontend           │   └────────────┬──────────────────┘
-└─────────────────────┘                │
-     ┌─────────────────────────────────┼────────────────────────┐
-     │                  AWS Lambda (Python 3.12)                 │
-     │  256MB · 30s timeout · structured JSON logs              │
-     │  correlation IDs · role-based authorization              │
-     │                                                          │
-     │  auth_service    product_service    cart_service         │
-     │  order_service   payment_service    address_service      │
-     └─────────────────────────────────┬────────────────────────┘
+│  S3 — React SPA     │   │  API Gateway (HTTP API)        │
+│  dev-flashmart-     │   │  /products /cart /orders       │
+│  frontend           │   │  /payments /auth /address      │
+└─────────────────────┘   └────────────┬──────────────────┘
                                        │
-     ┌─────────────────────────────────▼────────────────────────┐
-     │                    AWS DynamoDB                           │
-     │  dev-flashmart-products  │  dev-flashmart-cart           │
-     │  dev-flashmart-orders    │  dev-flashmart-payments       │
-     └──────────────────────────────────────────────────────────┘
-
-     ┌──────────────────────────────────────────────────────────┐
-     │  CloudWatch — log groups · metric filters · alarms       │
-     │               · dashboard (8 rows)                       │
-     │  IAM         — least-privilege per Lambda role           │
-     └──────────────────────────────────────────────────────────┘
+     ┌─────────────────────────────────┼────────────────────┐
+     │              AWS Lambda (Python 3.12)                 │
+     │  256MB · 30s · structured JSON logs · correlation IDs│
+     │  auth · product · cart · order · payment · address   │
+     └─────────────────────────────────┬────────────────────┘
+                                       │
+     ┌─────────────────────────────────▼────────────────────┐
+     │                    AWS DynamoDB                       │
+     │   products · cart · orders · payments                 │
+     └──────────────────────────────────────────────────────┘
+     ┌──────────────────────────────────────────────────────┐
+     │  CloudWatch — logs · metric filters · alarms · dash  │
+     │  IAM — least-privilege per Lambda                    │
+     └──────────────────────────────────────────────────────┘
 ```
-
----
-
-## 🧰 Tech Stack
-
-### Frontend
-| Technology | Version | Purpose |
-|------------|---------|---------|
-| React | 18.3.1 | UI Framework |
-| Vite | 5.4.10 | Build tool & dev server |
-| Vitest | 4.1.4 | Unit testing |
-| ESLint | 9.13.0 | Code linting |
-
-### Backend
-| Technology | Purpose |
-|------------|---------|
-| AWS Lambda (Python 3.12) | Serverless microservices |
-| AWS API Gateway (HTTP API) | REST API routing |
-| AWS DynamoDB | NoSQL database |
-| PyJWT | JWT token signing & verification |
-| Razorpay API | Payment gateway (test mode) |
-| moto | DynamoDB mocking for unit tests |
-
-### Infrastructure (Terraform)
-| Resource | Detail |
-|----------|--------|
-| Region | ap-southeast-1 (Singapore) |
-| S3 | dev-flashmart-frontend |
-| DynamoDB | products, cart, orders, payments |
-| Lambda | auth, product, cart, order, payment, address |
-| API Gateway | Single HTTP API |
-| CloudFront | CDN + HTTPS |
-| CloudWatch | Dashboards, alarms, log groups, metric filters |
 
 ---
 
 ## 📊 Observability
 
-All Lambda handlers emit structured JSON logs with a `correlation_id` per request, enabling full cross-service tracing in CloudWatch Logs Insights.
+All handlers emit structured JSON logs with a `correlation_id` per request.
 
-**Custom business metrics emitted from handlers:**
+**Custom CloudWatch metrics:**
 
 | Namespace | Metric | Trigger |
 |-----------|--------|---------|
-| FlashMart/Auth | LoginSuccess | `event = login_success` |
-| FlashMart/Auth | LoginFailed | `event = login_failed` |
-| FlashMart/Payments | PaymentSuccess | `event = payment_verified` |
-| FlashMart/Payments | PaymentFailed | `event = payment_failed` |
-| FlashMart/Orders | OrderPlaced | `event = order_placed` |
+| FlashMart/Auth | LoginSuccess / LoginFailed | login outcome |
+| FlashMart/Payments | PaymentSuccess / PaymentFailed | payment outcome |
+| FlashMart/Orders | OrderPlaced | order created |
 
 **Alarms:**
 
-| Alarm | Threshold | Why |
-|-------|-----------|-----|
-| Lambda errors (all) | ≥ 3 / min | Core service health |
-| Payment failures | ≥ 5 / 5 min | Business critical |
-| Payment Lambda duration | avg > 10s | Perf SLA |
-| Login failures | ≥ 10 / 5 min | Brute force detection |
-| DynamoDB system errors | ≥ 1 / min per table | Infra failure |
-| CloudFront 5xx rate | ≥ 5% | Frontend availability |
+| Alarm | Threshold |
+|-------|-----------|
+| Lambda errors (all) | ≥ 3 / min |
+| Payment failures | ≥ 5 / 5 min |
+| Payment Lambda duration | avg > 10s |
+| Login failures | ≥ 10 / 5 min |
+| DynamoDB system errors | ≥ 1 / min |
+| CloudFront 5xx rate | ≥ 5% |
 
-**Dashboard** — `dev-flashmart-dashboard` has 8 rows covering Lambda errors + duration, invocations + throttles, business metrics (payments / auth / orders), API Gateway requests + latency + errors, CloudFront requests + error rates + cache hit + origin latency, DynamoDB capacity + throttles + p99 latency, S3 request volume + errors, and a final alarm status panel.
+Dashboard (`dev-flashmart-dashboard`) — 8 rows: Lambda health, invocations + throttles, business metrics, API Gateway, CloudFront, DynamoDB, S3, alarm status panel.
 
 ---
 
 ## 🧪 Testing
 
-Unit tests use **pytest + moto** — DynamoDB is fully mocked, no AWS credentials needed.
+pytest + moto — DynamoDB fully mocked, no AWS credentials needed.
 
 ```bash
 cd lambda_code/payment_service && python -m pytest test_payment.py -v
 cd lambda_code/order_service   && python -m pytest test_order.py -v
+cd flashmart-frontend          && npm run test
 ```
 
-**Payment service test coverage:**
-- Token validation — missing token, invalid token
-- `initiate_payment` — success (201), missing fields (400), zero amount (400)
-- `verify_payment` — valid signature (200), invalid signature (400)
-- `get_payment_status` — found + owned (200), not found (404), other user's record (403)
-
-**Frontend:**
-```bash
-cd flashmart-frontend && npm run test
-```
+Payment coverage: token validation, initiate (success/missing fields/zero amount), verify signature (valid/invalid), payment status (200/404/403).
 
 ---
 
 ## 🚀 Getting Started
 
-**Prerequisites:** Node.js 18+, Python 3.12+, Terraform 1.5+, AWS CLI configured, Razorpay account
-
 ```bash
-# 1. Clone
 git clone https://github.com/rsDharshini/dharshini-flashmart-ecommerce.git
 cd dharshini-flashmart-ecommerce
+cp terraform.tfvars.example terraform.tfvars        # fill in values
 
-# 2. Configure
-cp terraform.tfvars.example terraform.tfvars
-
-# 3. Deploy infra
 terraform init && terraform plan && terraform apply
 
-# 4. Deploy frontend
 cd flashmart-frontend && npm install && npm run build
 aws s3 sync dist/ s3://dev-flashmart-frontend --delete
 
-# 5. Invalidate CDN cache
 aws cloudfront create-invalidation \
-  --distribution-id $(terraform output -raw cloudfront_id) \
-  --paths "/*"
+  --distribution-id $(terraform output -raw cloudfront_id) --paths "/*"
 ```
 
 ---
@@ -379,18 +263,13 @@ aws cloudfront create-invalidation \
 ## 🔑 Environment Variables
 
 ```hcl
-aws_region          = "ap-southeast-1"
-environment         = "dev"
-project_name        = "flashmart"
-lambda_runtime      = "python3.12"
-lambda_timeout      = 30
-lambda_memory       = 256
-jwt_secret          = "your_jwt_secret"
-razorpay_key_id     = "rzp_test_XXXXXXXXXX"
-razorpay_key_secret = "your_razorpay_secret"
+aws_region = "ap-southeast-1"  environment = "dev"  project_name = "flashmart"
+lambda_runtime = "python3.12"  lambda_timeout = 30  lambda_memory = 256
+jwt_secret = "your_jwt_secret"
+razorpay_key_id = "rzp_test_XXXXXXXXXX"  razorpay_key_secret = "your_secret"
 ```
 
-> ⚠️ Never commit `terraform.tfvars` — it's in `.gitignore`.
+> ⚠️ Never commit `terraform.tfvars` — already in `.gitignore`.
 
 ---
 
@@ -398,20 +277,14 @@ razorpay_key_secret = "your_razorpay_secret"
 
 Base URL: `https://0nusevsdnb.execute-api.ap-southeast-1.amazonaws.com`
 
-| Method | Endpoint | Service | Auth |
-|--------|----------|---------|------|
-| POST | /auth/login | auth_service | None |
-| POST | /auth/register | auth_service | None |
-| GET | /products | product_service | User/Admin |
-| GET | /products/{id} | product_service | User/Admin |
-| POST | /products | product_service | Admin only |
-| PUT | /products/{id} | product_service | Admin only |
-| DELETE | /products/{id} | product_service | Admin only |
-| GET/POST | /cart | cart_service | User |
-| GET/POST | /orders | order_service | User/Admin |
-| PATCH | /orders/{id} | order_service | Admin only |
-| POST | /payments | payment_service | User |
-| GET/POST | /address | address_service | User |
+| Method | Endpoint | Auth |
+|--------|----------|------|
+| POST | /auth/login · /auth/register | None |
+| GET | /products · /products/{id} | User/Admin |
+| POST/PUT/DELETE | /products | Admin only |
+| GET/POST | /cart · /orders · /address | User |
+| PATCH | /orders/{id} | Admin only |
+| POST | /payments | User |
 
 ---
 
@@ -419,40 +292,30 @@ Base URL: `https://0nusevsdnb.execute-api.ap-southeast-1.amazonaws.com`
 
 ```
 flashmart-terraform/
-├── flashmart-frontend/
-│   └── src/
-│       ├── components/
-│       │   ├── Login.jsx · Register.jsx · Navbar.jsx
-│       │   ├── ProductList.jsx · ProductCard.jsx · ProductDetail.jsx
-│       │   ├── Cart.jsx · Checkout.jsx · Orders.jsx
-│       │   └── Address.jsx · Profile.jsx · Admin.jsx · Toast.jsx
-│       ├── api/          ← API call abstractions per service
-│       └── utils/        ← auth helpers (getUserFromToken, etc.)
-│
+├── flashmart-frontend/src/
+│   ├── components/   Login · Register · Navbar · ProductList · ProductCard
+│   │                 ProductDetail · Cart · Checkout · Orders
+│   │                 Address · Profile · Admin · Toast
+│   ├── api/          API call abstractions per service
+│   └── utils/        auth helpers (getUserFromToken etc.)
 ├── lambda_code/
-│   ├── auth_service/     ← login, register, JWT issue
-│   ├── product_service/  ← CRUD, stock management
-│   ├── cart_service/     ← add/remove/update cart
-│   ├── order_service/    ← place, track, cancel, stock rollback
-│   ├── payment_service/  ← Razorpay integration, signature verify
-│   └── address_service/  ← save/list delivery addresses
-│
-├── main.tf · variables.tf · outputs.tf
-├── lambda.tf · apigateway.tf · dynamodb.tf
-├── s3.tf · cloudfront.tf · iam.tf · cloudwatch.tf
-└── terraform.tfvars.example
+│   ├── auth_service/      login, register, JWT
+│   ├── product_service/   CRUD, stock management
+│   ├── cart_service/      add/remove/update
+│   ├── order_service/     place, track, cancel, rollback
+│   ├── payment_service/   Razorpay, signature verify
+│   └── address_service/   save/list addresses
+├── main.tf · variables.tf · outputs.tf · lambda.tf
+├── apigateway.tf · dynamodb.tf · s3.tf · cloudfront.tf
+├── iam.tf · cloudwatch.tf · terraform.tfvars.example
 ```
 
 ---
 
 ## 🔒 Security
 
-- JWT tokens for stateless auth — role decoded server-side on every request
-- Admin endpoints return `403` for non-admin tokens
-- IAM least-privilege roles scoped per Lambda function
-- HTTPS enforced end-to-end via CloudFront
-- All secrets in `terraform.tfvars` — never hardcoded in source
-- DynamoDB access restricted to Lambda IAM roles only
+- JWT role decoded server-side on every request; admin endpoints reject user tokens with `403`
+- IAM least-privilege per Lambda, HTTPS via CloudFront, secrets only in `terraform.tfvars`
 
 ---
 
@@ -460,4 +323,4 @@ flashmart-terraform/
 
 **Dharshini RS** · [@rsDharshini](https://github.com/rsDharshini)
 
-Built with React 18, Python 3.12, and AWS Serverless — deployed via Terraform
+*Built with React 18, Python 3.12, and AWS Serverless — deployed via Terraform*
