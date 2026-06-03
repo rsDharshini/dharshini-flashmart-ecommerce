@@ -323,4 +323,3 @@ flashmart-terraform/
 
 **Dharshini RS** · [@rsDharshini](https://github.com/rsDharshini)
 
-*Built with React 18, Python 3.12, and AWS Serverless — deployed via Terraform*
