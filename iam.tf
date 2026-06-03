@@ -44,5 +44,9 @@ resource "aws_iam_role_policy_attachment" "lambda_s3_access" {
 }
 
 # =============================================================================
-# IAM — PAYMENTS TABLE ACCESS (NEW)
+# XRAY
 # =============================================================================
+resource "aws_iam_role_policy_attachment" "xray" {
+  role       = aws_iam_role.lambda_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AWSXRayDaemonWriteAccess"
+}

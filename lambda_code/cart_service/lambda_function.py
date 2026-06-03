@@ -2,28 +2,25 @@
 # lambda_function.py - Cart Service (DynamoDB Version)
 # =============================================================================
 
-# =============================================================================
-# IMPORTS
-# =============================================================================
 import json
 import boto3
 import urllib.request
 import urllib.error
+import logging
 from datetime import datetime, timezone
-# 🔐 ADDED: JWT imports
 import jwt
 import os
 
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
+
 JWT_SECRET = os.environ.get("JWT_SECRET", "mySuperSecretKey123!")
 
-# 🔐 ADDED: JWT verification function
 def verify_token(event):
     headers = event.get("headers", {})
     auth_header = headers.get("Authorization") or headers.get("authorization")
-
     if not auth_header:
         return None, "Missing token"
-
     try:
         token = auth_header.split(" ")[1]
         decoded = jwt.decode(token, JWT_SECRET, algorithms=["HS256"])
@@ -37,41 +34,28 @@ def verify_token(event):
 dynamodb = boto3.resource("dynamodb", region_name="ap-southeast-1")
 cart_table = dynamodb.Table("dev-flashmart-cart")
 
-# =============================================================================
-# SERVICE URLs
-# =============================================================================
 PRODUCT_SERVICE_URL = "https://0nusevsdnb.execute-api.ap-southeast-1.amazonaws.com"
-
-# =============================================================================
-# STAGE PREFIXES
-# =============================================================================
 STAGE_PREFIXES = ["/dev", "/prod", "/staging", "/v1", "/v2"]
 
 # =============================================================================
 # LAMBDA HANDLER (ROUTING)
 # =============================================================================
 def lambda_handler(event, context):
-    """Main Lambda handler with path-based routing."""
-    # ── Detect API type ────────────────────────────────────────────────────
     if "requestContext" in event and "http" in event.get("requestContext", {}):
         http_method = event["requestContext"]["http"]["method"].upper()
-        print("EVENT:", event)
         path = event.get("rawPath") or event.get("path", "")
     else:
         http_method = event.get("httpMethod", "").upper()
         path = event.get("path", "")
 
-    # ── Strip stage prefix ─────────────────────────────────────────────────
     for prefix in STAGE_PREFIXES:
         if path.startswith(prefix):
             path = path[len(prefix):]
             break
 
-    # ── Normalize path ─────────────────────────────────────────────────────
     path = path.rstrip("/")
-    
     path_parts = [p for p in path.split("/") if p]
-    # 🔐 ADDED: Handle CORS preflight (VERY IMPORTANT)
+
     if http_method == "OPTIONS":
         return {
             "statusCode": 200,
@@ -82,7 +66,7 @@ def lambda_handler(event, context):
             },
             "body": ""
         }
-    # 🔐 ADDED: Protect cart routes
+
     if path.startswith("/cart"):
         user, error = verify_token(event)
         if error:
@@ -110,6 +94,7 @@ def lambda_handler(event, context):
         return response(404, {"error": "Route not found", "path": path, "method": http_method})
 
     except Exception as e:
+        logger.error(json.dumps({"event": "unhandled_exception", "error": str(e)}))
         return response(500, {"error": "Internal server error", "message": str(e)})
 
 
@@ -118,7 +103,6 @@ def lambda_handler(event, context):
 # =============================================================================
 
 def add_to_cart(body):
-    """POST /cart/add - Add item to cart."""
     required_fields = ["user_id", "product_id", "quantity"]
     missing = [f for f in required_fields if f not in body or body[f] is None]
     if missing:
@@ -138,7 +122,6 @@ def add_to_cart(body):
     if quantity <= 0:
         return response(400, {"error": "quantity must be greater than 0"})
 
-    # Fetch product from real Product Service
     product = get_product(product_id)
     if not product:
         return response(404, {"error": "Product not found", "product_id": product_id})
@@ -146,8 +129,8 @@ def add_to_cart(body):
         return response(409, {"error": "Product is not available", "product_id": product_id})
     if product["stock"] < quantity:
         return response(409, {
-            "error":              "Insufficient stock",
-            "available_stock":    product["stock"],
+            "error": "Insufficient stock",
+            "available_stock": product["stock"],
             "requested_quantity": quantity
         })
 
@@ -156,11 +139,11 @@ def add_to_cart(body):
 
     if not cart:
         cart = {
-            "user_id":          user_id,
-            "items":            {},
+            "user_id": user_id,
+            "items": {},
             "total_cart_value": "0.0",
-            "created_at":       now,
-            "updated_at":       now
+            "created_at": now,
+            "updated_at": now
         }
 
     items = cart.get("items", {})
@@ -171,10 +154,10 @@ def add_to_cart(body):
 
         if product["stock"] < new_quantity:
             return response(409, {
-                "error":                    "Insufficient stock for updated quantity",
-                "available_stock":          product["stock"],
-                "current_cart_quantity":    existing["quantity"],
-                "requested_additional":     quantity
+                "error": "Insufficient stock for updated quantity",
+                "available_stock": product["stock"],
+                "current_cart_quantity": existing["quantity"],
+                "requested_additional": quantity
             })
 
         items[product_id]["quantity"]    = new_quantity
@@ -197,6 +180,7 @@ def add_to_cart(body):
 
     cart_table.put_item(Item=cart)
 
+    logger.info(json.dumps({"event": "cart_item_added", "userId": user_id, "productId": product_id, "quantity": quantity}))
     return response(200, {
         "message": "Item added to cart successfully",
         "user_id": user_id,
@@ -205,21 +189,16 @@ def add_to_cart(body):
 
 
 def get_cart(user_id):
-    """GET /cart/{user_id} - Get full cart."""
     cart = find_cart(user_id)
     if not cart:
         return response(404, {"error": "Cart not found", "user_id": user_id})
+    logger.info(json.dumps({"event": "cart_fetched", "userId": user_id, "itemCount": len(cart["items"])}))
     if not cart["items"]:
-        return response(200, {
-            "message": "Cart is empty",
-            "user_id": user_id,
-            "cart":    serialize_cart(cart)
-        })
+        return response(200, {"message": "Cart is empty", "user_id": user_id, "cart": serialize_cart(cart)})
     return response(200, {"user_id": user_id, "cart": serialize_cart(cart)})
 
 
 def remove_item(body):
-    """DELETE /cart/remove - Remove one item."""
     required_fields = ["user_id", "product_id"]
     missing = [f for f in required_fields if f not in body or body[f] is None]
     if missing:
@@ -239,15 +218,11 @@ def remove_item(body):
     cart["updated_at"]       = utc_now()
 
     cart_table.put_item(Item=cart)
-    return response(200, {
-        "message": "Item removed successfully",
-        "user_id": user_id,
-        "cart":    serialize_cart(cart)
-    })
+    logger.info(json.dumps({"event": "cart_item_removed", "userId": user_id, "productId": product_id}))
+    return response(200, {"message": "Item removed successfully", "user_id": user_id, "cart": serialize_cart(cart)})
 
 
 def clear_cart(user_id):
-    """DELETE /cart/clear/{user_id} - Clear entire cart."""
     cart = find_cart(user_id)
     if not cart:
         return response(404, {"error": "Cart not found", "user_id": user_id})
@@ -257,11 +232,11 @@ def clear_cart(user_id):
     cart["updated_at"]       = utc_now()
 
     cart_table.put_item(Item=cart)
+    logger.info(json.dumps({"event": "cart_cleared", "userId": user_id}))
     return response(200, {"message": "Cart cleared successfully", "user_id": user_id})
 
 
 def update_quantity(body):
-    """PUT /cart/update - Update item quantity."""
     required_fields = ["user_id", "product_id", "quantity"]
     missing = [f for f in required_fields if f not in body or body[f] is None]
     if missing:
@@ -291,11 +266,8 @@ def update_quantity(body):
         cart["total_cart_value"] = str(compute_cart_total(cart["items"]))
         cart["updated_at"]       = now
         cart_table.put_item(Item=cart)
-        return response(200, {
-            "message": "Item removed (quantity set to 0)",
-            "user_id": user_id,
-            "cart":    serialize_cart(cart)
-        })
+        logger.info(json.dumps({"event": "cart_item_removed", "userId": user_id, "productId": product_id, "reason": "quantity_zero"}))
+        return response(200, {"message": "Item removed (quantity set to 0)", "user_id": user_id, "cart": serialize_cart(cart)})
 
     product = get_product(product_id)
     if not product:
@@ -304,8 +276,8 @@ def update_quantity(body):
         return response(409, {"error": "Product is no longer active", "product_id": product_id})
     if product["stock"] < quantity:
         return response(409, {
-            "error":              "Insufficient stock",
-            "available_stock":    product["stock"],
+            "error": "Insufficient stock",
+            "available_stock": product["stock"],
             "requested_quantity": quantity
         })
 
@@ -316,15 +288,11 @@ def update_quantity(body):
     cart["updated_at"]                       = now
 
     cart_table.put_item(Item=cart)
-    return response(200, {
-        "message": "Cart updated successfully",
-        "user_id": user_id,
-        "cart":    serialize_cart(cart)
-    })
+    logger.info(json.dumps({"event": "cart_quantity_updated", "userId": user_id, "productId": product_id, "quantity": quantity}))
+    return response(200, {"message": "Cart updated successfully", "user_id": user_id, "cart": serialize_cart(cart)})
 
 
 def get_cart_summary(user_id):
-    """GET /cart/{user_id}/summary - Cart summary."""
     cart = find_cart(user_id)
     if not cart:
         return response(404, {"error": "Cart not found", "user_id": user_id})
@@ -332,6 +300,7 @@ def get_cart_summary(user_id):
     total_items    = len(cart["items"])
     total_quantity = sum(int(item["quantity"]) for item in cart["items"].values())
 
+    logger.info(json.dumps({"event": "cart_summary_fetched", "userId": user_id, "totalItems": total_items}))
     return response(200, {
         "user_id": user_id,
         "summary": {
@@ -342,16 +311,11 @@ def get_cart_summary(user_id):
     })
 
 
-
 # =============================================================================
-# PRODUCT SERVICE INTEGRATION (Real API Call)
+# PRODUCT SERVICE INTEGRATION
 # =============================================================================
 
 def get_product(product_id):
-    """
-    Fetch real product from Product Service API.
-    Returns product dict if found, None otherwise.
-    """
     try:
         url = f"{PRODUCT_SERVICE_URL}/v1/products/{product_id}"
         req = urllib.request.urlopen(url, timeout=5)
@@ -362,7 +326,7 @@ def get_product(product_id):
             return None
         return None
     except Exception as e:
-        print(f"[WARN] Product fetch failed for {product_id}: {str(e)}")
+        logger.warning(json.dumps({"event": "product_fetch_failed", "productId": product_id, "error": str(e)}))
         return None
 
 
@@ -371,12 +335,10 @@ def get_product(product_id):
 # =============================================================================
 
 def compute_item_total(unit_price, quantity):
-    """Calculate total price for a single cart item."""
     return round(float(unit_price) * int(quantity), 2)
 
 
 def compute_cart_total(items):
-    """Calculate total value of all items in the cart."""
     return round(sum(float(item["total_price"]) for item in items.values()), 2)
 
 
@@ -385,19 +347,17 @@ def compute_cart_total(items):
 # =============================================================================
 
 def find_cart(user_id):
-    """Fetch cart from DynamoDB."""
     result = cart_table.get_item(Key={"user_id": user_id})
     return result.get("Item")
 
 
 def serialize_cart(cart):
-    """Convert cart for clean API response."""
     return {
         "user_id": cart["user_id"],
         "items": [
             {
                 **item,
-                "price":       float(item["unit_price"]),  # ← frontend uses this
+                "price":       float(item["unit_price"]),
                 "unit_price":  float(item["unit_price"]),
                 "total_price": float(item["total_price"]),
                 "quantity":    int(item["quantity"])
@@ -411,7 +371,6 @@ def serialize_cart(cart):
 
 
 def response(status_code, body):
-    """Standard API Gateway-compatible response."""
     return {
         "statusCode": status_code,
         "headers": {
@@ -425,7 +384,6 @@ def response(status_code, body):
 
 
 def parse_body(event):
-    """Safely parse JSON body from Lambda event."""
     try:
         raw_body = event.get("body") or "{}"
         if isinstance(raw_body, dict):
@@ -436,5 +394,4 @@ def parse_body(event):
 
 
 def utc_now():
-    """Return current UTC timestamp as ISO 8601 string."""
     return datetime.now(timezone.utc).isoformat()

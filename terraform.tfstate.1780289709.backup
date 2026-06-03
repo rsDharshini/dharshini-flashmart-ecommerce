@@ -1,0 +1,3893 @@
+{
+  "version": 4,
+  "terraform_version": "1.14.8",
+  "serial": 317,
+  "lineage": "6a9eb6a3-f352-bb69-f254-bb494cc84095",
+  "outputs": {
+    "address_endpoint": {
+      "value": "https://0nusevsdnb.execute-api.ap-southeast-1.amazonaws.com/v1/addresses",
+      "type": "string"
+    },
+    "api_base_url": {
+      "value": "https://0nusevsdnb.execute-api.ap-southeast-1.amazonaws.com",
+      "type": "string"
+    },
+    "api_v1_base_url": {
+      "value": "https://0nusevsdnb.execute-api.ap-southeast-1.amazonaws.com/v1",
+      "type": "string"
+    },
+    "auth_endpoint": {
+      "value": "https://0nusevsdnb.execute-api.ap-southeast-1.amazonaws.com/v1/auth",
+      "type": "string"
+    },
+    "cart_endpoint": {
+      "value": "https://0nusevsdnb.execute-api.ap-southeast-1.amazonaws.com/v1/cart",
+      "type": "string"
+    },
+    "cart_lambda_name": {
+      "value": "dev-flashmart-cart-service",
+      "type": "string"
+    },
+    "cart_table_name": {
+      "value": "dev-flashmart-cart",
+      "type": "string"
+    },
+    "cloudfront_id": {
+      "value": "E3GA729SVQ4BVX",
+      "type": "string"
+    },
+    "cloudfront_url": {
+      "value": "https://d3kb5156to7tlk.cloudfront.net",
+      "type": "string"
+    },
+    "order_endpoint": {
+      "value": "https://0nusevsdnb.execute-api.ap-southeast-1.amazonaws.com/v1/orders",
+      "type": "string"
+    },
+    "order_lambda_name": {
+      "value": "dev-flashmart-order-service",
+      "type": "string"
+    },
+    "order_table_name": {
+      "value": "dev-flashmart-orders",
+      "type": "string"
+    },
+    "payment_endpoint": {
+      "value": "https://0nusevsdnb.execute-api.ap-southeast-1.amazonaws.com/v1/payments",
+      "type": "string"
+    },
+    "payment_function_arn": {
+      "value": "arn:aws:lambda:ap-southeast-1:726101441380:function:dev-flashmart-payment-service",
+      "type": "string"
+    },
+    "payment_function_name": {
+      "value": "dev-flashmart-payment-service",
+      "type": "string"
+    },
+    "product_endpoint": {
+      "value": "https://0nusevsdnb.execute-api.ap-southeast-1.amazonaws.com/v1/products",
+      "type": "string"
+    },
+    "product_lambda_name": {
+      "value": "dev-flashmart-product-service",
+      "type": "string"
+    },
+    "product_table_name": {
+      "value": "dev-flashmart-products",
+      "type": "string"
+    },
+    "s3_bucket_name": {
+      "value": "dev-flashmart-frontend",
+      "type": "string"
+    }
+  },
+  "resources": [
+    {
+      "mode": "data",
+      "type": "archive_file",
+      "name": "address",
+      "provider": "provider[\"registry.terraform.io/hashicorp/archive\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "exclude_symlink_directories": null,
+            "excludes": null,
+            "id": "862af9c9b6598b93f7d1f9fa70d598d11f9a4054",
+            "output_base64sha256": "vsrgVVPIVkxgYyfrr7sR3d6UXYW5T1aMGkDsJ0kS4LM=",
+            "output_base64sha512": "ndgXDXs0wS6zw59t0mL84L3+DCf/k/lKg3CSCQiFJ08+huSdh6Q42guc6PhwLYcVlP2naG7hvUbRFf71GGM7bQ==",
+            "output_file_mode": null,
+            "output_md5": "2329eaff8b6f02779573623fae360d4b",
+            "output_path": "./lambda_code/zips/address_service.zip",
+            "output_sha": "862af9c9b6598b93f7d1f9fa70d598d11f9a4054",
+            "output_sha256": "becae05553c8564c606327ebafbb11ddde945d85b94f568c1a40ec274912e0b3",
+            "output_sha512": "9dd8170d7b34c12eb3c39f6dd262fce0bdfe0c27ff93f94a837092090885274f3e86e49d87a438da0b9ce8f8702d871594fda7686ee1bd46d115fef518633b6d",
+            "output_size": 93283,
+            "source": [],
+            "source_content": null,
+            "source_content_filename": null,
+            "source_dir": "./lambda_code/address_service",
+            "source_file": null,
+            "type": "zip"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0
+        }
+      ]
+    },
+    {
+      "mode": "data",
+      "type": "archive_file",
+      "name": "auth_zip",
+      "provider": "provider[\"registry.terraform.io/hashicorp/archive\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "exclude_symlink_directories": null,
+            "excludes": null,
+            "id": "89fc316f9b63ac2bea0ce86d36bf11204642f694",
+            "output_base64sha256": "j6He1kVUPHfYldeqzDYTo89/37iYJ0PldUZ5xWHgACs=",
+            "output_base64sha512": "pOYsIuOU1lRuDePYCBU6MJDGR9nVFnsax6zwUY+vWNdEfkHfXCR7fWePy2yt+Rv5piZwxt509LHiqbiAdpf6QA==",
+            "output_file_mode": null,
+            "output_md5": "4508bd7345a0fc06281e85653e740a46",
+            "output_path": "./lambda_code/zips/auth_service.zip",
+            "output_sha": "89fc316f9b63ac2bea0ce86d36bf11204642f694",
+            "output_sha256": "8fa1ded645543c77d895d7aacc3613a3cf7fdfb8982743e5754679c561e0002b",
+            "output_sha512": "a4e62c22e394d6546e0de3d808153a3090c647d9d5167b1ac7acf0518faf58d7447e41df5c247b7d678fcb6cadf91bf9a62670c6de74f4b1e2a9b8807697fa40",
+            "output_size": 92129,
+            "source": [],
+            "source_content": null,
+            "source_content_filename": null,
+            "source_dir": "./lambda_code/auth_service",
+            "source_file": null,
+            "type": "zip"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0
+        }
+      ]
+    },
+    {
+      "mode": "data",
+      "type": "archive_file",
+      "name": "cart_zip",
+      "provider": "provider[\"registry.terraform.io/hashicorp/archive\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "exclude_symlink_directories": null,
+            "excludes": null,
+            "id": "ab3e9ba6c6fe88031f6b738afa588683c966df44",
+            "output_base64sha256": "xgGpfUAyRTNwyGSV+qvbzsEcXC4k7TT0IHE0JJU7IyM=",
+            "output_base64sha512": "mmJ5gQv3BRwfdRd3hFpe0k7OlbTNyFe1yLSpXkYhVKyr3C/N0EBPStxDvWHKL/Y11HG6yGNNbWSplkJQiacbWg==",
+            "output_file_mode": null,
+            "output_md5": "b38c8520c3b023ce5f05f1ac77ea10a4",
+            "output_path": "./lambda_code/zips/cart_service.zip",
+            "output_sha": "ab3e9ba6c6fe88031f6b738afa588683c966df44",
+            "output_sha256": "c601a97d4032453370c86495faabdbcec11c5c2e24ed34f420713424953b2323",
+            "output_sha512": "9a6279810bf7051c1f751777845a5ed24ece95b4cdc857b5c8b4a95e462154acabdc2fcdd0404f4adc43bd61ca2ff635d471bac8634d6d64a996425089a71b5a",
+            "output_size": 93917,
+            "source": [],
+            "source_content": null,
+            "source_content_filename": null,
+            "source_dir": "./lambda_code/cart_service",
+            "source_file": null,
+            "type": "zip"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0
+        }
+      ]
+    },
+    {
+      "mode": "data",
+      "type": "archive_file",
+      "name": "logs",
+      "provider": "provider[\"registry.terraform.io/hashicorp/archive\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "exclude_symlink_directories": null,
+            "excludes": null,
+            "id": "c156f1b235873283cca33597beac1d584fe2f198",
+            "output_base64sha256": "qfpxae35KiMdp3OxJuy4QgTRRPobuWnLzN3BPB+b9jE=",
+            "output_base64sha512": "4dLQzDkZ573D6qVI8Xa2rKNw2guFb3TN88GHZ2mzGtIuBBzlE5Xt3FMT5H5B3BViokzdHnT5mAqMDrtriOfQVg==",
+            "output_file_mode": null,
+            "output_md5": "67f06c37114942a7a7778b50fb7471e9",
+            "output_path": "./lambda_code/zips/logs_service.zip",
+            "output_sha": "c156f1b235873283cca33597beac1d584fe2f198",
+            "output_sha256": "a9fa7169edf92a231da773b126ecb84204d144fa1bb969cbccddc13c1f9bf631",
+            "output_sha512": "e1d2d0cc3919e7bdc3eaa548f176b6aca370da0b856f74cdf3c1876769b31ad22e041ce51395eddc5313e47e41dc1562a24cdd1e74f9980a8c0ebb6b88e7d056",
+            "output_size": 2747,
+            "source": [],
+            "source_content": null,
+            "source_content_filename": null,
+            "source_dir": "./lambda_code/logs_service",
+            "source_file": null,
+            "type": "zip"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0
+        }
+      ]
+    },
+    {
+      "mode": "data",
+      "type": "archive_file",
+      "name": "order_zip",
+      "provider": "provider[\"registry.terraform.io/hashicorp/archive\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "exclude_symlink_directories": null,
+            "excludes": null,
+            "id": "80e186a366e9460c2ab4fca1250b30a68dd8cccf",
+            "output_base64sha256": "46xAFOge8k27enEaw4Nrgig3+DoTn//ZLDLo6Q0U2U4=",
+            "output_base64sha512": "A2An6KHAXyJDgne33mlFHZkhIhdP0FdGX+4Q94AJo6xPMIr9u2FkaNg9CzLoIGRtkNIVyK4/Q9+RD6BHgB5Bdw==",
+            "output_file_mode": null,
+            "output_md5": "90674bcbba0f82efc30ee2e7a9e99fd2",
+            "output_path": "./lambda_code/zips/order_service.zip",
+            "output_sha": "80e186a366e9460c2ab4fca1250b30a68dd8cccf",
+            "output_sha256": "e3ac4014e81ef24dbb7a711ac3836b822837f83a139fffd92c32e8e90d14d94e",
+            "output_sha512": "036027e8a1c05f22438277b7de69451d992122174fd057465fee10f78009a3ac4f308afdbb616468d83d0b32e820646d90d215c8ae3f43df910fa047801e4177",
+            "output_size": 109109,
+            "source": [],
+            "source_content": null,
+            "source_content_filename": null,
+            "source_dir": "./lambda_code/order_service",
+            "source_file": null,
+            "type": "zip"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0
+        }
+      ]
+    },
+    {
+      "mode": "data",
+      "type": "archive_file",
+      "name": "payment",
+      "provider": "provider[\"registry.terraform.io/hashicorp/archive\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "exclude_symlink_directories": null,
+            "excludes": null,
+            "id": "b122f405efbec293354613eee892d5f74b91a847",
+            "output_base64sha256": "ZFNseHmNq3SdVSMZkL+DFXruNBnn5sUmQOioFplJASg=",
+            "output_base64sha512": "yTVXLcujpBSFAFT+JiugQv1G2KLpmSOmQRRMVR/nnjMF4zb8mmm48wDen5mlAdd5kK+KyTfrxBIJ2jtoJPo4Zg==",
+            "output_file_mode": null,
+            "output_md5": "5a0d42276034eae5b822a2c433056e4e",
+            "output_path": "./lambda_code/zips/payment_service.zip",
+            "output_sha": "b122f405efbec293354613eee892d5f74b91a847",
+            "output_sha256": "64536c78798dab749d55231990bf83157aee3419e7e6c52640e8a81699490128",
+            "output_sha512": "c935572dcba3a414850054fe262ba042fd46d8a2e99923a641144c551fe79e3305e336fc9a69b8f300de9f99a501d77990af8ac937ebc41209da3b6824fa3866",
+            "output_size": 105313,
+            "source": [],
+            "source_content": null,
+            "source_content_filename": null,
+            "source_dir": "./lambda_code/payment_service",
+            "source_file": null,
+            "type": "zip"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0
+        }
+      ]
+    },
+    {
+      "mode": "data",
+      "type": "archive_file",
+      "name": "product_zip",
+      "provider": "provider[\"registry.terraform.io/hashicorp/archive\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "exclude_symlink_directories": null,
+            "excludes": null,
+            "id": "7b14bd47576fc8b1dcbc06cf37742a295311b3d7",
+            "output_base64sha256": "X47isZjHY2nlRvHvEVjJgGEtoQcDkquqM4cZGFrg2ms=",
+            "output_base64sha512": "zJqi1dxPnj0sPAb9HAL8szWHDdC9nmxMhOtjFgCRO5KRqsN0XaXpRd/EWuxrSjya254KlhHk56I3l9KonJu/pw==",
+            "output_file_mode": null,
+            "output_md5": "0c8f9469b770dd91e26f3f0da546dd2e",
+            "output_path": "./lambda_code/zips/product_service.zip",
+            "output_sha": "7b14bd47576fc8b1dcbc06cf37742a295311b3d7",
+            "output_sha256": "5f8ee2b198c76369e546f1ef1158c980612da1070392abaa338719185ae0da6b",
+            "output_sha512": "cc9aa2d5dc4f9e3d2c3c06fd1c02fcb335870dd0bd9e6c4c84eb631600913b9291aac3745da5e945dfc45aec6b4a3c9adb9e0a9611e4e7a23797d2a89c9bbfa7",
+            "output_size": 5157,
+            "source": [],
+            "source_content": null,
+            "source_content_filename": null,
+            "source_dir": "./lambda_code/product_service",
+            "source_file": null,
+            "type": "zip"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_apigatewayv2_api",
+      "name": "main_api",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "api_endpoint": "https://0nusevsdnb.execute-api.ap-southeast-1.amazonaws.com",
+            "api_key_selection_expression": "$request.header.x-api-key",
+            "arn": "arn:aws:apigateway:ap-southeast-1::/apis/0nusevsdnb",
+            "body": null,
+            "cors_configuration": [
+              {
+                "allow_credentials": false,
+                "allow_headers": [
+                  "authorization",
+                  "content-type"
+                ],
+                "allow_methods": [
+                  "DELETE",
+                  "GET",
+                  "OPTIONS",
+                  "POST",
+                  "PUT"
+                ],
+                "allow_origins": [
+                  "*"
+                ],
+                "expose_headers": [
+                  "*"
+                ],
+                "max_age": 300
+              }
+            ],
+            "credentials_arn": null,
+            "description": "",
+            "disable_execute_api_endpoint": false,
+            "execution_arn": "arn:aws:execute-api:ap-southeast-1:726101441380:0nusevsdnb",
+            "fail_on_warnings": null,
+            "id": "0nusevsdnb",
+            "ip_address_type": "ipv4",
+            "name": "dev-flashmart-api",
+            "protocol_type": "HTTP",
+            "route_key": null,
+            "route_selection_expression": "$request.method $request.path",
+            "tags": {},
+            "tags_all": {},
+            "target": null,
+            "version": ""
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA=="
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_apigatewayv2_integration",
+      "name": "address",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "api_id": "0nusevsdnb",
+            "connection_id": "",
+            "connection_type": "INTERNET",
+            "content_handling_strategy": "",
+            "credentials_arn": "",
+            "description": "",
+            "id": "yk59e6a",
+            "integration_method": "POST",
+            "integration_response_selection_expression": "",
+            "integration_subtype": "",
+            "integration_type": "AWS_PROXY",
+            "integration_uri": "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/arn:aws:lambda:ap-southeast-1:726101441380:function:dev-flashmart-address-service/invocations",
+            "passthrough_behavior": "",
+            "payload_format_version": "2.0",
+            "request_parameters": {},
+            "request_templates": {},
+            "response_parameters": [],
+            "template_selection_expression": "",
+            "timeout_milliseconds": 30000,
+            "tls_config": []
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_apigatewayv2_api.main_api",
+            "aws_iam_role.lambda_role",
+            "aws_lambda_function.address",
+            "data.archive_file.address"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_apigatewayv2_integration",
+      "name": "auth",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "api_id": "0nusevsdnb",
+            "connection_id": "",
+            "connection_type": "INTERNET",
+            "content_handling_strategy": "",
+            "credentials_arn": "",
+            "description": "",
+            "id": "51qyhns",
+            "integration_method": "POST",
+            "integration_response_selection_expression": "",
+            "integration_subtype": "",
+            "integration_type": "AWS_PROXY",
+            "integration_uri": "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/arn:aws:lambda:ap-southeast-1:726101441380:function:dev-flashmart-auth-service/invocations",
+            "passthrough_behavior": "",
+            "payload_format_version": "2.0",
+            "request_parameters": {},
+            "request_templates": {},
+            "response_parameters": [],
+            "template_selection_expression": "",
+            "timeout_milliseconds": 30000,
+            "tls_config": []
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_apigatewayv2_api.main_api",
+            "aws_iam_role.lambda_role",
+            "aws_lambda_function.auth_service",
+            "data.archive_file.auth_zip"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_apigatewayv2_integration",
+      "name": "cart",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "api_id": "0nusevsdnb",
+            "connection_id": "",
+            "connection_type": "INTERNET",
+            "content_handling_strategy": "",
+            "credentials_arn": "",
+            "description": "",
+            "id": "7wye5qd",
+            "integration_method": "POST",
+            "integration_response_selection_expression": "",
+            "integration_subtype": "",
+            "integration_type": "AWS_PROXY",
+            "integration_uri": "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/arn:aws:lambda:ap-southeast-1:726101441380:function:dev-flashmart-cart-service/invocations",
+            "passthrough_behavior": "",
+            "payload_format_version": "2.0",
+            "request_parameters": {},
+            "request_templates": {},
+            "response_parameters": [],
+            "template_selection_expression": "",
+            "timeout_milliseconds": 30000,
+            "tls_config": []
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_apigatewayv2_api.main_api",
+            "aws_iam_role.lambda_role",
+            "aws_lambda_function.cart_service",
+            "data.archive_file.cart_zip"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_apigatewayv2_integration",
+      "name": "logs",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "api_id": "0nusevsdnb",
+            "connection_id": "",
+            "connection_type": "INTERNET",
+            "content_handling_strategy": "",
+            "credentials_arn": "",
+            "description": "",
+            "id": "fryibvn",
+            "integration_method": "POST",
+            "integration_response_selection_expression": "",
+            "integration_subtype": "",
+            "integration_type": "AWS_PROXY",
+            "integration_uri": "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/arn:aws:lambda:ap-southeast-1:726101441380:function:dev-flashmart-logs-service/invocations",
+            "passthrough_behavior": "",
+            "payload_format_version": "2.0",
+            "request_parameters": {},
+            "request_templates": {},
+            "response_parameters": [],
+            "template_selection_expression": "",
+            "timeout_milliseconds": 30000,
+            "tls_config": []
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_apigatewayv2_api.main_api",
+            "aws_dynamodb_table.logs",
+            "aws_iam_role.lambda_role",
+            "aws_lambda_function.logs_service",
+            "data.archive_file.logs"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_apigatewayv2_integration",
+      "name": "order",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "api_id": "0nusevsdnb",
+            "connection_id": "",
+            "connection_type": "INTERNET",
+            "content_handling_strategy": "",
+            "credentials_arn": "",
+            "description": "",
+            "id": "v39f7gc",
+            "integration_method": "POST",
+            "integration_response_selection_expression": "",
+            "integration_subtype": "",
+            "integration_type": "AWS_PROXY",
+            "integration_uri": "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/arn:aws:lambda:ap-southeast-1:726101441380:function:dev-flashmart-order-service/invocations",
+            "passthrough_behavior": "",
+            "payload_format_version": "2.0",
+            "request_parameters": {},
+            "request_templates": {},
+            "response_parameters": [],
+            "template_selection_expression": "",
+            "timeout_milliseconds": 30000,
+            "tls_config": []
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_apigatewayv2_api.main_api",
+            "aws_iam_role.lambda_role",
+            "aws_lambda_function.order_service",
+            "data.archive_file.order_zip"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_apigatewayv2_integration",
+      "name": "payment",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "api_id": "0nusevsdnb",
+            "connection_id": "",
+            "connection_type": "INTERNET",
+            "content_handling_strategy": "",
+            "credentials_arn": "",
+            "description": "",
+            "id": "38bvgs1",
+            "integration_method": "POST",
+            "integration_response_selection_expression": "",
+            "integration_subtype": "",
+            "integration_type": "AWS_PROXY",
+            "integration_uri": "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/arn:aws:lambda:ap-southeast-1:726101441380:function:dev-flashmart-payment-service/invocations",
+            "passthrough_behavior": "",
+            "payload_format_version": "2.0",
+            "request_parameters": {},
+            "request_templates": {},
+            "response_parameters": [],
+            "template_selection_expression": "",
+            "timeout_milliseconds": 30000,
+            "tls_config": []
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_apigatewayv2_api.main_api",
+            "aws_dynamodb_table.payments",
+            "aws_iam_role.lambda_role",
+            "aws_lambda_function.payment",
+            "data.archive_file.payment"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_apigatewayv2_integration",
+      "name": "product",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "api_id": "0nusevsdnb",
+            "connection_id": "",
+            "connection_type": "INTERNET",
+            "content_handling_strategy": "",
+            "credentials_arn": "",
+            "description": "",
+            "id": "d83b2y3",
+            "integration_method": "POST",
+            "integration_response_selection_expression": "",
+            "integration_subtype": "",
+            "integration_type": "AWS_PROXY",
+            "integration_uri": "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/arn:aws:lambda:ap-southeast-1:726101441380:function:dev-flashmart-product-service/invocations",
+            "passthrough_behavior": "",
+            "payload_format_version": "2.0",
+            "request_parameters": {},
+            "request_templates": {},
+            "response_parameters": [],
+            "template_selection_expression": "",
+            "timeout_milliseconds": 30000,
+            "tls_config": []
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_apigatewayv2_api.main_api",
+            "aws_iam_role.lambda_role",
+            "aws_lambda_function.product_service",
+            "data.archive_file.product_zip"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_apigatewayv2_route",
+      "name": "address_add",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "api_id": "0nusevsdnb",
+            "api_key_required": false,
+            "authorization_scopes": [],
+            "authorization_type": "NONE",
+            "authorizer_id": "",
+            "id": "1q1a62o",
+            "model_selection_expression": "",
+            "operation_name": "",
+            "request_models": {},
+            "request_parameter": [],
+            "route_key": "POST /v1/addresses/{user_id}",
+            "route_response_selection_expression": "",
+            "target": "integrations/yk59e6a"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_apigatewayv2_api.main_api",
+            "aws_apigatewayv2_integration.address",
+            "aws_iam_role.lambda_role",
+            "aws_lambda_function.address",
+            "data.archive_file.address"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_apigatewayv2_route",
+      "name": "address_get",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "api_id": "0nusevsdnb",
+            "api_key_required": false,
+            "authorization_scopes": [],
+            "authorization_type": "NONE",
+            "authorizer_id": "",
+            "id": "f676jwd",
+            "model_selection_expression": "",
+            "operation_name": "",
+            "request_models": {},
+            "request_parameter": [],
+            "route_key": "GET /v1/addresses/{user_id}",
+            "route_response_selection_expression": "",
+            "target": "integrations/yk59e6a"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_apigatewayv2_api.main_api",
+            "aws_apigatewayv2_integration.address",
+            "aws_iam_role.lambda_role",
+            "aws_lambda_function.address",
+            "data.archive_file.address"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_apigatewayv2_route",
+      "name": "address_options",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "api_id": "0nusevsdnb",
+            "api_key_required": false,
+            "authorization_scopes": [],
+            "authorization_type": "NONE",
+            "authorizer_id": "",
+            "id": "cpub0k9",
+            "model_selection_expression": "",
+            "operation_name": "",
+            "request_models": {},
+            "request_parameter": [],
+            "route_key": "OPTIONS /v1/addresses/{user_id}",
+            "route_response_selection_expression": "",
+            "target": "integrations/yk59e6a"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_apigatewayv2_api.main_api",
+            "aws_apigatewayv2_integration.address",
+            "aws_iam_role.lambda_role",
+            "aws_lambda_function.address",
+            "data.archive_file.address"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_apigatewayv2_route",
+      "name": "auth",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "api_id": "0nusevsdnb",
+            "api_key_required": false,
+            "authorization_scopes": [],
+            "authorization_type": "NONE",
+            "authorizer_id": "",
+            "id": "zzarqh9",
+            "model_selection_expression": "",
+            "operation_name": "",
+            "request_models": {},
+            "request_parameter": [],
+            "route_key": "ANY /v1/auth/{proxy+}",
+            "route_response_selection_expression": "",
+            "target": "integrations/51qyhns"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_apigatewayv2_api.main_api",
+            "aws_apigatewayv2_integration.auth",
+            "aws_iam_role.lambda_role",
+            "aws_lambda_function.auth_service",
+            "data.archive_file.auth_zip"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_apigatewayv2_route",
+      "name": "auth_options",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "api_id": "0nusevsdnb",
+            "api_key_required": false,
+            "authorization_scopes": [],
+            "authorization_type": "NONE",
+            "authorizer_id": "",
+            "id": "x8jg083",
+            "model_selection_expression": "",
+            "operation_name": "",
+            "request_models": {},
+            "request_parameter": [],
+            "route_key": "OPTIONS /v1/auth/{proxy+}",
+            "route_response_selection_expression": "",
+            "target": "integrations/51qyhns"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_apigatewayv2_api.main_api",
+            "aws_apigatewayv2_integration.auth",
+            "aws_iam_role.lambda_role",
+            "aws_lambda_function.auth_service",
+            "data.archive_file.auth_zip"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_apigatewayv2_route",
+      "name": "auth_root",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "api_id": "0nusevsdnb",
+            "api_key_required": false,
+            "authorization_scopes": [],
+            "authorization_type": "NONE",
+            "authorizer_id": "",
+            "id": "ekq9cga",
+            "model_selection_expression": "",
+            "operation_name": "",
+            "request_models": {},
+            "request_parameter": [],
+            "route_key": "ANY /v1/auth",
+            "route_response_selection_expression": "",
+            "target": "integrations/51qyhns"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_apigatewayv2_api.main_api",
+            "aws_apigatewayv2_integration.auth",
+            "aws_iam_role.lambda_role",
+            "aws_lambda_function.auth_service",
+            "data.archive_file.auth_zip"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_apigatewayv2_route",
+      "name": "auth_root_options",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "api_id": "0nusevsdnb",
+            "api_key_required": false,
+            "authorization_scopes": [],
+            "authorization_type": "NONE",
+            "authorizer_id": "",
+            "id": "4igyt63",
+            "model_selection_expression": "",
+            "operation_name": "",
+            "request_models": {},
+            "request_parameter": [],
+            "route_key": "OPTIONS /v1/auth",
+            "route_response_selection_expression": "",
+            "target": "integrations/51qyhns"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_apigatewayv2_api.main_api",
+            "aws_apigatewayv2_integration.auth",
+            "aws_iam_role.lambda_role",
+            "aws_lambda_function.auth_service",
+            "data.archive_file.auth_zip"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_apigatewayv2_route",
+      "name": "cart",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "api_id": "0nusevsdnb",
+            "api_key_required": false,
+            "authorization_scopes": [],
+            "authorization_type": "NONE",
+            "authorizer_id": "",
+            "id": "b6xx08i",
+            "model_selection_expression": "",
+            "operation_name": "",
+            "request_models": {},
+            "request_parameter": [],
+            "route_key": "ANY /v1/cart/{proxy+}",
+            "route_response_selection_expression": "",
+            "target": "integrations/7wye5qd"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_apigatewayv2_api.main_api",
+            "aws_apigatewayv2_integration.cart",
+            "aws_iam_role.lambda_role",
+            "aws_lambda_function.cart_service",
+            "data.archive_file.cart_zip"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_apigatewayv2_route",
+      "name": "cart_options",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "api_id": "0nusevsdnb",
+            "api_key_required": false,
+            "authorization_scopes": [],
+            "authorization_type": "NONE",
+            "authorizer_id": "",
+            "id": "szmypdv",
+            "model_selection_expression": "",
+            "operation_name": "",
+            "request_models": {},
+            "request_parameter": [],
+            "route_key": "OPTIONS /v1/cart/{proxy+}",
+            "route_response_selection_expression": "",
+            "target": "integrations/7wye5qd"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_apigatewayv2_api.main_api",
+            "aws_apigatewayv2_integration.cart",
+            "aws_iam_role.lambda_role",
+            "aws_lambda_function.cart_service",
+            "data.archive_file.cart_zip"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_apigatewayv2_route",
+      "name": "cart_root",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "api_id": "0nusevsdnb",
+            "api_key_required": false,
+            "authorization_scopes": [],
+            "authorization_type": "NONE",
+            "authorizer_id": "",
+            "id": "i72xw4a",
+            "model_selection_expression": "",
+            "operation_name": "",
+            "request_models": {},
+            "request_parameter": [],
+            "route_key": "ANY /v1/cart",
+            "route_response_selection_expression": "",
+            "target": "integrations/7wye5qd"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_apigatewayv2_api.main_api",
+            "aws_apigatewayv2_integration.cart",
+            "aws_iam_role.lambda_role",
+            "aws_lambda_function.cart_service",
+            "data.archive_file.cart_zip"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_apigatewayv2_route",
+      "name": "cart_root_options",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "api_id": "0nusevsdnb",
+            "api_key_required": false,
+            "authorization_scopes": [],
+            "authorization_type": "NONE",
+            "authorizer_id": "",
+            "id": "eqrup3e",
+            "model_selection_expression": "",
+            "operation_name": "",
+            "request_models": {},
+            "request_parameter": [],
+            "route_key": "OPTIONS /v1/cart",
+            "route_response_selection_expression": "",
+            "target": "integrations/7wye5qd"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_apigatewayv2_api.main_api",
+            "aws_apigatewayv2_integration.cart",
+            "aws_iam_role.lambda_role",
+            "aws_lambda_function.cart_service",
+            "data.archive_file.cart_zip"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_apigatewayv2_route",
+      "name": "logs_options",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "api_id": "0nusevsdnb",
+            "api_key_required": false,
+            "authorization_scopes": [],
+            "authorization_type": "NONE",
+            "authorizer_id": "",
+            "id": "gqyan01",
+            "model_selection_expression": "",
+            "operation_name": "",
+            "request_models": {},
+            "request_parameter": [],
+            "route_key": "OPTIONS /v1/logs",
+            "route_response_selection_expression": "",
+            "target": "integrations/fryibvn"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_apigatewayv2_api.main_api",
+            "aws_apigatewayv2_integration.logs",
+            "aws_dynamodb_table.logs",
+            "aws_iam_role.lambda_role",
+            "aws_lambda_function.logs_service",
+            "data.archive_file.logs"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_apigatewayv2_route",
+      "name": "logs_proxy",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "api_id": "0nusevsdnb",
+            "api_key_required": false,
+            "authorization_scopes": [],
+            "authorization_type": "NONE",
+            "authorizer_id": "",
+            "id": "h1548ik",
+            "model_selection_expression": "",
+            "operation_name": "",
+            "request_models": {},
+            "request_parameter": [],
+            "route_key": "ANY /v1/logs/{proxy+}",
+            "route_response_selection_expression": "",
+            "target": "integrations/fryibvn"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_apigatewayv2_api.main_api",
+            "aws_apigatewayv2_integration.logs",
+            "aws_dynamodb_table.logs",
+            "aws_iam_role.lambda_role",
+            "aws_lambda_function.logs_service",
+            "data.archive_file.logs"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_apigatewayv2_route",
+      "name": "logs_root",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "api_id": "0nusevsdnb",
+            "api_key_required": false,
+            "authorization_scopes": [],
+            "authorization_type": "NONE",
+            "authorizer_id": "",
+            "id": "ceyva6f",
+            "model_selection_expression": "",
+            "operation_name": "",
+            "request_models": {},
+            "request_parameter": [],
+            "route_key": "ANY /v1/logs",
+            "route_response_selection_expression": "",
+            "target": "integrations/fryibvn"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_apigatewayv2_api.main_api",
+            "aws_apigatewayv2_integration.logs",
+            "aws_dynamodb_table.logs",
+            "aws_iam_role.lambda_role",
+            "aws_lambda_function.logs_service",
+            "data.archive_file.logs"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_apigatewayv2_route",
+      "name": "orders",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "api_id": "0nusevsdnb",
+            "api_key_required": false,
+            "authorization_scopes": [],
+            "authorization_type": "NONE",
+            "authorizer_id": "",
+            "id": "d265c0v",
+            "model_selection_expression": "",
+            "operation_name": "",
+            "request_models": {},
+            "request_parameter": [],
+            "route_key": "ANY /v1/orders/{proxy+}",
+            "route_response_selection_expression": "",
+            "target": "integrations/v39f7gc"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_apigatewayv2_api.main_api",
+            "aws_apigatewayv2_integration.order",
+            "aws_iam_role.lambda_role",
+            "aws_lambda_function.order_service",
+            "data.archive_file.order_zip"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_apigatewayv2_route",
+      "name": "orders_options",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "api_id": "0nusevsdnb",
+            "api_key_required": false,
+            "authorization_scopes": [],
+            "authorization_type": "NONE",
+            "authorizer_id": "",
+            "id": "ld7dtu9",
+            "model_selection_expression": "",
+            "operation_name": "",
+            "request_models": {},
+            "request_parameter": [],
+            "route_key": "OPTIONS /v1/orders/{proxy+}",
+            "route_response_selection_expression": "",
+            "target": "integrations/v39f7gc"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_apigatewayv2_api.main_api",
+            "aws_apigatewayv2_integration.order",
+            "aws_iam_role.lambda_role",
+            "aws_lambda_function.order_service",
+            "data.archive_file.order_zip"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_apigatewayv2_route",
+      "name": "orders_root",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "api_id": "0nusevsdnb",
+            "api_key_required": false,
+            "authorization_scopes": [],
+            "authorization_type": "NONE",
+            "authorizer_id": "",
+            "id": "llj1mme",
+            "model_selection_expression": "",
+            "operation_name": "",
+            "request_models": {},
+            "request_parameter": [],
+            "route_key": "ANY /v1/orders",
+            "route_response_selection_expression": "",
+            "target": "integrations/v39f7gc"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_apigatewayv2_api.main_api",
+            "aws_apigatewayv2_integration.order",
+            "aws_iam_role.lambda_role",
+            "aws_lambda_function.order_service",
+            "data.archive_file.order_zip"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_apigatewayv2_route",
+      "name": "orders_root_options",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "api_id": "0nusevsdnb",
+            "api_key_required": false,
+            "authorization_scopes": [],
+            "authorization_type": "NONE",
+            "authorizer_id": "",
+            "id": "6o3oxx0",
+            "model_selection_expression": "",
+            "operation_name": "",
+            "request_models": {},
+            "request_parameter": [],
+            "route_key": "OPTIONS /v1/orders",
+            "route_response_selection_expression": "",
+            "target": "integrations/v39f7gc"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_apigatewayv2_api.main_api",
+            "aws_apigatewayv2_integration.order",
+            "aws_iam_role.lambda_role",
+            "aws_lambda_function.order_service",
+            "data.archive_file.order_zip"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_apigatewayv2_route",
+      "name": "payment_initiate",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "api_id": "0nusevsdnb",
+            "api_key_required": false,
+            "authorization_scopes": [],
+            "authorization_type": "NONE",
+            "authorizer_id": "",
+            "id": "urstgjl",
+            "model_selection_expression": "",
+            "operation_name": "",
+            "request_models": {},
+            "request_parameter": [],
+            "route_key": "POST /v1/payments/initiate",
+            "route_response_selection_expression": "",
+            "target": "integrations/38bvgs1"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_apigatewayv2_api.main_api",
+            "aws_apigatewayv2_integration.payment",
+            "aws_dynamodb_table.payments",
+            "aws_iam_role.lambda_role",
+            "aws_lambda_function.payment",
+            "data.archive_file.payment"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_apigatewayv2_route",
+      "name": "payment_initiate_options",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "api_id": "0nusevsdnb",
+            "api_key_required": false,
+            "authorization_scopes": [],
+            "authorization_type": "NONE",
+            "authorizer_id": "",
+            "id": "yzyu9u4",
+            "model_selection_expression": "",
+            "operation_name": "",
+            "request_models": {},
+            "request_parameter": [],
+            "route_key": "OPTIONS /v1/payments/initiate",
+            "route_response_selection_expression": "",
+            "target": "integrations/38bvgs1"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_apigatewayv2_api.main_api",
+            "aws_apigatewayv2_integration.payment",
+            "aws_dynamodb_table.payments",
+            "aws_iam_role.lambda_role",
+            "aws_lambda_function.payment",
+            "data.archive_file.payment"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_apigatewayv2_route",
+      "name": "payment_verify",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "api_id": "0nusevsdnb",
+            "api_key_required": false,
+            "authorization_scopes": [],
+            "authorization_type": "NONE",
+            "authorizer_id": "",
+            "id": "c8gyrq3",
+            "model_selection_expression": "",
+            "operation_name": "",
+            "request_models": {},
+            "request_parameter": [],
+            "route_key": "POST /v1/payments/verify",
+            "route_response_selection_expression": "",
+            "target": "integrations/38bvgs1"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_apigatewayv2_api.main_api",
+            "aws_apigatewayv2_integration.payment",
+            "aws_dynamodb_table.payments",
+            "aws_iam_role.lambda_role",
+            "aws_lambda_function.payment",
+            "data.archive_file.payment"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_apigatewayv2_route",
+      "name": "payment_verify_options",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "api_id": "0nusevsdnb",
+            "api_key_required": false,
+            "authorization_scopes": [],
+            "authorization_type": "NONE",
+            "authorizer_id": "",
+            "id": "p1z9p4g",
+            "model_selection_expression": "",
+            "operation_name": "",
+            "request_models": {},
+            "request_parameter": [],
+            "route_key": "OPTIONS /v1/payments/verify",
+            "route_response_selection_expression": "",
+            "target": "integrations/38bvgs1"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_apigatewayv2_api.main_api",
+            "aws_apigatewayv2_integration.payment",
+            "aws_dynamodb_table.payments",
+            "aws_iam_role.lambda_role",
+            "aws_lambda_function.payment",
+            "data.archive_file.payment"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_apigatewayv2_route",
+      "name": "product",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "api_id": "0nusevsdnb",
+            "api_key_required": false,
+            "authorization_scopes": [],
+            "authorization_type": "NONE",
+            "authorizer_id": "",
+            "id": "xr4pfy9",
+            "model_selection_expression": "",
+            "operation_name": "",
+            "request_models": {},
+            "request_parameter": [],
+            "route_key": "ANY /v1/products/{proxy+}",
+            "route_response_selection_expression": "",
+            "target": "integrations/d83b2y3"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_apigatewayv2_api.main_api",
+            "aws_apigatewayv2_integration.product",
+            "aws_iam_role.lambda_role",
+            "aws_lambda_function.product_service",
+            "data.archive_file.product_zip"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_apigatewayv2_route",
+      "name": "product_options",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "api_id": "0nusevsdnb",
+            "api_key_required": false,
+            "authorization_scopes": [],
+            "authorization_type": "NONE",
+            "authorizer_id": "",
+            "id": "wwxr79e",
+            "model_selection_expression": "",
+            "operation_name": "",
+            "request_models": {},
+            "request_parameter": [],
+            "route_key": "OPTIONS /v1/products/{proxy+}",
+            "route_response_selection_expression": "",
+            "target": "integrations/d83b2y3"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_apigatewayv2_api.main_api",
+            "aws_apigatewayv2_integration.product",
+            "aws_iam_role.lambda_role",
+            "aws_lambda_function.product_service",
+            "data.archive_file.product_zip"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_apigatewayv2_route",
+      "name": "product_root",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "api_id": "0nusevsdnb",
+            "api_key_required": false,
+            "authorization_scopes": [],
+            "authorization_type": "NONE",
+            "authorizer_id": "",
+            "id": "xsf83ni",
+            "model_selection_expression": "",
+            "operation_name": "",
+            "request_models": {},
+            "request_parameter": [],
+            "route_key": "ANY /v1/products",
+            "route_response_selection_expression": "",
+            "target": "integrations/d83b2y3"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_apigatewayv2_api.main_api",
+            "aws_apigatewayv2_integration.product",
+            "aws_iam_role.lambda_role",
+            "aws_lambda_function.product_service",
+            "data.archive_file.product_zip"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_apigatewayv2_route",
+      "name": "product_root_options",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "api_id": "0nusevsdnb",
+            "api_key_required": false,
+            "authorization_scopes": [],
+            "authorization_type": "NONE",
+            "authorizer_id": "",
+            "id": "jq4fyz2",
+            "model_selection_expression": "",
+            "operation_name": "",
+            "request_models": {},
+            "request_parameter": [],
+            "route_key": "OPTIONS /v1/products",
+            "route_response_selection_expression": "",
+            "target": "integrations/d83b2y3"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_apigatewayv2_api.main_api",
+            "aws_apigatewayv2_integration.product",
+            "aws_iam_role.lambda_role",
+            "aws_lambda_function.product_service",
+            "data.archive_file.product_zip"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_apigatewayv2_stage",
+      "name": "main_stage",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "access_log_settings": [],
+            "api_id": "0nusevsdnb",
+            "arn": "arn:aws:apigateway:ap-southeast-1::/apis/0nusevsdnb/stages/$default",
+            "auto_deploy": true,
+            "client_certificate_id": "",
+            "default_route_settings": [
+              {
+                "data_trace_enabled": false,
+                "detailed_metrics_enabled": false,
+                "logging_level": "",
+                "throttling_burst_limit": 0,
+                "throttling_rate_limit": 0
+              }
+            ],
+            "deployment_id": "phqmgq",
+            "description": "",
+            "execution_arn": "arn:aws:execute-api:ap-southeast-1:726101441380:0nusevsdnb/$default",
+            "id": "$default",
+            "invoke_url": "https://0nusevsdnb.execute-api.ap-southeast-1.amazonaws.com/",
+            "name": "$default",
+            "route_settings": [],
+            "stage_variables": {},
+            "tags": {},
+            "tags_all": {}
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_apigatewayv2_api.main_api"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_cloudfront_distribution",
+      "name": "frontend",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 1,
+          "attributes": {
+            "aliases": [],
+            "arn": "arn:aws:cloudfront::726101441380:distribution/E3GA729SVQ4BVX",
+            "caller_reference": "terraform-20260413064606400800000001",
+            "comment": "dev-flashmart-frontend",
+            "continuous_deployment_policy_id": "",
+            "custom_error_response": [
+              {
+                "error_caching_min_ttl": 0,
+                "error_code": 403,
+                "response_code": 200,
+                "response_page_path": "/index.html"
+              },
+              {
+                "error_caching_min_ttl": 0,
+                "error_code": 404,
+                "response_code": 200,
+                "response_page_path": "/index.html"
+              }
+            ],
+            "default_cache_behavior": [
+              {
+                "allowed_methods": [
+                  "GET",
+                  "HEAD",
+                  "OPTIONS"
+                ],
+                "cache_policy_id": "",
+                "cached_methods": [
+                  "GET",
+                  "HEAD"
+                ],
+                "compress": false,
+                "default_ttl": 3600,
+                "field_level_encryption_id": "",
+                "forwarded_values": [
+                  {
+                    "cookies": [
+                      {
+                        "forward": "none",
+                        "whitelisted_names": []
+                      }
+                    ],
+                    "headers": [],
+                    "query_string": false,
+                    "query_string_cache_keys": []
+                  }
+                ],
+                "function_association": [],
+                "grpc_config": [
+                  {
+                    "enabled": false
+                  }
+                ],
+                "lambda_function_association": [],
+                "max_ttl": 86400,
+                "min_ttl": 0,
+                "origin_request_policy_id": "",
+                "realtime_log_config_arn": "",
+                "response_headers_policy_id": "",
+                "smooth_streaming": false,
+                "target_origin_id": "S3-dev-flashmart-frontend",
+                "trusted_key_groups": [],
+                "trusted_signers": [],
+                "viewer_protocol_policy": "redirect-to-https"
+              }
+            ],
+            "default_root_object": "index.html",
+            "domain_name": "d3kb5156to7tlk.cloudfront.net",
+            "enabled": true,
+            "etag": "E3UN6WX5RRO2AG",
+            "hosted_zone_id": "Z2FDTNDATAQYW2",
+            "http_version": "http2",
+            "id": "E3GA729SVQ4BVX",
+            "in_progress_validation_batches": 0,
+            "is_ipv6_enabled": false,
+            "last_modified_time": "2026-06-01 04:53:47.923 +0000 UTC",
+            "logging_config": [],
+            "ordered_cache_behavior": [
+              {
+                "allowed_methods": [
+                  "GET",
+                  "HEAD"
+                ],
+                "cache_policy_id": "",
+                "cached_methods": [
+                  "GET",
+                  "HEAD"
+                ],
+                "compress": false,
+                "default_ttl": 86400,
+                "field_level_encryption_id": "",
+                "forwarded_values": [
+                  {
+                    "cookies": [
+                      {
+                        "forward": "none",
+                        "whitelisted_names": null
+                      }
+                    ],
+                    "headers": [],
+                    "query_string": false,
+                    "query_string_cache_keys": []
+                  }
+                ],
+                "function_association": [],
+                "grpc_config": [
+                  {
+                    "enabled": false
+                  }
+                ],
+                "lambda_function_association": [],
+                "max_ttl": 31536000,
+                "min_ttl": 0,
+                "origin_request_policy_id": "",
+                "path_pattern": "/products/*",
+                "realtime_log_config_arn": "",
+                "response_headers_policy_id": "",
+                "smooth_streaming": false,
+                "target_origin_id": "S3-flashmart-product-images",
+                "trusted_key_groups": null,
+                "trusted_signers": null,
+                "viewer_protocol_policy": "redirect-to-https"
+              }
+            ],
+            "origin": [
+              {
+                "connection_attempts": 3,
+                "connection_timeout": 10,
+                "custom_header": [],
+                "custom_origin_config": [],
+                "domain_name": "dev-flashmart-frontend.s3.ap-southeast-1.amazonaws.com",
+                "origin_access_control_id": "E3D52PMTJMRQBJ",
+                "origin_id": "S3-dev-flashmart-frontend",
+                "origin_path": "",
+                "origin_shield": [],
+                "s3_origin_config": [],
+                "vpc_origin_config": []
+              },
+              {
+                "connection_attempts": 3,
+                "connection_timeout": 10,
+                "custom_header": [],
+                "custom_origin_config": [],
+                "domain_name": "flashmart-product-images.s3.ap-southeast-1.amazonaws.com",
+                "origin_access_control_id": "E1DBQEZN3AZPVB",
+                "origin_id": "S3-flashmart-product-images",
+                "origin_path": "",
+                "origin_shield": [],
+                "s3_origin_config": [],
+                "vpc_origin_config": []
+              }
+            ],
+            "origin_group": [],
+            "price_class": "PriceClass_100",
+            "restrictions": [
+              {
+                "geo_restriction": [
+                  {
+                    "locations": [],
+                    "restriction_type": "none"
+                  }
+                ]
+              }
+            ],
+            "retain_on_delete": false,
+            "staging": false,
+            "status": "Deployed",
+            "tags": {
+              "Environment": "dev",
+              "Project": "flashmart"
+            },
+            "tags_all": {
+              "Environment": "dev",
+              "Project": "flashmart"
+            },
+            "trusted_key_groups": [
+              {
+                "enabled": false,
+                "items": []
+              }
+            ],
+            "trusted_signers": [
+              {
+                "enabled": false,
+                "items": []
+              }
+            ],
+            "viewer_certificate": [
+              {
+                "acm_certificate_arn": "",
+                "cloudfront_default_certificate": true,
+                "iam_certificate_id": "",
+                "minimum_protocol_version": "TLSv1",
+                "ssl_support_method": ""
+              }
+            ],
+            "wait_for_deployment": true,
+            "web_acl_id": ""
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "eyJzY2hlbWFfdmVyc2lvbiI6IjEifQ==",
+          "dependencies": [
+            "aws_cloudfront_origin_access_control.frontend",
+            "aws_cloudfront_origin_access_control.images",
+            "aws_s3_bucket.frontend",
+            "aws_s3_bucket.product_images"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_cloudfront_origin_access_control",
+      "name": "frontend",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "arn": "arn:aws:cloudfront::726101441380:origin-access-control/E3D52PMTJMRQBJ",
+            "description": "Managed by Terraform",
+            "etag": "ETVPDKIKX0DER",
+            "id": "E3D52PMTJMRQBJ",
+            "name": "dev-flashmart-oac",
+            "origin_access_control_origin_type": "s3",
+            "signing_behavior": "always",
+            "signing_protocol": "sigv4"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA=="
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_cloudfront_origin_access_control",
+      "name": "images",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "arn": "arn:aws:cloudfront::726101441380:origin-access-control/E1DBQEZN3AZPVB",
+            "description": "Managed by Terraform",
+            "etag": "ETVPDKIKX0DER",
+            "id": "E1DBQEZN3AZPVB",
+            "name": "dev-flashmart-images-oac",
+            "origin_access_control_origin_type": "s3",
+            "signing_behavior": "always",
+            "signing_protocol": "sigv4"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA=="
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_dynamodb_table",
+      "name": "auth_table",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 1,
+          "attributes": {
+            "arn": "arn:aws:dynamodb:ap-southeast-1:726101441380:table/dev-flashmart_users",
+            "attribute": [
+              {
+                "name": "userId",
+                "type": "S"
+              }
+            ],
+            "billing_mode": "PAY_PER_REQUEST",
+            "deletion_protection_enabled": false,
+            "global_secondary_index": [],
+            "hash_key": "userId",
+            "id": "dev-flashmart_users",
+            "import_table": [],
+            "local_secondary_index": [],
+            "name": "dev-flashmart_users",
+            "on_demand_throughput": [],
+            "point_in_time_recovery": [
+              {
+                "enabled": false,
+                "recovery_period_in_days": 0
+              }
+            ],
+            "range_key": null,
+            "read_capacity": 0,
+            "replica": [],
+            "restore_date_time": null,
+            "restore_source_name": null,
+            "restore_source_table_arn": null,
+            "restore_to_latest_time": null,
+            "server_side_encryption": [],
+            "stream_arn": "",
+            "stream_enabled": false,
+            "stream_label": "",
+            "stream_view_type": "",
+            "table_class": "STANDARD",
+            "tags": {
+              "Environment": "dev",
+              "Project": "flashmart",
+              "Service": "auth"
+            },
+            "tags_all": {
+              "Environment": "dev",
+              "Project": "flashmart",
+              "Service": "auth"
+            },
+            "timeouts": null,
+            "ttl": [
+              {
+                "attribute_name": "",
+                "enabled": false
+              }
+            ],
+            "write_capacity": 0
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjYwMDAwMDAwMDAwMCwidXBkYXRlIjozNjAwMDAwMDAwMDAwfSwic2NoZW1hX3ZlcnNpb24iOiIxIn0="
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_dynamodb_table",
+      "name": "cart",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 1,
+          "attributes": {
+            "arn": "arn:aws:dynamodb:ap-southeast-1:726101441380:table/dev-flashmart-cart",
+            "attribute": [
+              {
+                "name": "user_id",
+                "type": "S"
+              }
+            ],
+            "billing_mode": "PAY_PER_REQUEST",
+            "deletion_protection_enabled": false,
+            "global_secondary_index": [],
+            "hash_key": "user_id",
+            "id": "dev-flashmart-cart",
+            "import_table": [],
+            "local_secondary_index": [],
+            "name": "dev-flashmart-cart",
+            "on_demand_throughput": [],
+            "point_in_time_recovery": [
+              {
+                "enabled": false,
+                "recovery_period_in_days": 0
+              }
+            ],
+            "range_key": null,
+            "read_capacity": 0,
+            "replica": [],
+            "restore_date_time": null,
+            "restore_source_name": null,
+            "restore_source_table_arn": null,
+            "restore_to_latest_time": null,
+            "server_side_encryption": [],
+            "stream_arn": "",
+            "stream_enabled": false,
+            "stream_label": "",
+            "stream_view_type": "",
+            "table_class": "STANDARD",
+            "tags": {
+              "Environment": "dev",
+              "Name": "dev-flashmart-cart",
+              "Project": "flashmart"
+            },
+            "tags_all": {
+              "Environment": "dev",
+              "Name": "dev-flashmart-cart",
+              "Project": "flashmart"
+            },
+            "timeouts": null,
+            "ttl": [
+              {
+                "attribute_name": "",
+                "enabled": false
+              }
+            ],
+            "write_capacity": 0
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjYwMDAwMDAwMDAwMCwidXBkYXRlIjozNjAwMDAwMDAwMDAwfSwic2NoZW1hX3ZlcnNpb24iOiIxIn0="
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_dynamodb_table",
+      "name": "logs",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 1,
+          "attributes": {
+            "arn": "arn:aws:dynamodb:ap-southeast-1:726101441380:table/dev-flashmart-logs",
+            "attribute": [
+              {
+                "name": "id",
+                "type": "S"
+              }
+            ],
+            "billing_mode": "PAY_PER_REQUEST",
+            "deletion_protection_enabled": false,
+            "global_secondary_index": [],
+            "hash_key": "id",
+            "id": "dev-flashmart-logs",
+            "import_table": [],
+            "local_secondary_index": [],
+            "name": "dev-flashmart-logs",
+            "on_demand_throughput": [],
+            "point_in_time_recovery": [
+              {
+                "enabled": false,
+                "recovery_period_in_days": 0
+              }
+            ],
+            "range_key": null,
+            "read_capacity": 0,
+            "replica": [],
+            "restore_date_time": null,
+            "restore_source_name": null,
+            "restore_source_table_arn": null,
+            "restore_to_latest_time": null,
+            "server_side_encryption": [],
+            "stream_arn": "",
+            "stream_enabled": false,
+            "stream_label": "",
+            "stream_view_type": "",
+            "table_class": "STANDARD",
+            "tags": {
+              "Environment": "dev",
+              "Project": "flashmart",
+              "Service": "logs"
+            },
+            "tags_all": {
+              "Environment": "dev",
+              "Project": "flashmart",
+              "Service": "logs"
+            },
+            "timeouts": null,
+            "ttl": [
+              {
+                "attribute_name": "ttl",
+                "enabled": true
+              }
+            ],
+            "write_capacity": 0
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjYwMDAwMDAwMDAwMCwidXBkYXRlIjozNjAwMDAwMDAwMDAwfSwic2NoZW1hX3ZlcnNpb24iOiIxIn0="
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_dynamodb_table",
+      "name": "orders",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 1,
+          "attributes": {
+            "arn": "arn:aws:dynamodb:ap-southeast-1:726101441380:table/dev-flashmart-orders",
+            "attribute": [
+              {
+                "name": "order_id",
+                "type": "S"
+              }
+            ],
+            "billing_mode": "PAY_PER_REQUEST",
+            "deletion_protection_enabled": false,
+            "global_secondary_index": [],
+            "hash_key": "order_id",
+            "id": "dev-flashmart-orders",
+            "import_table": [],
+            "local_secondary_index": [],
+            "name": "dev-flashmart-orders",
+            "on_demand_throughput": [],
+            "point_in_time_recovery": [
+              {
+                "enabled": false,
+                "recovery_period_in_days": 0
+              }
+            ],
+            "range_key": null,
+            "read_capacity": 0,
+            "replica": [],
+            "restore_date_time": null,
+            "restore_source_name": null,
+            "restore_source_table_arn": null,
+            "restore_to_latest_time": null,
+            "server_side_encryption": [],
+            "stream_arn": "",
+            "stream_enabled": false,
+            "stream_label": "",
+            "stream_view_type": "",
+            "table_class": "STANDARD",
+            "tags": {
+              "Environment": "dev",
+              "Name": "dev-flashmart-orders",
+              "Project": "flashmart"
+            },
+            "tags_all": {
+              "Environment": "dev",
+              "Name": "dev-flashmart-orders",
+              "Project": "flashmart"
+            },
+            "timeouts": null,
+            "ttl": [
+              {
+                "attribute_name": "",
+                "enabled": false
+              }
+            ],
+            "write_capacity": 0
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjYwMDAwMDAwMDAwMCwidXBkYXRlIjozNjAwMDAwMDAwMDAwfSwic2NoZW1hX3ZlcnNpb24iOiIxIn0="
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_dynamodb_table",
+      "name": "payments",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 1,
+          "attributes": {
+            "arn": "arn:aws:dynamodb:ap-southeast-1:726101441380:table/dev-flashmart-payments",
+            "attribute": [
+              {
+                "name": "order_id",
+                "type": "S"
+              },
+              {
+                "name": "payment_id",
+                "type": "S"
+              },
+              {
+                "name": "user_id",
+                "type": "S"
+              }
+            ],
+            "billing_mode": "PAY_PER_REQUEST",
+            "deletion_protection_enabled": false,
+            "global_secondary_index": [
+              {
+                "hash_key": "order_id",
+                "name": "order_id-index",
+                "non_key_attributes": [],
+                "on_demand_throughput": [],
+                "projection_type": "ALL",
+                "range_key": "",
+                "read_capacity": 0,
+                "write_capacity": 0
+              },
+              {
+                "hash_key": "user_id",
+                "name": "user_id-index",
+                "non_key_attributes": [],
+                "on_demand_throughput": [],
+                "projection_type": "ALL",
+                "range_key": "",
+                "read_capacity": 0,
+                "write_capacity": 0
+              }
+            ],
+            "hash_key": "payment_id",
+            "id": "dev-flashmart-payments",
+            "import_table": [],
+            "local_secondary_index": [],
+            "name": "dev-flashmart-payments",
+            "on_demand_throughput": [],
+            "point_in_time_recovery": [
+              {
+                "enabled": false,
+                "recovery_period_in_days": 0
+              }
+            ],
+            "range_key": null,
+            "read_capacity": 0,
+            "replica": [],
+            "restore_date_time": null,
+            "restore_source_name": null,
+            "restore_source_table_arn": null,
+            "restore_to_latest_time": null,
+            "server_side_encryption": [],
+            "stream_arn": "",
+            "stream_enabled": false,
+            "stream_label": "",
+            "stream_view_type": "",
+            "table_class": "STANDARD",
+            "tags": {
+              "Environment": "dev",
+              "Name": "dev-flashmart-payments",
+              "Project": "flashmart"
+            },
+            "tags_all": {
+              "Environment": "dev",
+              "Name": "dev-flashmart-payments",
+              "Project": "flashmart"
+            },
+            "timeouts": null,
+            "ttl": [
+              {
+                "attribute_name": "",
+                "enabled": false
+              }
+            ],
+            "write_capacity": 0
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjYwMDAwMDAwMDAwMCwidXBkYXRlIjozNjAwMDAwMDAwMDAwfSwic2NoZW1hX3ZlcnNpb24iOiIxIn0="
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_dynamodb_table",
+      "name": "products",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 1,
+          "attributes": {
+            "arn": "arn:aws:dynamodb:ap-southeast-1:726101441380:table/dev-flashmart-products",
+            "attribute": [
+              {
+                "name": "id",
+                "type": "S"
+              }
+            ],
+            "billing_mode": "PAY_PER_REQUEST",
+            "deletion_protection_enabled": false,
+            "global_secondary_index": [],
+            "hash_key": "id",
+            "id": "dev-flashmart-products",
+            "import_table": [],
+            "local_secondary_index": [],
+            "name": "dev-flashmart-products",
+            "on_demand_throughput": [],
+            "point_in_time_recovery": [
+              {
+                "enabled": false,
+                "recovery_period_in_days": 0
+              }
+            ],
+            "range_key": null,
+            "read_capacity": 0,
+            "replica": [],
+            "restore_date_time": null,
+            "restore_source_name": null,
+            "restore_source_table_arn": null,
+            "restore_to_latest_time": null,
+            "server_side_encryption": [],
+            "stream_arn": "",
+            "stream_enabled": false,
+            "stream_label": "",
+            "stream_view_type": "",
+            "table_class": "STANDARD",
+            "tags": {
+              "Environment": "dev",
+              "Name": "dev-flashmart-products",
+              "Project": "flashmart"
+            },
+            "tags_all": {
+              "Environment": "dev",
+              "Name": "dev-flashmart-products",
+              "Project": "flashmart"
+            },
+            "timeouts": null,
+            "ttl": [
+              {
+                "attribute_name": "",
+                "enabled": false
+              }
+            ],
+            "write_capacity": 0
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjYwMDAwMDAwMDAwMCwidXBkYXRlIjozNjAwMDAwMDAwMDAwfSwic2NoZW1hX3ZlcnNpb24iOiIxIn0="
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_iam_role",
+      "name": "lambda_role",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "arn": "arn:aws:iam::726101441380:role/dev-flashmart-lambda-role",
+            "assume_role_policy": "{\"Statement\":[{\"Action\":\"sts:AssumeRole\",\"Effect\":\"Allow\",\"Principal\":{\"Service\":\"lambda.amazonaws.com\"}}],\"Version\":\"2012-10-17\"}",
+            "create_date": "2026-04-11T02:18:00Z",
+            "description": "",
+            "force_detach_policies": false,
+            "id": "dev-flashmart-lambda-role",
+            "inline_policy": [],
+            "managed_policy_arns": [
+              "arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess",
+              "arn:aws:iam::aws:policy/AmazonS3FullAccess",
+              "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+            ],
+            "max_session_duration": 3600,
+            "name": "dev-flashmart-lambda-role",
+            "name_prefix": "",
+            "path": "/",
+            "permissions_boundary": "",
+            "tags": {
+              "Environment": "dev",
+              "Project": "flashmart"
+            },
+            "tags_all": {
+              "Environment": "dev",
+              "Project": "flashmart"
+            },
+            "unique_id": "AROA2SDYEXNSDAURKLIIN"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA=="
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_iam_role_policy_attachment",
+      "name": "lambda_basic_execution",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "id": "dev-flashmart-lambda-role-20260411021803404400000003",
+            "policy_arn": "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+            "role": "dev-flashmart-lambda-role"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_iam_role.lambda_role"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_iam_role_policy_attachment",
+      "name": "lambda_dynamodb_access",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "id": "dev-flashmart-lambda-role-20260411021802468500000001",
+            "policy_arn": "arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess",
+            "role": "dev-flashmart-lambda-role"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_iam_role.lambda_role"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_iam_role_policy_attachment",
+      "name": "lambda_s3_access",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "id": "dev-flashmart-lambda-role-20260411021803394800000002",
+            "policy_arn": "arn:aws:iam::aws:policy/AmazonS3FullAccess",
+            "role": "dev-flashmart-lambda-role"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_iam_role.lambda_role"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_lambda_function",
+      "name": "address",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "architectures": [
+              "x86_64"
+            ],
+            "arn": "arn:aws:lambda:ap-southeast-1:726101441380:function:dev-flashmart-address-service",
+            "code_sha256": "vsrgVVPIVkxgYyfrr7sR3d6UXYW5T1aMGkDsJ0kS4LM=",
+            "code_signing_config_arn": "",
+            "dead_letter_config": [],
+            "description": "",
+            "environment": [
+              {
+                "variables": {
+                  "JWT_SECRET": "mySuperSecretKey123!",
+                  "USERS_TABLE_NAME": "dev-flashmart_users"
+                }
+              }
+            ],
+            "ephemeral_storage": [
+              {
+                "size": 512
+              }
+            ],
+            "file_system_config": [],
+            "filename": "./lambda_code/zips/address_service.zip",
+            "function_name": "dev-flashmart-address-service",
+            "handler": "lambda_function.lambda_handler",
+            "id": "dev-flashmart-address-service",
+            "image_config": [],
+            "image_uri": "",
+            "invoke_arn": "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/arn:aws:lambda:ap-southeast-1:726101441380:function:dev-flashmart-address-service/invocations",
+            "kms_key_arn": "",
+            "last_modified": "2026-06-01T04:37:54.000+0000",
+            "layers": [],
+            "logging_config": [
+              {
+                "application_log_level": "",
+                "log_format": "Text",
+                "log_group": "/aws/lambda/dev-flashmart-address-service",
+                "system_log_level": ""
+              }
+            ],
+            "memory_size": 256,
+            "package_type": "Zip",
+            "publish": false,
+            "qualified_arn": "arn:aws:lambda:ap-southeast-1:726101441380:function:dev-flashmart-address-service:$LATEST",
+            "qualified_invoke_arn": "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/arn:aws:lambda:ap-southeast-1:726101441380:function:dev-flashmart-address-service:$LATEST/invocations",
+            "replace_security_groups_on_destroy": null,
+            "replacement_security_group_ids": null,
+            "reserved_concurrent_executions": -1,
+            "role": "arn:aws:iam::726101441380:role/dev-flashmart-lambda-role",
+            "runtime": "python3.12",
+            "s3_bucket": null,
+            "s3_key": null,
+            "s3_object_version": null,
+            "signing_job_arn": "",
+            "signing_profile_version_arn": "",
+            "skip_destroy": false,
+            "snap_start": [],
+            "source_code_hash": "vsrgVVPIVkxgYyfrr7sR3d6UXYW5T1aMGkDsJ0kS4LM=",
+            "source_code_size": 93283,
+            "tags": {
+              "Environment": "dev",
+              "Name": "dev-flashmart-address-service",
+              "Project": "flashmart"
+            },
+            "tags_all": {
+              "Environment": "dev",
+              "Name": "dev-flashmart-address-service",
+              "Project": "flashmart"
+            },
+            "timeout": 30,
+            "timeouts": null,
+            "tracing_config": [
+              {
+                "mode": "PassThrough"
+              }
+            ],
+            "version": "$LATEST",
+            "vpc_config": []
+          },
+          "sensitive_attributes": [
+            [
+              {
+                "type": "get_attr",
+                "value": "environment"
+              },
+              {
+                "type": "index",
+                "value": {
+                  "value": 0,
+                  "type": "number"
+                }
+              },
+              {
+                "type": "get_attr",
+                "value": "variables"
+              },
+              {
+                "type": "index",
+                "value": {
+                  "value": "JWT_SECRET",
+                  "type": "string"
+                }
+              }
+            ]
+          ],
+          "identity_schema_version": 0,
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjo2MDAwMDAwMDAwMDAsImRlbGV0ZSI6NjAwMDAwMDAwMDAwLCJ1cGRhdGUiOjYwMDAwMDAwMDAwMH19",
+          "dependencies": [
+            "aws_iam_role.lambda_role",
+            "data.archive_file.address"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_lambda_function",
+      "name": "auth_service",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "architectures": [
+              "x86_64"
+            ],
+            "arn": "arn:aws:lambda:ap-southeast-1:726101441380:function:dev-flashmart-auth-service",
+            "code_sha256": "j6He1kVUPHfYldeqzDYTo89/37iYJ0PldUZ5xWHgACs=",
+            "code_signing_config_arn": "",
+            "dead_letter_config": [],
+            "description": "",
+            "environment": [
+              {
+                "variables": {
+                  "DYNAMODB_TABLE": "dev-flashmart_users",
+                  "ENVIRONMENT": "dev",
+                  "JWT_SECRET": "mySuperSecretKey123!"
+                }
+              }
+            ],
+            "ephemeral_storage": [
+              {
+                "size": 512
+              }
+            ],
+            "file_system_config": [],
+            "filename": "./lambda_code/zips/auth_service.zip",
+            "function_name": "dev-flashmart-auth-service",
+            "handler": "lambda_function.lambda_handler",
+            "id": "dev-flashmart-auth-service",
+            "image_config": [],
+            "image_uri": "",
+            "invoke_arn": "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/arn:aws:lambda:ap-southeast-1:726101441380:function:dev-flashmart-auth-service/invocations",
+            "kms_key_arn": "",
+            "last_modified": "2026-06-01T04:37:36.000+0000",
+            "layers": [],
+            "logging_config": [
+              {
+                "application_log_level": "",
+                "log_format": "Text",
+                "log_group": "/aws/lambda/dev-flashmart-auth-service",
+                "system_log_level": ""
+              }
+            ],
+            "memory_size": 256,
+            "package_type": "Zip",
+            "publish": false,
+            "qualified_arn": "arn:aws:lambda:ap-southeast-1:726101441380:function:dev-flashmart-auth-service:$LATEST",
+            "qualified_invoke_arn": "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/arn:aws:lambda:ap-southeast-1:726101441380:function:dev-flashmart-auth-service:$LATEST/invocations",
+            "replace_security_groups_on_destroy": null,
+            "replacement_security_group_ids": null,
+            "reserved_concurrent_executions": -1,
+            "role": "arn:aws:iam::726101441380:role/dev-flashmart-lambda-role",
+            "runtime": "python3.12",
+            "s3_bucket": null,
+            "s3_key": null,
+            "s3_object_version": null,
+            "signing_job_arn": "",
+            "signing_profile_version_arn": "",
+            "skip_destroy": false,
+            "snap_start": [],
+            "source_code_hash": "j6He1kVUPHfYldeqzDYTo89/37iYJ0PldUZ5xWHgACs=",
+            "source_code_size": 92129,
+            "tags": {
+              "Environment": "dev",
+              "Project": "flashmart",
+              "Service": "auth"
+            },
+            "tags_all": {
+              "Environment": "dev",
+              "Project": "flashmart",
+              "Service": "auth"
+            },
+            "timeout": 30,
+            "timeouts": null,
+            "tracing_config": [
+              {
+                "mode": "PassThrough"
+              }
+            ],
+            "version": "$LATEST",
+            "vpc_config": []
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjo2MDAwMDAwMDAwMDAsImRlbGV0ZSI6NjAwMDAwMDAwMDAwLCJ1cGRhdGUiOjYwMDAwMDAwMDAwMH19",
+          "dependencies": [
+            "aws_iam_role.lambda_role",
+            "data.archive_file.auth_zip"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_lambda_function",
+      "name": "cart_service",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "architectures": [
+              "x86_64"
+            ],
+            "arn": "arn:aws:lambda:ap-southeast-1:726101441380:function:dev-flashmart-cart-service",
+            "code_sha256": "xgGpfUAyRTNwyGSV+qvbzsEcXC4k7TT0IHE0JJU7IyM=",
+            "code_signing_config_arn": "",
+            "dead_letter_config": [],
+            "description": "",
+            "environment": [
+              {
+                "variables": {
+                  "DYNAMODB_TABLE": "dev-flashmart-cart",
+                  "ENVIRONMENT": "dev",
+                  "JWT_SECRET": "mySuperSecretKey123!",
+                  "PRODUCT_SERVICE_URL": "https://0nusevsdnb.execute-api.ap-southeast-1.amazonaws.com"
+                }
+              }
+            ],
+            "ephemeral_storage": [
+              {
+                "size": 512
+              }
+            ],
+            "file_system_config": [],
+            "filename": "./lambda_code/zips/cart_service.zip",
+            "function_name": "dev-flashmart-cart-service",
+            "handler": "lambda_function.lambda_handler",
+            "id": "dev-flashmart-cart-service",
+            "image_config": [],
+            "image_uri": "",
+            "invoke_arn": "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/arn:aws:lambda:ap-southeast-1:726101441380:function:dev-flashmart-cart-service/invocations",
+            "kms_key_arn": "",
+            "last_modified": "2026-06-01T04:37:48.000+0000",
+            "layers": [],
+            "logging_config": [
+              {
+                "application_log_level": "",
+                "log_format": "Text",
+                "log_group": "/aws/lambda/dev-flashmart-cart-service",
+                "system_log_level": ""
+              }
+            ],
+            "memory_size": 256,
+            "package_type": "Zip",
+            "publish": false,
+            "qualified_arn": "arn:aws:lambda:ap-southeast-1:726101441380:function:dev-flashmart-cart-service:$LATEST",
+            "qualified_invoke_arn": "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/arn:aws:lambda:ap-southeast-1:726101441380:function:dev-flashmart-cart-service:$LATEST/invocations",
+            "replace_security_groups_on_destroy": null,
+            "replacement_security_group_ids": null,
+            "reserved_concurrent_executions": -1,
+            "role": "arn:aws:iam::726101441380:role/dev-flashmart-lambda-role",
+            "runtime": "python3.12",
+            "s3_bucket": null,
+            "s3_key": null,
+            "s3_object_version": null,
+            "signing_job_arn": "",
+            "signing_profile_version_arn": "",
+            "skip_destroy": false,
+            "snap_start": [],
+            "source_code_hash": "xgGpfUAyRTNwyGSV+qvbzsEcXC4k7TT0IHE0JJU7IyM=",
+            "source_code_size": 93917,
+            "tags": {
+              "Environment": "dev",
+              "Project": "flashmart",
+              "Service": "cart"
+            },
+            "tags_all": {
+              "Environment": "dev",
+              "Project": "flashmart",
+              "Service": "cart"
+            },
+            "timeout": 30,
+            "timeouts": null,
+            "tracing_config": [
+              {
+                "mode": "PassThrough"
+              }
+            ],
+            "version": "$LATEST",
+            "vpc_config": []
+          },
+          "sensitive_attributes": [
+            [
+              {
+                "type": "get_attr",
+                "value": "environment"
+              },
+              {
+                "type": "index",
+                "value": {
+                  "value": 0,
+                  "type": "number"
+                }
+              },
+              {
+                "type": "get_attr",
+                "value": "variables"
+              },
+              {
+                "type": "index",
+                "value": {
+                  "value": "JWT_SECRET",
+                  "type": "string"
+                }
+              }
+            ]
+          ],
+          "identity_schema_version": 0,
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjo2MDAwMDAwMDAwMDAsImRlbGV0ZSI6NjAwMDAwMDAwMDAwLCJ1cGRhdGUiOjYwMDAwMDAwMDAwMH19",
+          "dependencies": [
+            "aws_iam_role.lambda_role",
+            "data.archive_file.cart_zip"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_lambda_function",
+      "name": "logs_service",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "architectures": [
+              "x86_64"
+            ],
+            "arn": "arn:aws:lambda:ap-southeast-1:726101441380:function:dev-flashmart-logs-service",
+            "code_sha256": "qfpxae35KiMdp3OxJuy4QgTRRPobuWnLzN3BPB+b9jE=",
+            "code_signing_config_arn": "",
+            "dead_letter_config": [],
+            "description": "",
+            "environment": [
+              {
+                "variables": {
+                  "ENVIRONMENT": "dev",
+                  "LOGS_TABLE_NAME": "dev-flashmart-logs"
+                }
+              }
+            ],
+            "ephemeral_storage": [
+              {
+                "size": 512
+              }
+            ],
+            "file_system_config": [],
+            "filename": "./lambda_code/zips/logs_service.zip",
+            "function_name": "dev-flashmart-logs-service",
+            "handler": "lambda_function.lambda_handler",
+            "id": "dev-flashmart-logs-service",
+            "image_config": [],
+            "image_uri": "",
+            "invoke_arn": "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/arn:aws:lambda:ap-southeast-1:726101441380:function:dev-flashmart-logs-service/invocations",
+            "kms_key_arn": "",
+            "last_modified": "2026-06-01T04:37:17.000+0000",
+            "layers": [],
+            "logging_config": [
+              {
+                "application_log_level": "",
+                "log_format": "Text",
+                "log_group": "/aws/lambda/dev-flashmart-logs-service",
+                "system_log_level": ""
+              }
+            ],
+            "memory_size": 256,
+            "package_type": "Zip",
+            "publish": false,
+            "qualified_arn": "arn:aws:lambda:ap-southeast-1:726101441380:function:dev-flashmart-logs-service:$LATEST",
+            "qualified_invoke_arn": "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/arn:aws:lambda:ap-southeast-1:726101441380:function:dev-flashmart-logs-service:$LATEST/invocations",
+            "replace_security_groups_on_destroy": null,
+            "replacement_security_group_ids": null,
+            "reserved_concurrent_executions": -1,
+            "role": "arn:aws:iam::726101441380:role/dev-flashmart-lambda-role",
+            "runtime": "python3.12",
+            "s3_bucket": null,
+            "s3_key": null,
+            "s3_object_version": null,
+            "signing_job_arn": "",
+            "signing_profile_version_arn": "",
+            "skip_destroy": false,
+            "snap_start": [],
+            "source_code_hash": "qfpxae35KiMdp3OxJuy4QgTRRPobuWnLzN3BPB+b9jE=",
+            "source_code_size": 2747,
+            "tags": {
+              "Environment": "dev",
+              "Project": "flashmart",
+              "Service": "logs"
+            },
+            "tags_all": {
+              "Environment": "dev",
+              "Project": "flashmart",
+              "Service": "logs"
+            },
+            "timeout": 30,
+            "timeouts": null,
+            "tracing_config": [
+              {
+                "mode": "PassThrough"
+              }
+            ],
+            "version": "$LATEST",
+            "vpc_config": []
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjo2MDAwMDAwMDAwMDAsImRlbGV0ZSI6NjAwMDAwMDAwMDAwLCJ1cGRhdGUiOjYwMDAwMDAwMDAwMH19",
+          "dependencies": [
+            "aws_dynamodb_table.logs",
+            "aws_iam_role.lambda_role",
+            "data.archive_file.logs"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_lambda_function",
+      "name": "order_service",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "architectures": [
+              "x86_64"
+            ],
+            "arn": "arn:aws:lambda:ap-southeast-1:726101441380:function:dev-flashmart-order-service",
+            "code_sha256": "46xAFOge8k27enEaw4Nrgig3+DoTn//ZLDLo6Q0U2U4=",
+            "code_signing_config_arn": "",
+            "dead_letter_config": [],
+            "description": "",
+            "environment": [
+              {
+                "variables": {
+                  "CART_SERVICE_URL": "https://0nusevsdnb.execute-api.ap-southeast-1.amazonaws.com",
+                  "DYNAMODB_TABLE": "dev-flashmart-orders",
+                  "ENVIRONMENT": "dev",
+                  "JWT_SECRET": "mySuperSecretKey123!",
+                  "PRODUCT_SERVICE_URL": "https://0nusevsdnb.execute-api.ap-southeast-1.amazonaws.com"
+                }
+              }
+            ],
+            "ephemeral_storage": [
+              {
+                "size": 512
+              }
+            ],
+            "file_system_config": [],
+            "filename": "./lambda_code/zips/order_service.zip",
+            "function_name": "dev-flashmart-order-service",
+            "handler": "lambda_function.lambda_handler",
+            "id": "dev-flashmart-order-service",
+            "image_config": [],
+            "image_uri": "",
+            "invoke_arn": "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/arn:aws:lambda:ap-southeast-1:726101441380:function:dev-flashmart-order-service/invocations",
+            "kms_key_arn": "",
+            "last_modified": "2026-06-01T04:37:24.000+0000",
+            "layers": [],
+            "logging_config": [
+              {
+                "application_log_level": "",
+                "log_format": "Text",
+                "log_group": "/aws/lambda/dev-flashmart-order-service",
+                "system_log_level": ""
+              }
+            ],
+            "memory_size": 256,
+            "package_type": "Zip",
+            "publish": false,
+            "qualified_arn": "arn:aws:lambda:ap-southeast-1:726101441380:function:dev-flashmart-order-service:$LATEST",
+            "qualified_invoke_arn": "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/arn:aws:lambda:ap-southeast-1:726101441380:function:dev-flashmart-order-service:$LATEST/invocations",
+            "replace_security_groups_on_destroy": null,
+            "replacement_security_group_ids": null,
+            "reserved_concurrent_executions": -1,
+            "role": "arn:aws:iam::726101441380:role/dev-flashmart-lambda-role",
+            "runtime": "python3.12",
+            "s3_bucket": null,
+            "s3_key": null,
+            "s3_object_version": null,
+            "signing_job_arn": "",
+            "signing_profile_version_arn": "",
+            "skip_destroy": false,
+            "snap_start": [],
+            "source_code_hash": "46xAFOge8k27enEaw4Nrgig3+DoTn//ZLDLo6Q0U2U4=",
+            "source_code_size": 109109,
+            "tags": {
+              "Environment": "dev",
+              "Project": "flashmart",
+              "Service": "order"
+            },
+            "tags_all": {
+              "Environment": "dev",
+              "Project": "flashmart",
+              "Service": "order"
+            },
+            "timeout": 30,
+            "timeouts": null,
+            "tracing_config": [
+              {
+                "mode": "PassThrough"
+              }
+            ],
+            "version": "$LATEST",
+            "vpc_config": []
+          },
+          "sensitive_attributes": [
+            [
+              {
+                "type": "get_attr",
+                "value": "environment"
+              },
+              {
+                "type": "index",
+                "value": {
+                  "value": 0,
+                  "type": "number"
+                }
+              },
+              {
+                "type": "get_attr",
+                "value": "variables"
+              },
+              {
+                "type": "index",
+                "value": {
+                  "value": "JWT_SECRET",
+                  "type": "string"
+                }
+              }
+            ]
+          ],
+          "identity_schema_version": 0,
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjo2MDAwMDAwMDAwMDAsImRlbGV0ZSI6NjAwMDAwMDAwMDAwLCJ1cGRhdGUiOjYwMDAwMDAwMDAwMH19",
+          "dependencies": [
+            "aws_iam_role.lambda_role",
+            "data.archive_file.order_zip"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_lambda_function",
+      "name": "payment",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "architectures": [
+              "x86_64"
+            ],
+            "arn": "arn:aws:lambda:ap-southeast-1:726101441380:function:dev-flashmart-payment-service",
+            "code_sha256": "ZFNseHmNq3SdVSMZkL+DFXruNBnn5sUmQOioFplJASg=",
+            "code_signing_config_arn": "",
+            "dead_letter_config": [],
+            "description": "",
+            "environment": [
+              {
+                "variables": {
+                  "JWT_SECRET": "mySuperSecretKey123!",
+                  "ORDER_SERVICE_URL": "https://0nusevsdnb.execute-api.ap-southeast-1.amazonaws.com",
+                  "PAYMENT_TABLE_NAME": "dev-flashmart-payments",
+                  "RAZORPAY_KEY_ID": "rzp_test_ScwzV5RFiedMEX",
+                  "RAZORPAY_KEY_SECRET": "i9cCMxTvxRddHiWQULJ2k7le"
+                }
+              }
+            ],
+            "ephemeral_storage": [
+              {
+                "size": 512
+              }
+            ],
+            "file_system_config": [],
+            "filename": "./lambda_code/zips/payment_service.zip",
+            "function_name": "dev-flashmart-payment-service",
+            "handler": "lambda_function.lambda_handler",
+            "id": "dev-flashmart-payment-service",
+            "image_config": [],
+            "image_uri": "",
+            "invoke_arn": "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/arn:aws:lambda:ap-southeast-1:726101441380:function:dev-flashmart-payment-service/invocations",
+            "kms_key_arn": "",
+            "last_modified": "2026-06-01T04:37:42.000+0000",
+            "layers": [],
+            "logging_config": [
+              {
+                "application_log_level": "",
+                "log_format": "Text",
+                "log_group": "/aws/lambda/dev-flashmart-payment-service",
+                "system_log_level": ""
+              }
+            ],
+            "memory_size": 256,
+            "package_type": "Zip",
+            "publish": false,
+            "qualified_arn": "arn:aws:lambda:ap-southeast-1:726101441380:function:dev-flashmart-payment-service:$LATEST",
+            "qualified_invoke_arn": "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/arn:aws:lambda:ap-southeast-1:726101441380:function:dev-flashmart-payment-service:$LATEST/invocations",
+            "replace_security_groups_on_destroy": null,
+            "replacement_security_group_ids": null,
+            "reserved_concurrent_executions": -1,
+            "role": "arn:aws:iam::726101441380:role/dev-flashmart-lambda-role",
+            "runtime": "python3.12",
+            "s3_bucket": null,
+            "s3_key": null,
+            "s3_object_version": null,
+            "signing_job_arn": "",
+            "signing_profile_version_arn": "",
+            "skip_destroy": false,
+            "snap_start": [],
+            "source_code_hash": "ZFNseHmNq3SdVSMZkL+DFXruNBnn5sUmQOioFplJASg=",
+            "source_code_size": 105313,
+            "tags": {
+              "Environment": "dev",
+              "Name": "dev-flashmart-payment-service",
+              "Project": "flashmart"
+            },
+            "tags_all": {
+              "Environment": "dev",
+              "Name": "dev-flashmart-payment-service",
+              "Project": "flashmart"
+            },
+            "timeout": 30,
+            "timeouts": null,
+            "tracing_config": [
+              {
+                "mode": "PassThrough"
+              }
+            ],
+            "version": "$LATEST",
+            "vpc_config": []
+          },
+          "sensitive_attributes": [
+            [
+              {
+                "type": "get_attr",
+                "value": "environment"
+              },
+              {
+                "type": "index",
+                "value": {
+                  "value": 0,
+                  "type": "number"
+                }
+              },
+              {
+                "type": "get_attr",
+                "value": "variables"
+              },
+              {
+                "type": "index",
+                "value": {
+                  "value": "JWT_SECRET",
+                  "type": "string"
+                }
+              }
+            ],
+            [
+              {
+                "type": "get_attr",
+                "value": "environment"
+              },
+              {
+                "type": "index",
+                "value": {
+                  "value": 0,
+                  "type": "number"
+                }
+              },
+              {
+                "type": "get_attr",
+                "value": "variables"
+              },
+              {
+                "type": "index",
+                "value": {
+                  "value": "RAZORPAY_KEY_ID",
+                  "type": "string"
+                }
+              }
+            ],
+            [
+              {
+                "type": "get_attr",
+                "value": "environment"
+              },
+              {
+                "type": "index",
+                "value": {
+                  "value": 0,
+                  "type": "number"
+                }
+              },
+              {
+                "type": "get_attr",
+                "value": "variables"
+              },
+              {
+                "type": "index",
+                "value": {
+                  "value": "RAZORPAY_KEY_SECRET",
+                  "type": "string"
+                }
+              }
+            ]
+          ],
+          "identity_schema_version": 0,
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjo2MDAwMDAwMDAwMDAsImRlbGV0ZSI6NjAwMDAwMDAwMDAwLCJ1cGRhdGUiOjYwMDAwMDAwMDAwMH19",
+          "dependencies": [
+            "aws_dynamodb_table.payments",
+            "aws_iam_role.lambda_role",
+            "data.archive_file.payment"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_lambda_function",
+      "name": "product_service",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "architectures": [
+              "x86_64"
+            ],
+            "arn": "arn:aws:lambda:ap-southeast-1:726101441380:function:dev-flashmart-product-service",
+            "code_sha256": "X47isZjHY2nlRvHvEVjJgGEtoQcDkquqM4cZGFrg2ms=",
+            "code_signing_config_arn": "",
+            "dead_letter_config": [],
+            "description": "",
+            "environment": [
+              {
+                "variables": {
+                  "DYNAMODB_TABLE": "dev-flashmart-products",
+                  "ENVIRONMENT": "dev"
+                }
+              }
+            ],
+            "ephemeral_storage": [
+              {
+                "size": 512
+              }
+            ],
+            "file_system_config": [],
+            "filename": "./lambda_code/zips/product_service.zip",
+            "function_name": "dev-flashmart-product-service",
+            "handler": "lambda_function.lambda_handler",
+            "id": "dev-flashmart-product-service",
+            "image_config": [],
+            "image_uri": "",
+            "invoke_arn": "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/arn:aws:lambda:ap-southeast-1:726101441380:function:dev-flashmart-product-service/invocations",
+            "kms_key_arn": "",
+            "last_modified": "2026-06-01T04:37:30.000+0000",
+            "layers": [],
+            "logging_config": [
+              {
+                "application_log_level": "",
+                "log_format": "Text",
+                "log_group": "/aws/lambda/dev-flashmart-product-service",
+                "system_log_level": ""
+              }
+            ],
+            "memory_size": 256,
+            "package_type": "Zip",
+            "publish": false,
+            "qualified_arn": "arn:aws:lambda:ap-southeast-1:726101441380:function:dev-flashmart-product-service:$LATEST",
+            "qualified_invoke_arn": "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/arn:aws:lambda:ap-southeast-1:726101441380:function:dev-flashmart-product-service:$LATEST/invocations",
+            "replace_security_groups_on_destroy": null,
+            "replacement_security_group_ids": null,
+            "reserved_concurrent_executions": -1,
+            "role": "arn:aws:iam::726101441380:role/dev-flashmart-lambda-role",
+            "runtime": "python3.12",
+            "s3_bucket": null,
+            "s3_key": null,
+            "s3_object_version": null,
+            "signing_job_arn": "",
+            "signing_profile_version_arn": "",
+            "skip_destroy": false,
+            "snap_start": [],
+            "source_code_hash": "X47isZjHY2nlRvHvEVjJgGEtoQcDkquqM4cZGFrg2ms=",
+            "source_code_size": 5157,
+            "tags": {
+              "Environment": "dev",
+              "Project": "flashmart",
+              "Service": "product"
+            },
+            "tags_all": {
+              "Environment": "dev",
+              "Project": "flashmart",
+              "Service": "product"
+            },
+            "timeout": 30,
+            "timeouts": null,
+            "tracing_config": [
+              {
+                "mode": "PassThrough"
+              }
+            ],
+            "version": "$LATEST",
+            "vpc_config": []
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjo2MDAwMDAwMDAwMDAsImRlbGV0ZSI6NjAwMDAwMDAwMDAwLCJ1cGRhdGUiOjYwMDAwMDAwMDAwMH19",
+          "dependencies": [
+            "aws_iam_role.lambda_role",
+            "data.archive_file.product_zip"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_lambda_permission",
+      "name": "address",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "action": "lambda:InvokeFunction",
+            "event_source_token": null,
+            "function_name": "dev-flashmart-address-service",
+            "function_url_auth_type": null,
+            "id": "AllowAddress",
+            "principal": "apigateway.amazonaws.com",
+            "principal_org_id": null,
+            "qualifier": "",
+            "source_account": null,
+            "source_arn": "arn:aws:execute-api:ap-southeast-1:726101441380:0nusevsdnb/*/*",
+            "statement_id": "AllowAddress",
+            "statement_id_prefix": ""
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_apigatewayv2_api.main_api",
+            "aws_iam_role.lambda_role",
+            "aws_lambda_function.address",
+            "data.archive_file.address"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_lambda_permission",
+      "name": "auth",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "action": "lambda:InvokeFunction",
+            "event_source_token": null,
+            "function_name": "dev-flashmart-auth-service",
+            "function_url_auth_type": null,
+            "id": "AllowAuth",
+            "principal": "apigateway.amazonaws.com",
+            "principal_org_id": null,
+            "qualifier": "",
+            "source_account": null,
+            "source_arn": "arn:aws:execute-api:ap-southeast-1:726101441380:0nusevsdnb/*/*",
+            "statement_id": "AllowAuth",
+            "statement_id_prefix": ""
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_apigatewayv2_api.main_api",
+            "aws_iam_role.lambda_role",
+            "aws_lambda_function.auth_service",
+            "data.archive_file.auth_zip"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_lambda_permission",
+      "name": "cart",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "action": "lambda:InvokeFunction",
+            "event_source_token": null,
+            "function_name": "dev-flashmart-cart-service",
+            "function_url_auth_type": null,
+            "id": "AllowCart",
+            "principal": "apigateway.amazonaws.com",
+            "principal_org_id": null,
+            "qualifier": "",
+            "source_account": null,
+            "source_arn": "arn:aws:execute-api:ap-southeast-1:726101441380:0nusevsdnb/*/*",
+            "statement_id": "AllowCart",
+            "statement_id_prefix": ""
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_apigatewayv2_api.main_api",
+            "aws_iam_role.lambda_role",
+            "aws_lambda_function.cart_service",
+            "data.archive_file.cart_zip"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_lambda_permission",
+      "name": "logs",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "action": "lambda:InvokeFunction",
+            "event_source_token": null,
+            "function_name": "dev-flashmart-logs-service",
+            "function_url_auth_type": null,
+            "id": "AllowLogs",
+            "principal": "apigateway.amazonaws.com",
+            "principal_org_id": null,
+            "qualifier": "",
+            "source_account": null,
+            "source_arn": "arn:aws:execute-api:ap-southeast-1:726101441380:0nusevsdnb/*/*",
+            "statement_id": "AllowLogs",
+            "statement_id_prefix": ""
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_apigatewayv2_api.main_api",
+            "aws_dynamodb_table.logs",
+            "aws_iam_role.lambda_role",
+            "aws_lambda_function.logs_service",
+            "data.archive_file.logs"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_lambda_permission",
+      "name": "order",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "action": "lambda:InvokeFunction",
+            "event_source_token": null,
+            "function_name": "dev-flashmart-order-service",
+            "function_url_auth_type": null,
+            "id": "AllowOrder",
+            "principal": "apigateway.amazonaws.com",
+            "principal_org_id": null,
+            "qualifier": "",
+            "source_account": null,
+            "source_arn": "arn:aws:execute-api:ap-southeast-1:726101441380:0nusevsdnb/*/*",
+            "statement_id": "AllowOrder",
+            "statement_id_prefix": ""
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_apigatewayv2_api.main_api",
+            "aws_iam_role.lambda_role",
+            "aws_lambda_function.order_service",
+            "data.archive_file.order_zip"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_lambda_permission",
+      "name": "payment",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "action": "lambda:InvokeFunction",
+            "event_source_token": null,
+            "function_name": "dev-flashmart-payment-service",
+            "function_url_auth_type": null,
+            "id": "AllowPayment",
+            "principal": "apigateway.amazonaws.com",
+            "principal_org_id": null,
+            "qualifier": "",
+            "source_account": null,
+            "source_arn": "arn:aws:execute-api:ap-southeast-1:726101441380:0nusevsdnb/*/*",
+            "statement_id": "AllowPayment",
+            "statement_id_prefix": ""
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_apigatewayv2_api.main_api",
+            "aws_dynamodb_table.payments",
+            "aws_iam_role.lambda_role",
+            "aws_lambda_function.payment",
+            "data.archive_file.payment"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_lambda_permission",
+      "name": "product",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "action": "lambda:InvokeFunction",
+            "event_source_token": null,
+            "function_name": "dev-flashmart-product-service",
+            "function_url_auth_type": null,
+            "id": "AllowProduct",
+            "principal": "apigateway.amazonaws.com",
+            "principal_org_id": null,
+            "qualifier": "",
+            "source_account": null,
+            "source_arn": "arn:aws:execute-api:ap-southeast-1:726101441380:0nusevsdnb/*/*",
+            "statement_id": "AllowProduct",
+            "statement_id_prefix": ""
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_apigatewayv2_api.main_api",
+            "aws_iam_role.lambda_role",
+            "aws_lambda_function.product_service",
+            "data.archive_file.product_zip"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_s3_bucket",
+      "name": "frontend",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "acceleration_status": "",
+            "acl": null,
+            "arn": "arn:aws:s3:::dev-flashmart-frontend",
+            "bucket": "dev-flashmart-frontend",
+            "bucket_domain_name": "dev-flashmart-frontend.s3.amazonaws.com",
+            "bucket_prefix": "",
+            "bucket_regional_domain_name": "dev-flashmart-frontend.s3.ap-southeast-1.amazonaws.com",
+            "cors_rule": [
+              {
+                "allowed_headers": [
+                  "*"
+                ],
+                "allowed_methods": [
+                  "GET",
+                  "HEAD"
+                ],
+                "allowed_origins": [
+                  "*"
+                ],
+                "expose_headers": [],
+                "max_age_seconds": 3000
+              }
+            ],
+            "force_destroy": true,
+            "grant": [
+              {
+                "id": "21eb56825d3b46b556b5ed4ad1c3c85f62a473aa7fa45d30cdb83e5ddf5beec6",
+                "permissions": [
+                  "FULL_CONTROL"
+                ],
+                "type": "CanonicalUser",
+                "uri": ""
+              }
+            ],
+            "hosted_zone_id": "Z3O0J2DXBE1FTB",
+            "id": "dev-flashmart-frontend",
+            "lifecycle_rule": [],
+            "logging": [],
+            "object_lock_configuration": [],
+            "object_lock_enabled": false,
+            "policy": "{\"Statement\":[{\"Action\":\"s3:GetObject\",\"Effect\":\"Allow\",\"Principal\":\"*\",\"Resource\":\"arn:aws:s3:::dev-flashmart-frontend/*\",\"Sid\":\"PublicReadGetObject\"}],\"Version\":\"2012-10-17\"}",
+            "region": "ap-southeast-1",
+            "replication_configuration": [],
+            "request_payer": "BucketOwner",
+            "server_side_encryption_configuration": [
+              {
+                "rule": [
+                  {
+                    "apply_server_side_encryption_by_default": [
+                      {
+                        "kms_master_key_id": "",
+                        "sse_algorithm": "AES256"
+                      }
+                    ],
+                    "bucket_key_enabled": false
+                  }
+                ]
+              }
+            ],
+            "tags": {
+              "Environment": "dev",
+              "Name": "dev-flashmart-frontend",
+              "Project": "flashmart"
+            },
+            "tags_all": {
+              "Environment": "dev",
+              "Name": "dev-flashmart-frontend",
+              "Project": "flashmart"
+            },
+            "timeouts": null,
+            "versioning": [
+              {
+                "enabled": false,
+                "mfa_delete": false
+              }
+            ],
+            "website": [],
+            "website_domain": "s3-website-ap-southeast-1.amazonaws.com",
+            "website_endpoint": "dev-flashmart-frontend.s3-website-ap-southeast-1.amazonaws.com"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxMjAwMDAwMDAwMDAwLCJkZWxldGUiOjM2MDAwMDAwMDAwMDAsInJlYWQiOjEyMDAwMDAwMDAwMDAsInVwZGF0ZSI6MTIwMDAwMDAwMDAwMH19"
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_s3_bucket",
+      "name": "product_images",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "acceleration_status": "",
+            "acl": null,
+            "arn": "arn:aws:s3:::flashmart-product-images",
+            "bucket": "flashmart-product-images",
+            "bucket_domain_name": "flashmart-product-images.s3.amazonaws.com",
+            "bucket_prefix": "",
+            "bucket_regional_domain_name": "flashmart-product-images.s3.ap-southeast-1.amazonaws.com",
+            "cors_rule": [],
+            "force_destroy": true,
+            "grant": [
+              {
+                "id": "21eb56825d3b46b556b5ed4ad1c3c85f62a473aa7fa45d30cdb83e5ddf5beec6",
+                "permissions": [
+                  "FULL_CONTROL"
+                ],
+                "type": "CanonicalUser",
+                "uri": ""
+              }
+            ],
+            "hosted_zone_id": "Z3O0J2DXBE1FTB",
+            "id": "flashmart-product-images",
+            "lifecycle_rule": [],
+            "logging": [],
+            "object_lock_configuration": [],
+            "object_lock_enabled": false,
+            "policy": "{\"Statement\":[{\"Action\":\"s3:GetObject\",\"Effect\":\"Allow\",\"Principal\":\"*\",\"Resource\":\"arn:aws:s3:::flashmart-product-images/*\",\"Sid\":\"PublicReadGetObject\"}],\"Version\":\"2012-10-17\"}",
+            "region": "ap-southeast-1",
+            "replication_configuration": [],
+            "request_payer": "BucketOwner",
+            "server_side_encryption_configuration": [
+              {
+                "rule": [
+                  {
+                    "apply_server_side_encryption_by_default": [
+                      {
+                        "kms_master_key_id": "",
+                        "sse_algorithm": "AES256"
+                      }
+                    ],
+                    "bucket_key_enabled": true
+                  }
+                ]
+              }
+            ],
+            "tags": {
+              "Environment": "dev",
+              "Project": "flashmart"
+            },
+            "tags_all": {
+              "Environment": "dev",
+              "Project": "flashmart"
+            },
+            "timeouts": null,
+            "versioning": [
+              {
+                "enabled": false,
+                "mfa_delete": false
+              }
+            ],
+            "website": [],
+            "website_domain": null,
+            "website_endpoint": null
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxMjAwMDAwMDAwMDAwLCJkZWxldGUiOjM2MDAwMDAwMDAwMDAsInJlYWQiOjEyMDAwMDAwMDAwMDAsInVwZGF0ZSI6MTIwMDAwMDAwMDAwMH19"
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_s3_bucket_cors_configuration",
+      "name": "frontend",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "bucket": "dev-flashmart-frontend",
+            "cors_rule": [
+              {
+                "allowed_headers": [
+                  "*"
+                ],
+                "allowed_methods": [
+                  "GET",
+                  "HEAD"
+                ],
+                "allowed_origins": [
+                  "*"
+                ],
+                "expose_headers": [],
+                "id": "",
+                "max_age_seconds": 3000
+              }
+            ],
+            "expected_bucket_owner": "",
+            "id": "dev-flashmart-frontend"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_s3_bucket.frontend"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_s3_bucket_cors_configuration",
+      "name": "product_images",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "bucket": "flashmart-product-images",
+            "cors_rule": [
+              {
+                "allowed_headers": [
+                  "*"
+                ],
+                "allowed_methods": [
+                  "GET",
+                  "HEAD",
+                  "POST",
+                  "PUT"
+                ],
+                "allowed_origins": [
+                  "*"
+                ],
+                "expose_headers": [],
+                "id": "",
+                "max_age_seconds": 3000
+              }
+            ],
+            "expected_bucket_owner": "",
+            "id": "flashmart-product-images"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_s3_bucket.product_images"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_s3_bucket_policy",
+      "name": "frontend",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "bucket": "dev-flashmart-frontend",
+            "id": "dev-flashmart-frontend",
+            "policy": "{\"Statement\":[{\"Action\":\"s3:GetObject\",\"Effect\":\"Allow\",\"Principal\":\"*\",\"Resource\":\"arn:aws:s3:::dev-flashmart-frontend/*\",\"Sid\":\"PublicReadGetObject\"}],\"Version\":\"2012-10-17\"}"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_cloudfront_distribution.frontend",
+            "aws_cloudfront_origin_access_control.frontend",
+            "aws_cloudfront_origin_access_control.images",
+            "aws_s3_bucket.frontend",
+            "aws_s3_bucket.product_images",
+            "aws_s3_bucket_public_access_block.frontend"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_s3_bucket_policy",
+      "name": "product_images",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "bucket": "flashmart-product-images",
+            "id": "flashmart-product-images",
+            "policy": "{\"Statement\":[{\"Action\":\"s3:GetObject\",\"Condition\":{\"StringEquals\":{\"AWS:SourceArn\":\"arn:aws:cloudfront::726101441380:distribution/E3GA729SVQ4BVX\"}},\"Effect\":\"Allow\",\"Principal\":{\"Service\":\"cloudfront.amazonaws.com\"},\"Resource\":\"arn:aws:s3:::flashmart-product-images/*\",\"Sid\":\"AllowCloudFront\"}],\"Version\":\"2012-10-17\"}"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_cloudfront_distribution.frontend",
+            "aws_cloudfront_origin_access_control.frontend",
+            "aws_cloudfront_origin_access_control.images",
+            "aws_s3_bucket.frontend",
+            "aws_s3_bucket.product_images"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_s3_bucket_public_access_block",
+      "name": "frontend",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "block_public_acls": true,
+            "block_public_policy": true,
+            "bucket": "dev-flashmart-frontend",
+            "id": "dev-flashmart-frontend",
+            "ignore_public_acls": true,
+            "restrict_public_buckets": true
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_s3_bucket.frontend"
+          ]
+        }
+      ]
+    }
+  ],
+  "check_results": null
+}

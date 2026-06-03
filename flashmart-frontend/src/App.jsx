@@ -15,6 +15,7 @@ import Login         from "./components/Login";
 import Register      from "./components/Register";
 import Address       from "./components/Address";
 import Checkout      from "./components/Checkout";
+import Profile from "./components/Profile";
 import { getUserFromToken } from "./utils/auth";
 import "./App.css";
 
@@ -108,6 +109,8 @@ function App() {
         return <Address userId={userId} showToast={showToast} />;
       case "checkout":
         return <Checkout userId={userId} showToast={showToast} setActivePage={setActivePage} onCartUpdate={setCartCount} />;
+      case "profile":
+        return <Profile userId={userId} showToast={showToast} setActivePage={handleSetPage} />;
       default:
         return null;
     }

@@ -8,8 +8,12 @@ import hashlib
 import uuid
 import os
 import jwt
+import logging
 from datetime import datetime, timezone, timedelta
 from boto3.dynamodb.conditions import Attr
+
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
 
 JWT_SECRET = os.environ["JWT_SECRET"]
 JWT_ALGORITHM = "HS256"
@@ -40,15 +44,12 @@ def lambda_handler(event, context):
     path_parts = [p for p in path.split("/") if p]
 
     try:
-        # POST /auth/register
         if http_method == "POST" and path_parts == ["auth", "register"]:
             return register(parse_body(event))
 
-        # POST /auth/login
         if http_method == "POST" and path_parts == ["auth", "login"]:
             return login(parse_body(event))
 
-        # GET /auth/users — admin only
         if http_method == "GET" and path_parts == ["auth", "users"]:
             user, error = verify_token(event)
             if error:
@@ -60,6 +61,7 @@ def lambda_handler(event, context):
         return response(404, {"error": "Route not found", "path": path, "method": http_method})
 
     except Exception as e:
+        logger.error(json.dumps({"event": "unhandled_exception", "error": str(e)}))
         return response(500, {"error": "Internal server error", "message": str(e)})
 
 
@@ -85,6 +87,7 @@ def register(body):
         "createdAt": utc_now()
     })
 
+    logger.info(json.dumps({"event": "user_registered", "userId": user_id, "role": role}))
     return response(201, {"message": "User registered successfully", "userId": user_id})
 
 
@@ -100,6 +103,7 @@ def login(body):
     user = users[0] if users else None
 
     if not user or user["password"] != hash_password(password):
+        logger.warning(json.dumps({"event": "login_failed", "email": email}))
         return response(401, {"error": "Invalid credentials"})
 
     token = jwt.encode({
@@ -108,6 +112,7 @@ def login(body):
         "exp": datetime.utcnow() + timedelta(hours=2)
     }, JWT_SECRET, algorithm=JWT_ALGORITHM)
 
+    logger.info(json.dumps({"event": "login_success", "userId": user["userId"], "role": user["role"]}))
     return response(200, {
         "message": "Login successful",
         "token": token,
@@ -116,7 +121,6 @@ def login(body):
 
 
 def get_all_users():
-    """GET /auth/users - Return all users (admin only), strips passwords."""
     result = auth_table.scan()
     users = []
     for u in result.get("Items", []):
@@ -127,6 +131,7 @@ def get_all_users():
             "createdAt": u.get("createdAt", "")
         })
     users.sort(key=lambda u: u["createdAt"], reverse=True)
+    logger.info(json.dumps({"event": "list_users", "count": len(users)}))
     return response(200, {"users": users, "count": len(users)})
 
 

@@ -38,7 +38,6 @@ data "archive_file" "address" {
   output_path = "${path.module}/lambda_code/zips/address_service.zip"
 }
 
-# ── NEW: Logs Service ─────────────────────────────────────────────────────────
 data "archive_file" "logs" {
   type        = "zip"
   source_dir  = "${path.module}/lambda_code/logs_service"
@@ -59,6 +58,8 @@ resource "aws_lambda_function" "product_service" {
   timeout          = var.lambda_timeout
   memory_size      = var.lambda_memory
 
+  tracing_config { mode = "Active" }
+
   environment {
     variables = {
       DYNAMODB_TABLE = var.product_table_name
@@ -78,6 +79,8 @@ resource "aws_lambda_function" "cart_service" {
   source_code_hash = data.archive_file.cart_zip.output_base64sha256
   timeout          = var.lambda_timeout
   memory_size      = var.lambda_memory
+
+  tracing_config { mode = "Active" }
 
   environment {
     variables = {
@@ -100,6 +103,8 @@ resource "aws_lambda_function" "order_service" {
   source_code_hash = data.archive_file.order_zip.output_base64sha256
   timeout          = var.lambda_timeout
   memory_size      = var.lambda_memory
+
+  tracing_config { mode = "Active" }
 
   environment {
     variables = {
@@ -124,6 +129,8 @@ resource "aws_lambda_function" "auth_service" {
   timeout          = var.lambda_timeout
   memory_size      = var.lambda_memory
 
+  tracing_config { mode = "Active" }
+
   environment {
     variables = {
       DYNAMODB_TABLE = var.auth_table_name
@@ -144,6 +151,8 @@ resource "aws_lambda_function" "payment" {
   timeout          = var.lambda_timeout
   memory_size      = var.lambda_memory
   source_code_hash = data.archive_file.payment.output_base64sha256
+
+  tracing_config { mode = "Active" }
 
   environment {
     variables = {
@@ -168,6 +177,8 @@ resource "aws_lambda_function" "address" {
   memory_size      = var.lambda_memory
   source_code_hash = data.archive_file.address.output_base64sha256
 
+  tracing_config { mode = "Active" }
+
   environment {
     variables = {
       JWT_SECRET       = var.jwt_secret
@@ -178,7 +189,6 @@ resource "aws_lambda_function" "address" {
   tags = { Name = var.address_function_name, Environment = var.environment, Project = var.project_name }
 }
 
-# ── NEW: Logs Service Lambda ──────────────────────────────────────────────────
 resource "aws_lambda_function" "logs_service" {
   filename         = data.archive_file.logs.output_path
   function_name    = "${var.environment}-${var.project_name}-logs-service"
@@ -188,6 +198,8 @@ resource "aws_lambda_function" "logs_service" {
   timeout          = var.lambda_timeout
   memory_size      = var.lambda_memory
   source_code_hash = data.archive_file.logs.output_base64sha256
+
+  tracing_config { mode = "Active" }
 
   environment {
     variables = {

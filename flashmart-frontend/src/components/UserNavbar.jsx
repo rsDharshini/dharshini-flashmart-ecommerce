@@ -119,12 +119,12 @@ function UserNavbar({ activePage, setActivePage, cartCount, onProductSelect }) {
           Cart {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}
         </button>
         <button className={`nav-btn ${activePage==="orders"?"active":""}`} onClick={() => setActivePage("orders")}>Orders</button>
-        <button className={`nav-btn ${activePage==="address"?"active":""}`} onClick={() => setActivePage("address")}>Address</button>
+        
       </div>
 
       <div className="navbar-user">
         <button className="nav-btn" onClick={() => { localStorage.clear(); setActivePage("login"); }}>Logout</button>
-        <div className="user-avatar">U</div>
+        <div className="user-avatar" onClick={() => setActivePage("profile")} style={{ cursor: "pointer" }}>U</div>
       </div>
     </nav>
   );

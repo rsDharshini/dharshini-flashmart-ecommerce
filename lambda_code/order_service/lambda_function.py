@@ -7,12 +7,16 @@ import uuid
 import boto3
 import urllib.request
 import urllib.error
+import logging
 import time
 from decimal import Decimal
 from datetime import datetime, timezone
 from boto3.dynamodb.conditions import Attr
 import jwt
 import os
+
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
 
 JWT_SECRET = os.environ.get("JWT_SECRET", "mySuperSecretKey123!")
 
@@ -77,41 +81,34 @@ def lambda_handler(event, context):
         return response(401, {"error": error})
 
     try:
-        # POST /orders/place
         if http_method == "POST" and path_parts == ["orders", "place"]:
             return place_order(parse_body(event))
 
-        # POST /orders/{order_id}/cancel
         if http_method == "POST" and len(path_parts) == 3 and path_parts[0] == "orders" and path_parts[2] == "cancel":
             return cancel_order(path_parts[1])
 
-        # GET /orders/{user_id}
         if http_method == "GET" and len(path_parts) == 2 and path_parts[0] == "orders":
             return get_orders_by_user(path_parts[1])
 
-        # ── ADMIN ONLY BELOW ──────────────────────────────────────────────────
         if user.get("role") != "admin":
             return response(403, {"error": "Admin access required"})
 
-        # GET /orders — all orders (admin)
         if http_method == "GET" and path_parts == ["orders"]:
             return get_all_orders()
 
-        # PUT /orders/{order_id}/status
         if http_method == "PUT" and len(path_parts) == 3 and path_parts[0] == "orders" and path_parts[2] == "status":
             return update_order_status(path_parts[1], parse_body(event))
 
-        # GET /orders/details/{order_id}
         if http_method == "GET" and len(path_parts) == 3 and path_parts[:2] == ["orders", "details"]:
             return get_order_by_id(path_parts[2])
 
-        # GET /orders/{order_id}/summary
         if http_method == "GET" and len(path_parts) == 3 and path_parts[0] == "orders" and path_parts[2] == "summary":
             return get_order_summary(path_parts[1])
 
         return response(404, {"error": "Route not found", "path": path, "method": http_method})
 
     except Exception as e:
+        logger.error(json.dumps({"event": "unhandled_exception", "error": str(e)}))
         return response(500, {"error": "Internal server error", "message": str(e)})
 
 
@@ -120,10 +117,10 @@ def lambda_handler(event, context):
 # =============================================================================
 
 def get_all_orders():
-    """GET /orders — Return ALL orders (admin only)."""
     result = order_table.scan()
     orders = [deserialize_order(o) for o in result.get("Items", [])]
     orders.sort(key=lambda o: o["created_at"], reverse=True)
+    logger.info(json.dumps({"event": "list_all_orders", "count": len(orders)}))
     return response(200, {"orders": orders, "count": len(orders)})
 
 
@@ -158,6 +155,7 @@ def place_order(body):
         "status": "PLACED", "created_at": now, "updated_at": now
     }
     order_table.put_item(Item=order)
+    logger.info(json.dumps({"event": "order_placed", "orderId": order_id, "userId": user_id, "totalAmount": total_amount, "itemCount": len(order_items)}))
 
     deduction_errors = []
     for item in order_items:
@@ -175,6 +173,7 @@ def get_orders_by_user(user_id):
     result = order_table.scan(FilterExpression=Attr("user_id").eq(user_id))
     orders = [deserialize_order(o) for o in result.get("Items", [])]
     orders.sort(key=lambda o: o["created_at"], reverse=True)
+    logger.info(json.dumps({"event": "list_user_orders", "userId": user_id, "count": len(orders)}))
     return response(200, {"user_id": user_id, "count": len(orders), "orders": orders})
 
 
@@ -182,6 +181,7 @@ def get_order_by_id(order_id):
     order = find_order(order_id)
     if not order:
         return response(404, {"error": "Order not found"})
+    logger.info(json.dumps({"event": "order_fetched", "orderId": order_id}))
     return response(200, {"order": order})
 
 
@@ -205,6 +205,7 @@ def update_order_status(order_id, body):
         ExpressionAttributeValues={":status": new_status, ":updated_at": now},
         ExpressionAttributeNames={"#status": "status", "#updated_at": "updated_at"}
     )
+    logger.info(json.dumps({"event": "order_status_updated", "orderId": order_id, "from": current_status, "to": new_status}))
     return response(200, {"message": "Order status updated", "order": find_order(order_id)})
 
 
@@ -223,6 +224,8 @@ def cancel_order(order_id):
         ExpressionAttributeValues={":status": "CANCELLED", ":updated_at": now},
         ExpressionAttributeNames={"#status": "status", "#updated_at": "updated_at"}
     )
+    logger.info(json.dumps({"event": "order_cancelled", "orderId": order_id, "previousStatus": order["status"]}))
+
     for item in order.get("items", []):
         restock_product_stock(item["product_id"], int(item["quantity"]))
 
@@ -234,10 +237,11 @@ def get_order_summary(order_id):
     if not order:
         return response(404, {"error": "Order not found"})
     items = order.get("items", [])
+    logger.info(json.dumps({"event": "order_summary_fetched", "orderId": order_id}))
     return response(200, {"order_id": order_id, "status": order["status"], "summary": {
-        "total_items": len(items),
+        "total_items":    len(items),
         "total_quantity": sum(int(i["quantity"]) for i in items),
-        "total_amount": float(order["total_amount"])
+        "total_amount":   float(order["total_amount"])
     }})
 
 
@@ -253,7 +257,7 @@ def get_cart(user_id):
         res = urllib.request.urlopen(req, timeout=5)
         return json.loads(res.read().decode()).get("cart")
     except Exception as e:
-        print(f"[WARN] Cart fetch failed: {e}")
+        logger.warning(json.dumps({"event": "cart_fetch_failed", "userId": user_id, "error": str(e)}))
         return None
 
 
@@ -264,7 +268,7 @@ def clear_cart(user_id):
         req.add_header("Authorization", f"Bearer {get_service_token()}")
         urllib.request.urlopen(req, timeout=5)
     except Exception as e:
-        print(f"[WARN] Cart clear failed: {e}")
+        logger.warning(json.dumps({"event": "cart_clear_failed", "userId": user_id, "error": str(e)}))
 
 
 def deduct_product_stock(product_id, quantity):
@@ -274,7 +278,7 @@ def deduct_product_stock(product_id, quantity):
         urllib.request.urlopen(req, timeout=5)
         return True
     except Exception as e:
-        print(f"[WARN] Stock deduction failed: {e}")
+        logger.warning(json.dumps({"event": "stock_deduction_failed", "productId": product_id, "error": str(e)}))
         return False
 
 
@@ -285,7 +289,7 @@ def restock_product_stock(product_id, quantity):
         urllib.request.urlopen(req, timeout=5)
         return True
     except Exception as e:
-        print(f"[WARN] Restock failed: {e}")
+        logger.warning(json.dumps({"event": "restock_failed", "productId": product_id, "error": str(e)}))
         return False
 
 
