@@ -21,7 +21,7 @@
 
 ## 🌐 Live Demo
 
-**URL:** https://d3kb5156to7tlk.cloudfront.net/
+**URL:** https://d2grqy225i2j4m.cloudfront.net/
 
 | Role  | Email           | Password |
 |-------|-----------------|----------|
